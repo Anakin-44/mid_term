@@ -1,0 +1,1737 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCA302 Unit III - Mathematics for Cryptography</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        line-height: 1.6;
+        color: #1f2937;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 16px;
+        font-size: 15px;
+        overflow-wrap: break-word;
+      }
+      /* CSS */
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+        font-size: 1.6rem;
+        line-height: 1.25;
+      }
+      h1 .sub {
+        display: block;
+        font-size: 0.6em;
+        font-weight: 500;
+        margin-top: 6px;
+        color: #334155;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 7px 12px;
+        border-radius: 6px;
+        margin-top: 34px;
+        page-break-after: avoid;
+        font-size: 1.25rem;
+        line-height: 1.3;
+      }
+      h3 {
+        color: #1e40af;
+        margin: 16px 0 4px;
+        page-break-after: avoid;
+        font-size: 1.05rem;
+      }
+      p,
+      li {
+        margin: 6px 0;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 12.5px;
+        line-height: 1.45;
+        page-break-inside: avoid;
+        white-space: pre;
+        overflow-wrap: normal;
+        margin: 10px 0;
+      }
+      code {
+        font-family: ui-monospace, Consolas, Menlo, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 0.88em;
+        word-break: break-word;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        color: inherit;
+        word-break: normal;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      .hint {
+        font-size: 0.85em;
+        color: #475569;
+        background: #f1f5f9;
+        border-radius: 6px;
+        padding: 6px 10px;
+        margin: 8px 0;
+      }
+
+      /* ---------- Responsive (screen only) ---------- */
+      @media screen {
+        table {
+          display: block;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 56px;
+        }
+      }
+      @media screen and (max-width: 640px) {
+        body {
+          font-size: 14px;
+          padding: 10px;
+          line-height: 1.55;
+        }
+        h1 {
+          font-size: 1.25rem;
+        }
+        h2 {
+          font-size: 1.05rem;
+          padding: 6px 10px;
+          margin-top: 26px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 11.5px;
+          padding: 10px;
+          border-radius: 6px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 0.92em;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+        ul,
+        ol {
+          padding-left: 20px;
+        }
+      }
+      /* ---------- Print ---------- */
+      @media print {
+        body {
+          padding: 0;
+          max-width: none;
+          font-size: 12.5px;
+        }
+        table {
+          display: table;
+        }
+        pre {
+          white-space: pre-wrap;
+          overflow: visible;
+          word-break: break-word;
+        }
+        .hint {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA302: Cryptography and Cyber Security<span class="sub"
+        >Module 9 (Unit III): Mathematics for Cryptography</span
+      >
+    </h1>
+
+    <div class="key">
+      <b class="t">Unit III Map:</b> Introduction (integers, divisibility,
+      primes, algebraic structures) → Modular Arithmetic → Euclidean Algorithm →
+      Extended Euclid → Fermat's Theorem → Euler's Theorem (totient function) →
+      Chinese Remainder Theorem.
+    </div>
+    <div class="hint">
+      Phone tip: wide tables, code and diagrams scroll sideways inside their own
+      box. Swipe them left/right.
+    </div>
+
+    <!-- ============ 1 ============ -->
+    <h2>1. Introduction to Mathematics for Cryptography</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Modern cryptography is built on <b>number theory</b>. Public-key systems
+      (RSA, Diffie-Hellman, ECC, DSS) rely on problems that are
+      <b>easy in one direction and hard to reverse</b>: multiplying two large
+      primes is easy, factoring the product is hard; computing g<sup>x</sup> mod
+      p is easy, finding x (the discrete logarithm) is hard. Even the classical
+      ciphers of Unit I (Caesar, Affine, Hill) and AES (Unit II, arithmetic in
+      GF(2<sup>8</sup>)) are pure modular arithmetic.
+    </p>
+    <div class="diagram">
+      <pre>
+ Where this unit is used
+ Modular arithmetic ───► Caesar, Affine, Hill (Unit I), all public-key systems
+ Euclid / Extended Euclid ───► modular inverses: Affine decryption, RSA private key d
+ Fermat / Euler ───► RSA correctness, primality testing, fast exponent reduction
+ Chinese Remainder Thm ───► RSA speed-up, working with large moduli, secret sharing
+</pre
+      >
+    </div>
+    <h3>1.1 Integers and divisibility</h3>
+    <p>
+      We say <b>a divides b</b> (written <code>a | b</code>) if b = a × k for
+      some integer k. Otherwise <code>a ∤ b</code>.
+    </p>
+    <table>
+      <tr>
+        <th>Property</th>
+        <th>Statement</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>Reflexive</td>
+        <td>a | a</td>
+        <td>7 | 7</td>
+      </tr>
+      <tr>
+        <td>Transitive</td>
+        <td>a | b and b | c ⇒ a | c</td>
+        <td>3 | 6 and 6 | 18 ⇒ 3 | 18</td>
+      </tr>
+      <tr>
+        <td>Linear combination</td>
+        <td>a | b and a | c ⇒ a | (mb + nc) for any integers m, n</td>
+        <td>5 | 10 and 5 | 15 ⇒ 5 | (2·10 − 3·15 = −25)</td>
+      </tr>
+      <tr>
+        <td>Antisymmetric (positives)</td>
+        <td>a | b and b | a ⇒ a = b (up to sign)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>One and zero</td>
+        <td>1 divides everything; every non-zero a divides 0</td>
+        <td>1 | 9, 9 | 0</td>
+      </tr>
+    </table>
+    <h3>1.2 Division algorithm</h3>
+    <p>
+      For any integer <i>a</i> and positive integer <i>n</i> there exist
+      <b>unique</b> integers <i>q</i> (quotient) and <i>r</i> (remainder) such
+      that
+    </p>
+    <pre><code>a = q × n + r          with   0 ≤ r &lt; n
+
+ 17 = 3 × 5 + 2          → q = 3,  r = 2
+ -7 = (-2) × 5 + 3       → q = -2, r = 3     (remainder is NEVER negative here)</code></pre>
+    <h3>1.3 Primes, factorisation and coprimality</h3>
+    <ul>
+      <li>
+        <b>Prime:</b> integer p &gt; 1 whose only positive divisors are 1 and p
+        (2, 3, 5, 7, 11, 13, ...). 2 is the only even prime. There are
+        infinitely many primes (Euclid).
+      </li>
+      <li>
+        <b>Fundamental Theorem of Arithmetic:</b> every integer n &gt; 1 is a
+        product of primes in exactly one way (order ignored). Example:
+        <code>360 = 2³ × 3² × 5</code>.
+      </li>
+      <li>
+        <b>Greatest common divisor</b> gcd(a, b): the largest integer dividing
+        both. <b>Relatively prime (coprime):</b> gcd(a, b) = 1. Example: 8 and
+        15 are coprime although neither is prime.
+      </li>
+      <li>
+        <b>Density of primes:</b> about n / ln n primes below n, so random large
+        primes are easy to find (RSA generates 1024-bit primes by random search
+        + primality test).
+      </li>
+    </ul>
+    <h3>1.4 Algebraic structures (needed for later units)</h3>
+    <table>
+      <tr>
+        <th>Structure</th>
+        <th>Operations</th>
+        <th>Rules</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td><b>Group</b> (G, •)</td>
+        <td>One</td>
+        <td>
+          Closure, associativity, identity, inverse for every element (Abelian
+          if also commutative)
+        </td>
+        <td>(Z<sub>n</sub>, +); (Z<sub>n</sub><sup>*</sup>, ×)</td>
+      </tr>
+      <tr>
+        <td><b>Ring</b> (R, +, ×)</td>
+        <td>Two</td>
+        <td>
+          Abelian group under +; × is closed, associative, distributive over +
+        </td>
+        <td>Z<sub>n</sub> for any n</td>
+      </tr>
+      <tr>
+        <td><b>Field</b> (F, +, ×)</td>
+        <td>Two</td>
+        <td>
+          Commutative ring where every non-zero element has a multiplicative
+          inverse (division possible)
+        </td>
+        <td>Z<sub>p</sub> (p prime); GF(2<sup>8</sup>) in AES</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> Z<sub>n</sub> is always a <b>ring</b>; it is
+      a <b>field only when n is prime</b>. That is why prime moduli make
+      "division" (multiplying by an inverse) always possible.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <u>Coprime</u> does not mean <u>prime</u> (9
+      and 28 are coprime, neither is prime). 1 is <u>not</u> prime. In the
+      division algorithm the remainder satisfies <b>0 ≤ r &lt; n</b>, so −7
+      divided by 5 gives q = −2, r = 3, not q = −1, r = −2.
+    </div>
+
+    <!-- ============ 2 ============ -->
+    <h2>2. Modular Arithmetic</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Modular arithmetic</b> is "clock arithmetic": numbers wrap around after
+      reaching the <b>modulus n</b>. <code>a mod n</code> is the remainder r of
+      the division of a by n (0 ≤ r &lt; n). Two integers are
+      <b>congruent modulo n</b>, written <code>a ≡ b (mod n)</code>, if they
+      leave the same remainder, equivalently if <b>n divides (a − b)</b>.
+    </p>
+    <pre><code>17 mod 5 = 2          -7 mod 5 = 3          15:00 on a 12-hour clock → 15 mod 12 = 3
+38 ≡ 14 (mod 12)  because 38 - 14 = 24 and 12 | 24
+Note: "mod" as an OPERATOR gives one number (the remainder);
+      "≡ (mod n)" is a RELATION between two numbers.</code></pre>
+    <h3>2.1 Residue classes and the set Z<sub>n</sub></h3>
+    <p>
+      Congruence is an <b>equivalence relation</b> (reflexive, symmetric,
+      transitive), so it splits the integers into <i>n</i> classes.
+      <b>Z<sub>n</sub> = {0, 1, 2, ..., n−1}</b> holds one representative (the
+      <b>least residue</b>) per class.
+    </p>
+    <div class="diagram">
+      <pre>
+ Z5 residue classes (every integer lands in exactly one)
+ [0] = { ..., -10, -5, 0, 5, 10, 15, ... }
+ [1] = { ..., -9,  -4, 1, 6, 11, 16, ... }
+ [2] = { ..., -8,  -3, 2, 7, 12, 17, ... }
+ [3] = { ..., -7,  -2, 3, 8, 13, 18, ... }
+ [4] = { ..., -6,  -1, 4, 9, 14, 19, ... }
+</pre
+      >
+    </div>
+    <h3>2.2 Arithmetic rules (you may reduce at any step)</h3>
+    <table>
+      <tr>
+        <th>Operation</th>
+        <th>Rule</th>
+      </tr>
+      <tr>
+        <td>Addition</td>
+        <td>(a + b) mod n = [(a mod n) + (b mod n)] mod n</td>
+      </tr>
+      <tr>
+        <td>Subtraction</td>
+        <td>(a − b) mod n = [(a mod n) − (b mod n)] mod n</td>
+      </tr>
+      <tr>
+        <td>Multiplication</td>
+        <td>(a × b) mod n = [(a mod n) × (b mod n)] mod n</td>
+      </tr>
+      <tr>
+        <td>Exponentiation</td>
+        <td>a<sup>k</sup> mod n = [(a mod n)<sup>k</sup>] mod n</td>
+      </tr>
+      <tr>
+        <td>Division</td>
+        <td>
+          <b>Not allowed directly</b>; multiply by the modular inverse instead
+          (if it exists)
+        </td>
+      </tr>
+    </table>
+    <pre><code>(7 × 8) mod 5      : 7 mod 5 = 2, 8 mod 5 = 3, 2×3 = 6, 6 mod 5 = 1   (direct: 56 mod 5 = 1 ✓)
+11³ mod 7          : 11 mod 7 = 4, 4³ = 64, 64 mod 7 = 1                (direct: 1331 mod 7 = 1 ✓)
+Last digit of 123 × 457 : (123 mod 10)(457 mod 10) = 3×7 = 21 → 21 mod 10 = 1</code></pre>
+    <h3>2.3 Operation tables</h3>
+    <p>
+      <b>Multiplication in Z<sub>5</sub></b> (5 is prime, so every non-zero row
+      is a permutation):
+    </p>
+    <table>
+      <tr>
+        <th>×</th>
+        <th>0</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+      </tr>
+      <tr>
+        <th>0</th>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>0</td>
+        <td>2</td>
+        <td>4</td>
+        <td>1</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <th>3</th>
+        <td>0</td>
+        <td>3</td>
+        <td>1</td>
+        <td>4</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>4</th>
+        <td>0</td>
+        <td>4</td>
+        <td>3</td>
+        <td>2</td>
+        <td>1</td>
+      </tr>
+    </table>
+    <p>
+      In Z<sub>8</sub> (composite) <code>2 × 4 = 8 ≡ 0</code>: two non-zero
+      numbers multiply to zero (<b>zero divisors</b>), which is why such
+      elements have no inverse.
+    </p>
+    <h3>2.4 Additive and multiplicative inverses</h3>
+    <ul>
+      <li>
+        <b>Additive inverse</b> of a in Z<sub>n</sub> is <code>n − a</code> (and
+        0 for a = 0). It always exists. In Z<sub>10</sub>: 1↔9, 2↔8, 3↔7, 4↔6,
+        5↔5, 0↔0.
+      </li>
+      <li>
+        <b>Multiplicative inverse</b> a<sup>−1</sup> satisfies
+        <code>a × a<sup>−1</sup> ≡ 1 (mod n)</code>. It exists
+        <b>iff gcd(a, n) = 1</b>. It is found with the Extended Euclidean
+        Algorithm (section 4).
+      </li>
+      <li>
+        <b>Z<sub>n</sub><sup>*</sup></b> = set of elements of Z<sub>n</sub>
+        coprime to n (they have inverses). Its size is φ(n) (section 6).
+      </li>
+    </ul>
+    <table>
+      <tr>
+        <th>Modulus</th>
+        <th>Z<sub>n</sub><sup>*</sup></th>
+        <th>Inverse pairs</th>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>{1, 3, 7, 9}</td>
+        <td>1↔1, 3↔7 (21≡1), 9↔9 (81≡1)</td>
+      </tr>
+      <tr>
+        <td>7 (prime)</td>
+        <td>{1, 2, 3, 4, 5, 6}</td>
+        <td>1↔1, 2↔4 (8≡1), 3↔5 (15≡1), 6↔6 (36≡1)</td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>{1,3,5,7,9,11,15,17,19,21,23,25}</td>
+        <td>3↔9, 5↔21, 7↔15, 11↔19, 17↔23, 1↔1, 25↔25</td>
+      </tr>
+    </table>
+    <h3>2.5 Solving linear congruences ax ≡ b (mod n)</h3>
+    <ul>
+      <li>
+        Let g = gcd(a, n). A solution exists <b>iff g | b</b>; then there are
+        exactly <b>g solutions</b> modulo n.
+      </li>
+      <li>If g = 1: x ≡ a<sup>−1</sup> × b (mod n) (unique).</li>
+      <li>
+        If g &gt; 1: divide a, b and n by g, solve the reduced congruence, then
+        add multiples of n/g.
+      </li>
+    </ul>
+    <pre><code>Example 1:  3x ≡ 4 (mod 7)      gcd(3,7)=1, 3⁻¹ = 5 (15 ≡ 1)
+            x ≡ 5 × 4 = 20 ≡ 6 (mod 7)             check: 3×6 = 18 ≡ 4 ✓
+
+Example 2:  6x ≡ 4 (mod 10)     gcd(6,10)=2, and 2 | 4  → 2 solutions
+            reduce:  3x ≡ 2 (mod 5);  3⁻¹ mod 5 = 2;  x ≡ 4 (mod 5)
+            solutions mod 10:  x = 4  and  x = 4 + 5 = 9
+            check: 6×4 = 24 ≡ 4 ✓,   6×9 = 54 ≡ 4 ✓
+
+Example 3:  4x ≡ 3 (mod 8)      gcd(4,8)=4, 4 ∤ 3 → NO solution</code></pre>
+    <h3>2.6 Fast modular exponentiation (square-and-multiply)</h3>
+    <p>
+      Computing a<sup>e</sup> mod n by multiplying e times is impossible when e
+      has hundreds of digits. Square-and-multiply needs only about
+      <b>log₂ e</b> squarings. Reduce mod n after <b>every</b> multiplication so
+      numbers never exceed n².
+    </p>
+    <p>
+      <b>Example: 7<sup>13</sup> mod 11.</b> 13 = 1101 in binary. Start with
+      result = 1, base = 7.
+    </p>
+    <table>
+      <tr>
+        <th>Step</th>
+        <th>e</th>
+        <th>e odd?</th>
+        <th>result</th>
+        <th>base = base² mod 11</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>13</td>
+        <td>yes → result = 1 × 7</td>
+        <td>7</td>
+        <td>49 mod 11 = 5</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>6</td>
+        <td>no</td>
+        <td>7</td>
+        <td>25 mod 11 = 3</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>3</td>
+        <td>yes → result = 7 × 3 = 21</td>
+        <td>10</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>1</td>
+        <td>yes → result = 10 × 9 = 90</td>
+        <td>90 mod 11 = <b>2</b></td>
+        <td>81 mod 11 = 4</td>
+      </tr>
+    </table>
+    <p>
+      Answer: <b>7<sup>13</sup> mod 11 = 2</b> (cross-check with Fermat: 7<sup
+        >10</sup
+      >
+      ≡ 1, so 7<sup>13</sup> ≡ 7³ = 343 = 31×11 + 2 ✓).
+    </p>
+    <pre><code>def mod_exp(base, exp, mod):
+    result = 1
+    base %= mod
+    while exp &gt; 0:
+        if exp &amp; 1:                       # lowest bit is 1 → multiply
+            result = (result * base) % mod
+        base = (base * base) % mod         # square
+        exp &gt;&gt;= 1                          # next bit
+    return result
+
+print(mod_exp(7, 13, 11))      # 2
+print(pow(7, 13, 11))          # 2  (built-in, same algorithm)
+print(pow(3, -1, 7))           # 5  (modular inverse, Python 3.8+)
+print(-7 % 5)                  # 3  (Python gives a non-negative remainder)</code></pre>
+    <h3>2.7 Link to ciphers you already know</h3>
+    <pre><code>Caesar (Unit I):      C = (P + k) mod 26          additive inverse: k → 26 - k
+Affine (Unit I):      C = (a·P + b) mod 26        needs gcd(a,26)=1 → inverse via Extended Euclid
+Hill (Unit I):        C = K·P mod 26              needs gcd(det K, 26) = 1
+RSA (Unit IV):        C = M^e mod n,  M = C^d mod n
+Diffie-Hellman:       A = g^a mod p</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> Because you may reduce modulo n
+      <b>at any point</b>, huge computations stay small. Addition, subtraction,
+      multiplication and exponentiation work;
+      <b>division works only through an inverse</b> and only when gcd(divisor,
+      n) = 1.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap (high-yield):</b>
+      <ul>
+        <li>
+          <b>No cancellation in general:</b> ac ≡ bc (mod n) implies a ≡ b only
+          if gcd(c, n) = 1. Counter-example: 2×3 ≡ 2×6 (mod 6) (both are 0) but
+          3 ≢ 6 (mod 6).
+        </li>
+        <li>
+          Languages differ: in C/Java <code>-7 % 5 = -2</code>; in Python
+          <code>-7 % 5 = 3</code>. Mathematical mod is never negative.
+        </li>
+        <li>
+          <b>Exponents are reduced mod φ(n) (or p−1), not mod n</b> (sections 5
+          and 6).
+        </li>
+        <li>
+          Do not write "a/b mod n" as ordinary division; compute a × b<sup
+            >−1</sup
+          >
+          mod n.
+        </li>
+        <li>
+          A number has a multiplicative inverse mod n
+          <u>only if coprime to n</u>: 4 has no inverse mod 8; every non-zero
+          number has one mod a prime.
+        </li>
+      </ul>
+    </div>
+
+    <!-- ============ 3 ============ -->
+    <h2>3. The Euclidean Algorithm</h2>
+    <h3>Core Concept</h3>
+    <p>
+      The <b>Euclidean algorithm</b> (Euclid, about 300 BC) computes
+      <b>gcd(a, b)</b> efficiently <b>without factoring</b>. It relies on one
+      identity:
+    </p>
+    <pre><code>gcd(a, b) = gcd(b, a mod b)        and        gcd(a, 0) = a</code></pre>
+    <p>
+      <b>Why it works:</b> write a = qb + r. Any common divisor of a and b
+      divides r = a − qb; conversely any common divisor of b and r divides a =
+      qb + r. So (a, b) and (b, r) have exactly the same common divisors, hence
+      the same gcd. The numbers shrink every step until the remainder is 0.
+    </p>
+    <div class="diagram">
+      <pre>
+ gcd(a, b)
+    │
+    ▼
+  b = 0 ? ──yes──► answer = a
+    │ no
+    ▼
+  r = a mod b
+  a ← b ;  b ← r
+    └──────────► repeat
+ The LAST NON-ZERO remainder is the gcd.
+</pre
+      >
+    </div>
+    <h3>Worked example 1: gcd(252, 105)</h3>
+    <table>
+      <tr>
+        <th>Step</th>
+        <th>a</th>
+        <th>b</th>
+        <th>Division</th>
+        <th>Remainder r</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>252</td>
+        <td>105</td>
+        <td>252 = 2 × 105 + 42</td>
+        <td>42</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>105</td>
+        <td>42</td>
+        <td>105 = 2 × 42 + 21</td>
+        <td>21</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>42</td>
+        <td>21</td>
+        <td>42 = 2 × 21 + 0</td>
+        <td><b>0</b></td>
+      </tr>
+    </table>
+    <p>
+      The last non-zero remainder is 21, so <b>gcd(252, 105) = 21</b>. Check:
+      252 = 12 × 21 and 105 = 5 × 21, and 12, 5 are coprime.
+    </p>
+    <h3>Worked example 2: gcd(1970, 1066)</h3>
+    <pre><code>1970 = 1 × 1066 + 904
+1066 = 1 × 904  + 162
+ 904 = 5 × 162  + 94
+ 162 = 1 × 94   + 68
+  94 = 1 × 68   + 26
+  68 = 2 × 26   + 16
+  26 = 1 × 16   + 10
+  16 = 1 × 10   + 6
+  10 = 1 × 6    + 4
+   6 = 1 × 4    + 2
+   4 = 2 × 2    + 0      → gcd(1970, 1066) = 2</code></pre>
+    <h3>Related results</h3>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Formula / Example</th>
+      </tr>
+      <tr>
+        <td>Least common multiple</td>
+        <td>
+          lcm(a, b) = (a × b) / gcd(a, b). lcm(252, 105) = 252 × 105 / 21 =
+          <b>1260</b>
+        </td>
+      </tr>
+      <tr>
+        <td>gcd of three numbers</td>
+        <td>
+          gcd(a, b, c) = gcd(gcd(a, b), c). gcd(24, 36, 60): gcd(24,36) = 12,
+          gcd(12,60) = <b>12</b>
+        </td>
+      </tr>
+      <tr>
+        <td>Coprime test</td>
+        <td>a and b are relatively prime iff gcd(a, b) = 1</td>
+      </tr>
+      <tr>
+        <td>Order of inputs</td>
+        <td>
+          If a &lt; b the first step simply swaps them: gcd(105, 252) → 105 =
+          0×252 + 105 → continues as (252, 105)
+        </td>
+      </tr>
+      <tr>
+        <td>Worst case</td>
+        <td>
+          Consecutive Fibonacci numbers (all quotients = 1). gcd(89, 55) takes 9
+          divisions: 89, 55, 34, 21, 13, 8, 5, 3, 2, 1 → gcd 1
+        </td>
+      </tr>
+    </table>
+    <h3>Efficiency</h3>
+    <ul>
+      <li>
+        <b>Lamé's theorem:</b> the number of division steps is at most about
+        <b>5 × (number of decimal digits of the smaller number)</b>. So it is
+        <b>O(log min(a, b))</b> steps, i.e. polynomial in the bit-length. It
+        handles 2048-bit numbers in microseconds.
+      </li>
+      <li>
+        <b>Prime-factorisation method</b> (list prime factors of both, multiply
+        common ones) is easy for small numbers but infeasible for large ones,
+        since factoring is the very hard problem RSA relies on.
+      </li>
+    </ul>
+    <pre><code>def gcd_iter(a, b):
+    while b != 0:
+        a, b = b, a % b           # (a, b) → (b, a mod b)
+    return a
+
+def gcd_rec(a, b):
+    return a if b == 0 else gcd_rec(b, a % b)
+
+def lcm(a, b):
+    return a // gcd_iter(a, b) * b
+
+print(gcd_iter(252, 105))    # 21
+print(gcd_iter(1970, 1066))  # 2
+print(lcm(252, 105))         # 1260
+# Python also has math.gcd(a, b) and math.lcm(a, b)</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> <b>gcd(a, b) = gcd(b, a mod b)</b>. The
+      algorithm needs only division with remainder, no factoring, and runs in
+      logarithmic time.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> The gcd is the
+      <b>last non-zero remainder</b> (the divisor in the step whose remainder is
+      0), not the final 0. gcd(a, 0) = a. Always show each division line
+      <code>a = q·b + r</code> in the exam; marks are given for the steps.
+      gcd(a, b) is not the same as lcm(a, b); remember gcd × lcm = a × b for two
+      numbers.
+    </div>
+
+    <!-- ============ 4 ============ -->
+    <h2>4. Extended Euclidean Algorithm</h2>
+    <h3>Core Concept</h3>
+    <p>
+      The <b>Extended Euclidean Algorithm</b> finds, besides g = gcd(a, b),
+      integers <b>x and y</b> such that
+    </p>
+    <pre><code>a·x + b·y = gcd(a, b)             (Bézout's identity; x, y may be negative or zero)</code></pre>
+    <p>
+      Its main cryptographic use: if gcd(a, n) = 1 then
+      <code>a·x + n·y = 1</code>, so <code>a·x ≡ 1 (mod n)</code> and therefore
+      <b>x mod n = a<sup>−1</sup> mod n</b>. This computes the Affine decryption
+      key and the RSA private exponent d.
+    </p>
+    <h3>Table method (recommended for exams)</h3>
+    <p>Maintain columns r (remainders), q (quotient), s and t. Start with:</p>
+    <pre><code>r0 = a, s0 = 1, t0 = 0          r1 = b, s1 = 0, t1 = 1
+Each step:   q = r(i-2) div r(i-1)
+             r(i) = r(i-2) - q·r(i-1)
+             s(i) = s(i-2) - q·s(i-1)
+             t(i) = t(i-2) - q·t(i-1)
+Stop when r = 0.  The row BEFORE it has r = gcd, with  a·s + b·t = r  in every row.</code></pre>
+    <h3>Worked example 1: gcd(240, 46) and Bézout coefficients</h3>
+    <table>
+      <tr>
+        <th>i</th>
+        <th>q</th>
+        <th>r</th>
+        <th>s</th>
+        <th>t</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>—</td>
+        <td>240</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>—</td>
+        <td>46</td>
+        <td>0</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>5</td>
+        <td>10</td>
+        <td>1</td>
+        <td>−5</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>4</td>
+        <td>6</td>
+        <td>−4</td>
+        <td>21</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>1</td>
+        <td>4</td>
+        <td>5</td>
+        <td>−26</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>1</td>
+        <td><b>2</b></td>
+        <td><b>−9</b></td>
+        <td><b>47</b></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>2</td>
+        <td>0</td>
+        <td>23</td>
+        <td>−120</td>
+      </tr>
+    </table>
+    <p>
+      gcd = 2 and <code>240 × (−9) + 46 × 47 = −2160 + 2162 = 2</code> ✓. The
+      last row gives ±b/g (23) and ∓a/g (−120): a handy self-check.
+    </p>
+    <p>
+      <b>Same result by back-substitution</b> (from the Euclid lines 240 = 5·46
+      + 10, 46 = 4·10 + 6, 10 = 1·6 + 4, 6 = 1·4 + 2):
+    </p>
+    <pre><code>2 = 6 - 4
+  = 6 - (10 - 6)           = 2·6 - 10
+  = 2·(46 - 4·10) - 10     = 2·46 - 9·10
+  = 2·46 - 9·(240 - 5·46)  = 47·46 - 9·240      ✓</code></pre>
+    <h3>Worked example 2: inverse of 7 modulo 26 (Affine cipher)</h3>
+    <table>
+      <tr>
+        <th>i</th>
+        <th>q</th>
+        <th>r</th>
+        <th>s</th>
+        <th>t</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>—</td>
+        <td>26</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>—</td>
+        <td>7</td>
+        <td>0</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>3</td>
+        <td>5</td>
+        <td>1</td>
+        <td>−3</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>1</td>
+        <td>2</td>
+        <td>−1</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>2</td>
+        <td><b>1</b></td>
+        <td>3</td>
+        <td><b>−11</b></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>2</td>
+        <td>0</td>
+        <td>−7</td>
+        <td>26</td>
+      </tr>
+    </table>
+    <p>
+      Row 4: <code>26 × 3 + 7 × (−11) = 78 − 77 = 1</code>. So
+      <code>7<sup>−1</sup> ≡ −11 ≡ <b>15</b> (mod 26)</code>. Check: 7 × 15 =
+      105 = 4 × 26 + 1 ✓. (This is the a<sup>−1</sup> = 15 used in the Affine
+      example of Unit I.)
+    </p>
+    <h3>Worked example 3: inverse of 550 modulo 1759</h3>
+    <table>
+      <tr>
+        <th>i</th>
+        <th>q</th>
+        <th>r</th>
+        <th>s</th>
+        <th>t</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>—</td>
+        <td>1759</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>—</td>
+        <td>550</td>
+        <td>0</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>3</td>
+        <td>109</td>
+        <td>1</td>
+        <td>−3</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>5</td>
+        <td>5</td>
+        <td>−5</td>
+        <td>16</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>21</td>
+        <td>4</td>
+        <td>106</td>
+        <td>−339</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>1</td>
+        <td><b>1</b></td>
+        <td>−111</td>
+        <td><b>355</b></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>4</td>
+        <td>0</td>
+        <td>550</td>
+        <td>−1759</td>
+      </tr>
+    </table>
+    <p>
+      t = 355, so <b>550<sup>−1</sup> ≡ 355 (mod 1759)</b>. Check: 550 × 355 =
+      195250 = 111 × 1759 + 1 ✓.
+    </p>
+    <h3>Worked example 4: RSA private key (toy)</h3>
+    <p>
+      Given φ(n) = 160 and public exponent e = 7, find d with
+      <code>e·d ≡ 1 (mod 160)</code>.
+    </p>
+    <table>
+      <tr>
+        <th>i</th>
+        <th>q</th>
+        <th>r</th>
+        <th>s</th>
+        <th>t</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>—</td>
+        <td>160</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>—</td>
+        <td>7</td>
+        <td>0</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>22</td>
+        <td>6</td>
+        <td>1</td>
+        <td>−22</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>1</td>
+        <td><b>1</b></td>
+        <td>−1</td>
+        <td><b>23</b></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>6</td>
+        <td>0</td>
+        <td>7</td>
+        <td>−160</td>
+      </tr>
+    </table>
+    <p>
+      <code>160 × (−1) + 7 × 23 = 1</code>, so <b>d = 23</b> (7 × 23 = 161 = 160
+      + 1 ✓).
+    </p>
+    <h3>Worked example 5: Diophantine equation 240x + 46y = 6</h3>
+    <p>
+      A solution exists iff gcd(240, 46) = 2 divides 6 ✓. Multiply the Bézout
+      identity (x = −9, y = 47) by 6/2 = 3: <b>x₀ = −27, y₀ = 141</b>. Check:
+      240 × (−27) + 46 × 141 = −6480 + 6486 = 6 ✓. General solution:
+      <code>x = −27 + 23k, y = 141 − 120k</code> for any integer k (steps are
+      46/2 = 23 and 240/2 = 120).
+    </p>
+    <pre><code>def egcd(a, b):
+    """returns (g, x, y) with a*x + b*y = g = gcd(a, b)"""
+    if b == 0:
+        return a, 1, 0
+    g, x1, y1 = egcd(b, a % b)
+    return g, y1, x1 - (a // b) * y1
+
+def mod_inverse(a, n):
+    g, x, _ = egcd(a % n, n)
+    if g != 1:
+        raise ValueError("inverse does not exist: gcd(a, n) != 1")
+    return x % n                       # normalise to 0..n-1
+
+print(egcd(240, 46))          # (2, -9, 47)
+print(mod_inverse(7, 26))     # 15
+print(mod_inverse(550, 1759)) # 355
+print(mod_inverse(7, 160))    # 23
+# Built-in: pow(7, -1, 26) → 15</code></pre>
+    <div class="diagram">
+      <pre>
+ Inverse recipe (a⁻¹ mod n)
+ 1. Run Extended Euclid on (n, a)         [put the modulus FIRST]
+ 2. Check last non-zero r = 1  (else no inverse)
+ 3. a⁻¹ = the t value of that row, reduced mod n
+    (if t is negative, add n)
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> <b>a·x + b·y = gcd(a, b)</b>. For an inverse
+      mod n, start with r0 = n, r1 = a; the answer is the <b>t</b> in the row
+      where r = 1.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b>
+      <ul>
+        <li>
+          The inverse exists <b>only if gcd(a, n) = 1</b>. If the last non-zero
+          remainder is not 1, state "no inverse".
+        </li>
+        <li>
+          If t is negative, <b>add n</b> (−11 + 26 = 15). Forgetting this is the
+          most common lost mark.
+        </li>
+        <li>
+          Bézout coefficients are <u>not unique</u> (x + k·b/g, y − k·a/g also
+          work); the table gives one valid pair.
+        </li>
+        <li>
+          Put the <b>modulus first</b> (r0 = n, r1 = a); then the inverse is in
+          the t column. If you reverse them, the inverse is in the s column.
+        </li>
+        <li>Verify every inverse by multiplying back and reducing mod n.</li>
+      </ul>
+    </div>
+
+    <!-- ============ 5 ============ -->
+    <h2>5. Fermat's Theorem (Fermat's Little Theorem)</h2>
+    <h3>Core Concept</h3>
+    <p>
+      If <b>p is prime</b> and <b>a is not divisible by p</b> (gcd(a, p) = 1),
+      then
+    </p>
+    <pre><code>a^(p-1) ≡ 1 (mod p)
+
+Equivalent form (holds for EVERY integer a, including multiples of p):
+a^p ≡ a (mod p)</code></pre>
+    <h3>Proof idea</h3>
+    <p>
+      Take the p−1 numbers <code>a, 2a, 3a, ..., (p−1)a</code>. Because a is
+      invertible mod p, they are all <b>distinct and non-zero</b> modulo p, so
+      they are just a rearrangement of 1, 2, ..., p−1. Multiplying them together
+      gives <code>a<sup>p−1</sup> × (p−1)! ≡ (p−1)! (mod p)</code>. Since (p−1)!
+      is coprime to p, cancel it to get a<sup>p−1</sup> ≡ 1.
+    </p>
+    <h3>Numerical checks</h3>
+    <pre><code>2^10 mod 11 :  2^10 = 1024 = 93×11 + 1     → 1 ✓
+3^6  mod 7  :  3^6  = 729  = 104×7 + 1     → 1 ✓
+Powers of 3 mod 7:   3, 2, 6, 4, 5, 1   (3^6 ≡ 1; order 6 → 3 is a primitive root)
+Powers of 2 mod 7:   2, 4, 1, 2, 4, 1   (order 3, which divides p-1 = 6)</code></pre>
+    <h3>Uses</h3>
+    <p>
+      <b>(a) Reducing large exponents:</b> since a<sup>p−1</sup> ≡ 1, reduce the
+      exponent modulo (p−1).
+    </p>
+    <pre><code>5^100 mod 13 :  100 mod 12 = 4  →  5^4 = 625 = 48×13 + 1   → 1
+7^222 mod 11 :  222 mod 10 = 2  →  7^2 = 49 = 4×11 + 5      → 5
+3^201 mod 11 :  201 mod 10 = 1  →  3^1 = 3                   → 3</code></pre>
+    <p>
+      <b>(b) Modular inverse for a prime modulus:</b>
+      <code>a<sup>−1</sup> ≡ a<sup>p−2</sup> (mod p)</code>, because a × a<sup
+        >p−2</sup
+      >
+      = a<sup>p−1</sup> ≡ 1.
+    </p>
+    <pre><code>3⁻¹ mod 7  = 3^5  = 243 = 34×7 + 5     → 5   (3×5 = 15 ≡ 1 ✓)
+2⁻¹ mod 11 = 2^9  = 512 = 46×11 + 6    → 6   (2×6 = 12 ≡ 1 ✓)</code></pre>
+    <p>
+      <b>(c) Primality (compositeness) testing:</b> if for some a coprime to n
+      we find a<sup>n−1</sup> ≢ 1 (mod n), then
+      <b>n is definitely composite</b>.
+    </p>
+    <pre><code>n = 15, a = 2:  2^14 mod 15 :  2^4 = 16 ≡ 1,  2^14 = 2^12 × 2^2 ≡ 4   → 4 ≠ 1  ⇒ 15 is composite ✓
+n = 7,  a = 2:  2^6  mod 7  = 64 = 9×7 + 1 → 1                          ⇒ "probably prime" (it is)</code></pre>
+    <pre><code>import random
+
+def fermat_test(n, rounds=10):
+    """False → definitely composite.  True → probably prime."""
+    if n &lt; 4:
+        return n in (2, 3)
+    for _ in range(rounds):
+        a = random.randrange(2, n - 1)
+        if pow(a, n - 1, n) != 1:
+            return False
+    return True
+
+print(fermat_test(97))     # True   (97 is prime)
+print(fermat_test(91))     # almost surely False (91 = 7 × 13)
+print(pow(3, 5, 7))        # inverse of 3 mod 7 via Fermat → 5</code></pre>
+    <h3>Limits of the Fermat test</h3>
+    <table>
+      <tr>
+        <th>Concept</th>
+        <th>Explanation</th>
+      </tr>
+      <tr>
+        <td>Pseudoprime (to base a)</td>
+        <td>
+          Composite n with a<sup>n−1</sup> ≡ 1 (mod n). Example:
+          <b>341 = 11 × 31</b> passes for a = 2
+        </td>
+      </tr>
+      <tr>
+        <td>Carmichael number</td>
+        <td>
+          Composite n that passes the test for <b>every</b> a coprime to n.
+          Smallest: <b>561 = 3 × 11 × 17</b>
+        </td>
+      </tr>
+      <tr>
+        <td>Practical test</td>
+        <td>
+          <b>Miller-Rabin</b> (strengthens the Fermat test; used to generate RSA
+          primes). Deterministic alternative: AKS
+        </td>
+      </tr>
+    </table>
+    <p>
+      <b>Related result, Wilson's theorem:</b> p is prime iff
+      <code>(p−1)! ≡ −1 (mod p)</code> (e.g., 4! = 24 ≡ −1 mod 5). It is a
+      correct but impractical primality criterion.
+    </p>
+    <div class="key">
+      <b class="t">Key Concept:</b> For prime p:
+      <b>a<sup>p−1</sup> ≡ 1 (mod p)</b> when p ∤ a. Exponents live
+      <b>modulo p − 1</b>. Inverse = <b>a<sup>p−2</sup></b
+      >. A failing test proves compositeness; passing only suggests primality.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b>
+      <ul>
+        <li>
+          Requires <b>p prime</b> and <b>a not a multiple of p</b>. For
+          composite moduli use Euler's theorem.
+        </li>
+        <li>Reduce the exponent mod <b>(p − 1)</b>, <u>not</u> mod p.</li>
+        <li>
+          Passing the test does <u>not</u> prove primality (pseudoprimes,
+          Carmichael numbers 561, 1105, 1729).
+        </li>
+        <li>
+          Do not confuse with <b>Fermat's Last Theorem</b> (x<sup>n</sup> +
+          y<sup>n</sup> = z<sup>n</sup> has no positive integer solutions for n
+          &gt; 2).
+        </li>
+        <li>The form a<sup>p</sup> ≡ a holds even if p | a (both sides 0).</li>
+      </ul>
+    </div>
+
+    <!-- ============ 6 ============ -->
+    <h2>6. Euler's Theorem and the Totient Function</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Euler's totient function φ(n)</b> counts the integers in 1..n that are
+      <b>coprime to n</b> (= the size of Z<sub>n</sub><sup>*</sup>).
+      <b>Euler's theorem</b> generalises Fermat's theorem to any modulus:
+    </p>
+    <pre><code>If gcd(a, n) = 1  then   a^φ(n) ≡ 1 (mod n)</code></pre>
+    <p>
+      For prime p, φ(p) = p − 1, so Euler's theorem becomes Fermat's theorem.
+    </p>
+    <h3>6.1 Computing φ(n)</h3>
+    <table>
+      <tr>
+        <th>Rule</th>
+        <th>Formula</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>φ(1)</td>
+        <td>1</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Prime p</td>
+        <td>φ(p) = p − 1</td>
+        <td>φ(7) = 6, φ(11) = 10</td>
+      </tr>
+      <tr>
+        <td>Prime power</td>
+        <td>φ(p<sup>k</sup>) = p<sup>k</sup> − p<sup>k−1</sup></td>
+        <td>φ(8) = 8 − 4 = 4, φ(9) = 9 − 3 = 6</td>
+      </tr>
+      <tr>
+        <td>Multiplicative</td>
+        <td>φ(mn) = φ(m)·φ(n) if gcd(m, n) = 1</td>
+        <td>φ(35) = φ(5)φ(7) = 4 × 6 = <b>24</b></td>
+      </tr>
+      <tr>
+        <td>Two primes (RSA)</td>
+        <td>φ(pq) = (p − 1)(q − 1)</td>
+        <td>φ(77) = 6 × 10 = <b>60</b></td>
+      </tr>
+      <tr>
+        <td>General</td>
+        <td>φ(n) = n × ∏(1 − 1/p) over distinct primes p | n</td>
+        <td>
+          φ(100) = 100 × ½ × ⅘ = <b>40</b>; φ(36) = 36 × ½ × ⅔ = <b>12</b>
+        </td>
+      </tr>
+      <tr>
+        <td>Divisor sum</td>
+        <td>Σ φ(d) over all d | n equals n</td>
+        <td>n = 12: 1 + 1 + 2 + 2 + 2 + 4 = 12</td>
+      </tr>
+    </table>
+    <p><b>Table of φ(n) for n = 1 to 12:</b></p>
+    <table>
+      <tr>
+        <th>n</th>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+      </tr>
+      <tr>
+        <th>φ(n)</th>
+        <td>1</td>
+        <td>1</td>
+        <td>2</td>
+        <td>2</td>
+        <td>4</td>
+        <td>2</td>
+        <td>6</td>
+        <td>4</td>
+        <td>6</td>
+        <td>4</td>
+        <td>10</td>
+        <td>4</td>
+      </tr>
+    </table>
+    <pre><code>φ(10): numbers 1..10 coprime to 10 are {1, 3, 7, 9}   → 4
+φ(12): numbers coprime to 12 are {1, 5, 7, 11}         → 4
+Check by formula: φ(12) = φ(4)·φ(3) = 2 × 2 = 4 ✓</code></pre>
+    <pre><code>def phi(n):
+    result, m, p = n, n, 2
+    while p * p &lt;= m:
+        if m % p == 0:
+            while m % p == 0:
+                m //= p
+            result -= result // p          # result *= (1 - 1/p)
+        p += 1
+    if m &gt; 1:
+        result -= result // m              # leftover prime factor
+    return result
+
+print([phi(n) for n in range(1, 13)])   # [1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4]
+print(phi(35), phi(77), phi(100))       # 24 60 40</code></pre>
+    <h3>6.2 Euler's theorem in action</h3>
+    <pre><code>3^φ(10) = 3^4 = 81 ≡ 1 (mod 10) ✓          5^φ(12) = 5^4 = 625 = 52×12 + 1 ≡ 1 (mod 12) ✓
+
+Reduce the exponent mod φ(n):
+7^1000 mod 15 :  φ(15) = 8, 1000 mod 8 = 0   → 7^0 = 1        (check: 7^4 = 2401 ≡ 1 mod 15)
+2^100 mod 21  :  φ(21) = 12, 100 mod 12 = 4  → 2^4 = 16       (check by parts: mod 3 → 1, mod 7 → 2; 16 ≡ 1 mod 3, 16 ≡ 2 mod 7 ✓)
+
+Inverse by Euler:  a⁻¹ ≡ a^(φ(n) - 1) (mod n)
+3⁻¹ mod 10 = 3^3 = 27 ≡ 7   (3 × 7 = 21 ≡ 1 ✓)</code></pre>
+    <h3>6.3 Proof idea</h3>
+    <p>
+      Let R = {r₁, ..., r<sub>φ(n)</sub>} be the elements of Z<sub>n</sub
+      ><sup>*</sup>. Multiplying each by a (coprime to n) permutes R modulo n.
+      Hence
+      <code>a<sup>φ(n)</sup> × ∏r<sub>i</sub> ≡ ∏r<sub>i</sub> (mod n)</code>,
+      and since ∏r<sub>i</sub> is invertible mod n, a<sup>φ(n)</sup> ≡ 1.
+    </p>
+    <h3>6.4 Why RSA works (toy example)</h3>
+    <p>
+      RSA picks n = pq, φ(n) = (p−1)(q−1), e and d with
+      <code>e·d ≡ 1 (mod φ(n))</code>, i.e. <code>e·d = 1 + k·φ(n)</code>. Then
+      for M coprime to n:
+    </p>
+    <pre><code>M^(e·d) = M^(1 + k·φ(n)) = M × (M^φ(n))^k ≡ M × 1^k = M  (mod n)     ← Euler's theorem
+
+Toy numbers: p = 3, q = 11 → n = 33, φ = 20; e = 3, d = 7 (3×7 = 21 ≡ 1 mod 20)
+Encrypt M = 4:  C = 4^3 = 64 mod 33 = 31
+Decrypt:        31^7 mod 33.  31 ≡ -2 (mod 33), (-2)^7 = -128, -128 + 4×33 = 4   → M = 4 ✓</code></pre>
+    <h3>6.5 Order of an element and primitive roots</h3>
+    <ul>
+      <li>
+        The <b>order</b> of a mod n is the smallest k &gt; 0 with a<sup>k</sup>
+        ≡ 1 (mod n). By Euler's theorem the order <b>always divides φ(n)</b>.
+      </li>
+      <li>
+        If the order of g equals φ(n), then g is a
+        <b>primitive root</b> (generator) of Z<sub>n</sub><sup>*</sup>: its
+        powers produce every element. Primitive roots are the base of
+        <b>Diffie-Hellman</b> and ElGamal.
+      </li>
+    </ul>
+    <pre><code>Powers of 2 mod 11:  2, 4, 8, 5, 10, 9, 7, 3, 6, 1     (2^10 ≡ 1 first time) → order 10 = φ(11)
+                     → 2 is a primitive root mod 11.
+Powers of 3 mod 11:  3, 9, 5, 4, 1, ...                (order 5 divides 10) → 3 is NOT a primitive root.</code></pre>
+    <h3>Fermat vs Euler</h3>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Fermat's Little Theorem</th>
+        <th>Euler's Theorem</th>
+      </tr>
+      <tr>
+        <td>Modulus</td>
+        <td>Prime p only</td>
+        <td>Any n ≥ 2</td>
+      </tr>
+      <tr>
+        <td>Statement</td>
+        <td>a<sup>p−1</sup> ≡ 1 (mod p)</td>
+        <td>a<sup>φ(n)</sup> ≡ 1 (mod n)</td>
+      </tr>
+      <tr>
+        <td>Condition</td>
+        <td>p ∤ a</td>
+        <td>gcd(a, n) = 1</td>
+      </tr>
+      <tr>
+        <td>Exponent reduced mod</td>
+        <td>p − 1</td>
+        <td>φ(n)</td>
+      </tr>
+      <tr>
+        <td>Inverse formula</td>
+        <td>a<sup>p−2</sup> mod p</td>
+        <td>a<sup>φ(n)−1</sup> mod n</td>
+      </tr>
+      <tr>
+        <td>Main use</td>
+        <td>Primality tests, inverses mod primes</td>
+        <td>RSA correctness, composite moduli</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> <b>a<sup>φ(n)</sup> ≡ 1 (mod n)</b> for
+      gcd(a, n) = 1. For n = pq, φ(n) = (p−1)(q−1), the secret that makes RSA
+      work. Knowing φ(n) is as hard as factoring n.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap (high-yield):</b>
+      <ul>
+        <li>
+          <b>gcd(a, n) = 1 is mandatory.</b> Counter-example: 2<sup>φ(6)</sup> =
+          2<sup>2</sup> = 4 ≢ 1 (mod 6) because gcd(2, 6) = 2.
+        </li>
+        <li>
+          φ(mn) = φ(m)φ(n) <u>only when m and n are coprime</u>: φ(4) = 2, φ(6)
+          = 2 but φ(24) = 8 ≠ 4.
+        </li>
+        <li>
+          φ(p<sup>k</sup>) = p<sup>k</sup> − p<sup>k−1</sup> (not p<sup>k</sup>
+          − 1): φ(9) = 6, not 8.
+        </li>
+        <li>
+          The exponent is reduced mod φ(n), not mod n; the order of a can be
+          smaller than φ(n) (it only divides it).
+        </li>
+        <li>In RSA, φ(n) = (p−1)(q−1), not n − 1.</li>
+      </ul>
+    </div>
+
+    <!-- ============ 7 ============ -->
+    <h2>7. Chinese Remainder Theorem (CRT)</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Let m₁, m₂, ..., m<sub>k</sub> be <b>pairwise coprime</b> moduli and M =
+      m₁ × m₂ × ... × m<sub>k</sub>. Then the system
+    </p>
+    <pre><code>x ≡ a₁ (mod m₁)
+x ≡ a₂ (mod m₂)
+  ...
+x ≡ a_k (mod m_k)</code></pre>
+    <p>
+      has a <b>unique solution modulo M</b>. Equivalently, Z<sub>M</sub>
+      corresponds one-to-one to Z<sub>m₁</sub> × ... × Z<sub>m<sub>k</sub></sub
+      >: a big number can be represented by its small remainders. Origin: Sunzi
+      Suanjing (China, 3rd to 5th century): "find a number that leaves remainder
+      2 when divided by 3, 3 by 5, 2 by 7".
+    </p>
+    <h3>Solution formula</h3>
+    <pre><code>M_i = M / m_i                       (product of all the OTHER moduli)
+y_i = M_i⁻¹ mod m_i                 (inverse of M_i modulo m_i; exists because gcd(M_i, m_i) = 1)
+x   = ( a₁·M₁·y₁ + a₂·M₂·y₂ + ... + a_k·M_k·y_k )  mod M</code></pre>
+    <p>
+      <b>Why it works:</b> M<sub>i</sub> is divisible by every modulus except
+      m<sub>i</sub>, so in the sum every term except the i-th vanishes modulo
+      m<sub>i</sub>; the i-th term is a<sub>i</sub> ×
+      (M<sub>i</sub>y<sub>i</sub>) ≡ a<sub>i</sub> × 1. <b>Uniqueness:</b> two
+      solutions differ by a number divisible by every m<sub>i</sub>, hence by M,
+      so they are equal modulo M.
+    </p>
+    <h3>
+      Worked example 1 (Sunzi): x ≡ 2 (mod 3), x ≡ 3 (mod 5), x ≡ 2 (mod 7)
+    </h3>
+    <pre><code>M = 3 × 5 × 7 = 105
+M₁ = 105/3 = 35     y₁ = 35⁻¹ mod 3 :  35 ≡ 2 (mod 3), 2×2 = 4 ≡ 1  → y₁ = 2
+M₂ = 105/5 = 21     y₂ = 21⁻¹ mod 5 :  21 ≡ 1 (mod 5)               → y₂ = 1
+M₃ = 105/7 = 15     y₃ = 15⁻¹ mod 7 :  15 ≡ 1 (mod 7)               → y₃ = 1
+
+x = 2×35×2 + 3×21×1 + 2×15×1 = 140 + 63 + 30 = 233
+x = 233 mod 105 = 233 - 210 = 23
+
+Check: 23 mod 3 = 2 ✓   23 mod 5 = 3 ✓   23 mod 7 = 2 ✓      All solutions: 23 + 105k</code></pre>
+    <h3>Worked example 2: x ≡ 2 (mod 3), x ≡ 3 (mod 4), x ≡ 1 (mod 5)</h3>
+    <pre><code>M = 3 × 4 × 5 = 60
+M₁ = 20   y₁ = 20⁻¹ mod 3 :  20 ≡ 2, inverse 2        → y₁ = 2
+M₂ = 15   y₂ = 15⁻¹ mod 4 :  15 ≡ 3, 3×3 = 9 ≡ 1      → y₂ = 3
+M₃ = 12   y₃ = 12⁻¹ mod 5 :  12 ≡ 2, 2×3 = 6 ≡ 1      → y₃ = 3
+
+x = 2×20×2 + 3×15×3 + 1×12×3 = 80 + 135 + 36 = 251
+x = 251 mod 60 = 251 - 240 = 11
+Check: 11 mod 3 = 2 ✓   11 mod 4 = 3 ✓   11 mod 5 = 1 ✓</code></pre>
+    <h3>Alternative: successive substitution (good for two congruences)</h3>
+    <pre><code>x ≡ 3 (mod 5) and x ≡ 4 (mod 7)
+x = 3 + 5k  (satisfies the first)
+3 + 5k ≡ 4 (mod 7)  →  5k ≡ 1 (mod 7)  →  k ≡ 5⁻¹ × 1 = 3   (5×3 = 15 ≡ 1)
+x = 3 + 5×3 = 18                         (mod 35)
+Check: 18 mod 5 = 3 ✓,  18 mod 7 = 4 ✓</code></pre>
+    <pre><code>from math import prod
+
+def crt(remainders, moduli):
+    M = prod(moduli)
+    x = 0
+    for a_i, m_i in zip(remainders, moduli):
+        M_i = M // m_i
+        y_i = pow(M_i, -1, m_i)        # modular inverse (Extended Euclid inside)
+        x += a_i * M_i * y_i
+    return x % M, M
+
+print(crt([2, 3, 2], [3, 5, 7]))       # (23, 105)
+print(crt([2, 3, 1], [3, 4, 5]))       # (11, 60)</code></pre>
+    <h3>Applications</h3>
+    <p>
+      <b>(1) Arithmetic with big numbers by components.</b> Represent a number
+      by its remainders and operate on each component independently.
+    </p>
+    <pre><code>Moduli (3, 5, 7), M = 105.   a = 23 → (2, 3, 2)     b = 17 → (2, 2, 3)
+Product component-wise:  (2×2 mod 3, 3×2 mod 5, 2×3 mod 7) = (1, 1, 6)
+Reconstruct (CRT) → x = 76.    Direct: 23 × 17 = 391, 391 mod 105 = 391 - 315 = 76 ✓</code></pre>
+    <p>
+      <b>(2) Faster RSA decryption (about 4× faster).</b> Instead of one
+      exponentiation mod n = pq, do two half-size ones mod p and mod q, then
+      combine (Garner's formula).
+    </p>
+    <pre><code>m1 = c^(d mod (p-1)) mod p
+m2 = c^(d mod (q-1)) mod q
+h  = q⁻¹ · (m1 - m2) mod p
+m  = m2 + h · q
+
+Toy: p = 3, q = 11, d = 7, c = 31
+dp = 7 mod 2 = 1,  dq = 7 mod 10 = 7,  q⁻¹ mod 3 = 11⁻¹ = 2⁻¹ = 2
+m1 = 31^1 mod 3 = 1;   m2 = 31^7 mod 11 = 9^7 mod 11 = 4
+h  = 2 × (1 - 4) mod 3 = -6 mod 3 = 0
+m  = 4 + 0×11 = 4   ✓  (same plaintext as the direct computation)</code></pre>
+    <pre><code>def rsa_crt_decrypt(c, p, q, d):
+    dp, dq = d % (p - 1), d % (q - 1)
+    q_inv = pow(q, -1, p)
+    m1, m2 = pow(c, dp, p), pow(c, dq, q)
+    h = (q_inv * (m1 - m2)) % p
+    return m2 + h * q
+
+print(rsa_crt_decrypt(31, 3, 11, 7))   # 4</code></pre>
+    <p>
+      <b>(3) Other uses:</b> secret sharing (Mignotte, Asmuth-Bloom), solving
+      polynomial congruences modulo composite n (finding square roots mod pq
+      gives 4 roots), residue number systems in fast hardware, and
+      Pohlig-Hellman attacks on discrete logarithms.
+    </p>
+    <h3>Generalised CRT (moduli not coprime)</h3>
+    <p>
+      A system <code>x ≡ a<sub>i</sub> (mod m<sub>i</sub>)</code> is solvable
+      iff
+      <code
+        >a<sub>i</sub> ≡ a<sub>j</sub> (mod gcd(m<sub>i</sub>,
+        m<sub>j</sub>))</code
+      >
+      for every pair; the solution is then unique modulo
+      <b>lcm</b>(m<sub>i</sub>).
+    </p>
+    <pre><code>x ≡ 2 (mod 4), x ≡ 4 (mod 6):  gcd(4,6) = 2 and 2 ≡ 4 (mod 2) ✓ → solution mod lcm = 12: x = 10
+                               (10 mod 4 = 2 ✓, 10 mod 6 = 4 ✓)
+x ≡ 1 (mod 4), x ≡ 2 (mod 6):  1 ≢ 2 (mod 2) → NO solution (x would be both odd and even)</code></pre>
+    <div class="diagram">
+      <pre>
+ CRT as a two-way map
+        big number x  (mod M)
+        │   ▲
+ reduce │   │ combine (CRT formula)
+        ▼   │
+ (x mod m₁, x mod m₂, ..., x mod m_k)    ← small independent computations
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> Pairwise coprime moduli ⇒
+      <b>one unique solution modulo M = m₁m₂...m<sub>k</sub></b
+      >. Recipe:
+      <b
+        >M<sub>i</sub> = M/m<sub>i</sub> → y<sub>i</sub> = M<sub>i</sub
+        ><sup>−1</sup> mod m<sub>i</sub> → x = Σ a<sub>i</sub>M<sub>i</sub>y<sub
+          >i</sub
+        >
+        mod M</b
+      >. It is the engine behind RSA speed-ups.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap (high-yield):</b>
+      <ul>
+        <li>
+          The moduli must be <b>pairwise coprime</b> (e.g., 4 and 6 are not).
+          Check this first; otherwise use the generalised condition.
+        </li>
+        <li>
+          M<sub>i</sub> = M / m<sub>i</sub> is the product of the
+          <b>other</b> moduli; y<sub>i</sub> is the inverse of M<sub>i</sub>
+          modulo <b>m<sub>i</sub></b> (not modulo M).
+        </li>
+        <li>
+          Reduce the final sum <b>modulo M</b>; the answer is a residue class
+          (23 + 105k), not only the single number 23.
+        </li>
+        <li>Always verify by reducing x modulo each m<sub>i</sub>.</li>
+        <li>
+          CRT-RSA is vulnerable to <b>fault attacks</b> (a single faulty m1 or
+          m2 can reveal p or q), so real implementations check the result before
+          releasing it.
+        </li>
+      </ul>
+    </div>
+
+    <h2>Unit III: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          <b>Basics:</b> a | b; division algorithm a = qn + r, 0 ≤ r &lt; n;
+          primes, unique factorisation, coprime ≠ prime; group, ring, field
+          (Z<sub>n</sub> ring, Z<sub>p</sub> field).
+        </li>
+        <li>
+          <b>Modular arithmetic:</b> a ≡ b (mod n) ⇔ n | (a − b); reduce at any
+          step; no division, use inverses; inverse exists ⇔ gcd(a, n) = 1;
+          additive inverse n − a; no cancellation unless gcd(c, n) = 1; ax ≡ b
+          has gcd(a, n) solutions iff gcd | b; square-and-multiply.
+        </li>
+        <li>
+          <b>Euclid:</b> gcd(a, b) = gcd(b, a mod b), gcd(a, 0) = a; last
+          non-zero remainder; lcm = ab / gcd; O(log) steps; worst case Fibonacci
+          numbers.
+        </li>
+        <li>
+          <b>Extended Euclid:</b> ax + by = gcd; table with q, r, s, t; inverse
+          = t in the row with r = 1 (modulus first); add n if negative; examples
+          7⁻¹ mod 26 = 15, 550⁻¹ mod 1759 = 355, d = 23 for e = 7, φ = 160.
+        </li>
+        <li>
+          <b>Fermat:</b> p prime, p ∤ a ⇒ a<sup>p−1</sup> ≡ 1 (mod p); a<sup
+            >p</sup
+          >
+          ≡ a; reduce exponent mod p − 1; a<sup>−1</sup> = a<sup>p−2</sup>;
+          Fermat primality test, pseudoprimes (341), Carmichael numbers (561);
+          Wilson's theorem.
+        </li>
+        <li>
+          <b>Euler:</b> φ(n) formulas (prime, prime power, multiplicative, φ(pq)
+          = (p−1)(q−1), n∏(1−1/p)); a<sup>φ(n)</sup> ≡ 1 when gcd(a, n) = 1;
+          reduce exponent mod φ(n); RSA proof M<sup>ed</sup> ≡ M; order divides
+          φ(n); primitive roots (2 mod 11).
+        </li>
+        <li>
+          <b>CRT:</b> pairwise coprime moduli, unique solution mod M;
+          M<sub>i</sub>, y<sub>i</sub>, x = Σ a<sub>i</sub>M<sub>i</sub>y<sub
+            >i</sub
+          >
+          mod M; Sunzi example x = 23 (mod 105); successive substitution;
+          RSA-CRT (4× faster); generalised CRT with lcm.
+        </li>
+      </ul>
+    </div>
+
+    <a href="cryp4.html" class="btn">Click for Cryptography unit 4</a>
+  </body>
+</html>
