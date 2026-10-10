@@ -1,0 +1,2161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCA301 Unit V - MongoDB</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      /* CSS */
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        color: inherit;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA301: MERN Full Stack Development – Backend<br /><small
+        style="font-size: 60%"
+        >Module 5 (Unit V): MongoDB</small
+      >
+    </h1>
+
+    <div class="key">
+      <b class="t">Unit V Map:</b> Introduction to MongoDB → Installing MongoDB
+      → SQL/NoSQL Landscape → Document-oriented vs Other Storage → Databases →
+      Collections → Documents → CRUD Operations → Methods (insert, update, save,
+      find, delete) → Working with Equality → Query Operators → Complex Queries
+      → Updating Documents → Deleting Documents.
+    </div>
+
+    <!-- ============ 1 ============ -->
+    <h2>1. Introduction to MongoDB</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>MongoDB</b> is an open-source,
+      <b>document-oriented NoSQL database</b> (the "M" in MERN). Instead of rows
+      and tables it stores <b>JSON-like documents</b> (internally <b>BSON</b>,
+      Binary JSON) grouped into <b>collections</b>. The name comes from
+      "hu<b>mongo</b>us". It was created by 10gen (now MongoDB Inc.) in 2007 and
+      released in 2009.
+    </p>
+    <h3>Technical Breakdown</h3>
+    <ul>
+      <li>
+        <b>Schema-flexible:</b> documents in the same collection may have
+        different fields.
+      </li>
+      <li>
+        <b>BSON:</b> binary format that adds types beyond JSON (Date, ObjectId,
+        Decimal128, Binary, Int32/Int64).
+      </li>
+      <li>
+        <b>Rich query language:</b> filters, projections, aggregation pipeline,
+        text and geospatial search.
+      </li>
+      <li>
+        <b>Indexing:</b> single, compound, multikey, text, geospatial, TTL,
+        unique.
+      </li>
+      <li>
+        <b>Replication:</b> <i>replica set</i> (primary + secondaries) gives
+        high availability and automatic failover.
+      </li>
+      <li>
+        <b>Sharding:</b> horizontal scaling by splitting data across servers
+        using a shard key.
+      </li>
+      <li>
+        <b>Transactions:</b> multi-document ACID transactions are supported
+        since 4.0 (replica sets) and 4.2 (sharded clusters).
+      </li>
+      <li>
+        <b>Default port:</b> <code>27017</code>. <b>Shell:</b>
+        <code>mongosh</code>. <b>Server process:</b> <code>mongod</code>.
+      </li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ MongoDB Server (mongod)
+  └── Database  (e.g. shopDB)
+        └── Collection  (e.g. products)      ≈ table
+              └── Document  { _id, name, price, tags: [...] }   ≈ row
+                    └── Field : value                            ≈ column : cell
+
+ MERN flow:  React ──► Express ──► Mongoose / Driver ──► MongoDB
+</pre
+      >
+    </div>
+    <table>
+      <tr>
+        <th>Ecosystem tool</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>mongod</code></td>
+        <td>The database server daemon</td>
+      </tr>
+      <tr>
+        <td><code>mongosh</code></td>
+        <td>
+          Modern interactive JavaScript shell (replaces legacy
+          <code>mongo</code>)
+        </td>
+      </tr>
+      <tr>
+        <td>MongoDB Compass</td>
+        <td>Official GUI</td>
+      </tr>
+      <tr>
+        <td>MongoDB Atlas</td>
+        <td>Fully-managed cloud service (free M0 tier)</td>
+      </tr>
+      <tr>
+        <td><code>mongodump</code> / <code>mongorestore</code></td>
+        <td>Backup / restore (BSON)</td>
+      </tr>
+      <tr>
+        <td><code>mongoimport</code> / <code>mongoexport</code></td>
+        <td>Import / export JSON, CSV</td>
+      </tr>
+      <tr>
+        <td>Mongoose (Unit VI)</td>
+        <td>ODM library for Node.js</td>
+      </tr>
+    </table>
+    <pre><code>// A typical MongoDB document (looks like JSON)
+{
+  "_id": ObjectId("665f1c2a9b1e8a3d4c5e6f70"),
+  "name": "Asha Verma",
+  "age": 22,
+  "skills": ["JavaScript", "Node.js"],
+  "address": { "city": "Dehradun", "pin": "248001" },
+  "enrolledOn": ISODate("2026-07-01T00:00:00Z")
+}</code></pre>
+    <p>
+      <b>Real-world example:</b> An e-commerce product catalogue: a laptop has
+      RAM and CPU fields, a T-shirt has size and colour. In SQL you need many
+      nullable columns or extra tables; in MongoDB each product document just
+      carries its own fields.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> MongoDB stores <b>BSON</b>, not plain JSON
+      text (but you write queries in JSON-like syntax). "Schemaless" really
+      means <i>flexible schema</i>; you can (and should) still enforce structure
+      with validation or Mongoose. A database or collection is
+      <u>created lazily</u> on first insert.
+    </div>
+
+    <!-- ============ 2 ============ -->
+    <h2>2. Installing MongoDB</h2>
+    <h3>Options</h3>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>When to use</th>
+      </tr>
+      <tr>
+        <td>MongoDB Community Server (local)</td>
+        <td>Learning, offline development</td>
+      </tr>
+      <tr>
+        <td>MongoDB Atlas (cloud)</td>
+        <td>No install; shareable; production-ready free tier</td>
+      </tr>
+      <tr>
+        <td>Docker container</td>
+        <td>Clean, disposable, same on every OS</td>
+      </tr>
+    </table>
+    <h3>Windows</h3>
+    <ol>
+      <li>
+        Download the <b>MongoDB Community Server</b> <code>.msi</code> from
+        mongodb.com/try/download/community.
+      </li>
+      <li>
+        Choose <b>Complete</b> setup; tick
+        <b>"Install MongoDB as a Service"</b> (runs automatically) and
+        optionally <b>MongoDB Compass</b>.
+      </li>
+      <li>
+        Install <b>MongoDB Shell (mongosh)</b> separately from the same site if
+        it is not bundled; add its folder to <code>PATH</code>.
+      </li>
+      <li>
+        Default data directory:
+        <code>C:\Program Files\MongoDB\Server\&lt;ver&gt;\data</code>.
+      </li>
+    </ol>
+    <h3>Ubuntu / macOS / Docker / Atlas</h3>
+    <pre><code># ---- Ubuntu (after adding MongoDB's official apt repository per mongodb.com docs)
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+sudo systemctl start mongod
+sudo systemctl enable mongod        # start at boot
+sudo systemctl status mongod
+
+# ---- macOS (Homebrew)
+brew tap mongodb/brew
+brew install mongodb-community
+brew services start mongodb-community
+
+# ---- Docker
+docker run -d --name mongo -p 27017:27017 -v mongodata:/data/db mongo:latest
+
+# ---- Manual start (any OS), choosing the data folder
+mongod --dbpath /data/db --port 27017
+
+# ---- Verify
+mongod --version
+mongosh                              # connects to mongodb://127.0.0.1:27017
+&gt; db.runCommand({ ping: 1 })         // { ok: 1 }
+&gt; show dbs</code></pre>
+    <h3>Atlas (cloud) connection string</h3>
+    <pre><code># Create free cluster → Database Access (user) → Network Access (IP allow-list) → Connect
+mongodb+srv://&lt;user&gt;:&lt;password&gt;@cluster0.xxxxx.mongodb.net/shopDB?retryWrites=true&amp;w=majority
+
+# Local connection string
+mongodb://127.0.0.1:27017/shopDB</code></pre>
+    <pre><code>// Using it from Node.js (npm install mongodb)
+const { MongoClient } = require("mongodb");
+const client = new MongoClient("mongodb://127.0.0.1:27017");
+
+async function main() {
+  await client.connect();
+  const db = client.db("shopDB");
+  const count = await db.collection("products").countDocuments();
+  console.log("Products:", count);
+}
+main().catch(console.error).finally(() =&gt; client.close());</code></pre>
+    <div class="diagram">
+      <pre>
+ Application ──(connection string)──► mongod :27017 ──► data files (WiredTiger) in dbpath
+                                         ▲
+                           mongosh / Compass connect the same way
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> The <b>server</b> (<code>mongod</code>) must
+      be running before <code>mongosh</code> or your app can connect (error
+      <i>ECONNREFUSED 127.0.0.1:27017</i>). <code>mongod</code> = server,
+      <code>mongosh</code> = client shell. The default <code>dbpath</code> is
+      <code>/data/db</code> and must exist. On Atlas you must
+      <b>allow your IP</b>, otherwise the connection times out. Never commit the
+      connection string with the password; keep it in <code>.env</code>.
+      <code>mongodb+srv://</code> uses DNS to discover the cluster nodes and
+      enables TLS.
+    </div>
+
+    <!-- ============ 3 ============ -->
+    <h2>3. The Current SQL / NoSQL Landscape</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>SQL (relational)</b> databases store data in tables with a fixed
+      schema, relate them with keys and joins, and guarantee <b>ACID</b>.
+      <b>NoSQL</b> ("Not Only SQL") databases drop the rigid relational model to
+      gain flexible schemas, horizontal scalability and performance for specific
+      workloads. Modern systems are <b>polyglot</b>: one application often uses
+      several kinds of database.
+    </p>
+    <h3>Types of NoSQL Databases</h3>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Data model</th>
+        <th>Best for</th>
+        <th>Examples</th>
+      </tr>
+      <tr>
+        <td><b>Document</b></td>
+        <td>JSON/BSON documents in collections</td>
+        <td>Catalogues, CMS, user profiles, APIs</td>
+        <td>MongoDB, CouchDB, Firestore</td>
+      </tr>
+      <tr>
+        <td><b>Key-Value</b></td>
+        <td>key → opaque value</td>
+        <td>Caching, sessions, counters</td>
+        <td>Redis, DynamoDB, Memcached</td>
+      </tr>
+      <tr>
+        <td><b>Wide-column</b></td>
+        <td>Rows with dynamic column families</td>
+        <td>Huge write-heavy time-series, IoT</td>
+        <td>Cassandra, HBase</td>
+      </tr>
+      <tr>
+        <td><b>Graph</b></td>
+        <td>Nodes + edges</td>
+        <td>Social networks, recommendations, fraud</td>
+        <td>Neo4j, Amazon Neptune</td>
+      </tr>
+      <tr>
+        <td><b>Search / Vector</b></td>
+        <td>Inverted index / embeddings</td>
+        <td>Full-text and AI similarity search</td>
+        <td>Elasticsearch, Pinecone</td>
+      </tr>
+    </table>
+    <h3>SQL vs NoSQL (MongoDB)</h3>
+    <table>
+      <tr>
+        <th>Aspect</th>
+        <th>SQL (MySQL, PostgreSQL)</th>
+        <th>MongoDB</th>
+      </tr>
+      <tr>
+        <td>Structure</td>
+        <td>Tables, rows, columns</td>
+        <td>Collections, documents, fields</td>
+      </tr>
+      <tr>
+        <td>Schema</td>
+        <td>Fixed, defined first</td>
+        <td>Flexible (optional validation)</td>
+      </tr>
+      <tr>
+        <td>Relationships</td>
+        <td>Foreign keys + <code>JOIN</code></td>
+        <td>Embedding or references; <code>$lookup</code></td>
+      </tr>
+      <tr>
+        <td>Query language</td>
+        <td>SQL</td>
+        <td>MQL (JSON-style) + aggregation pipeline</td>
+      </tr>
+      <tr>
+        <td>Scaling</td>
+        <td>Mostly vertical (bigger server)</td>
+        <td>Horizontal (sharding) built-in</td>
+      </tr>
+      <tr>
+        <td>Transactions</td>
+        <td>Strong ACID, mature</td>
+        <td>
+          ACID for multi-document (with some cost); single-document always
+          atomic
+        </td>
+      </tr>
+      <tr>
+        <td>Normalisation</td>
+        <td>Normalise, avoid duplication</td>
+        <td>Often denormalise for read speed</td>
+      </tr>
+      <tr>
+        <td>Best fit</td>
+        <td>Complex joins, finance, strict integrity</td>
+        <td>Evolving data, hierarchical data, high volume</td>
+      </tr>
+    </table>
+    <h3>Terminology Mapping</h3>
+    <table>
+      <tr>
+        <th>SQL</th>
+        <th>MongoDB</th>
+      </tr>
+      <tr>
+        <td>Database</td>
+        <td>Database</td>
+      </tr>
+      <tr>
+        <td>Table</td>
+        <td>Collection</td>
+      </tr>
+      <tr>
+        <td>Row / Record</td>
+        <td>Document</td>
+      </tr>
+      <tr>
+        <td>Column</td>
+        <td>Field</td>
+      </tr>
+      <tr>
+        <td>Primary key</td>
+        <td><code>_id</code> field (auto <code>ObjectId</code>)</td>
+      </tr>
+      <tr>
+        <td>Index</td>
+        <td>Index</td>
+      </tr>
+      <tr>
+        <td><code>JOIN</code></td>
+        <td><code>$lookup</code> / embedded documents</td>
+      </tr>
+      <tr>
+        <td><code>GROUP BY</code></td>
+        <td><code>$group</code> (aggregation)</td>
+      </tr>
+    </table>
+    <h3>SQL → MongoDB query translation</h3>
+    <pre><code>-- SQL
+SELECT name, age FROM users WHERE age &gt;= 18 AND city = 'Delhi' ORDER BY age DESC LIMIT 5;
+
+// MongoDB
+db.users.find({ age: { $gte: 18 }, city: "Delhi" }, { name: 1, age: 1, _id: 0 })
+        .sort({ age: -1 }).limit(5);
+
+-- SQL: INSERT INTO users (name, age) VALUES ('Asha', 22);
+db.users.insertOne({ name: "Asha", age: 22 });
+
+-- SQL: UPDATE users SET age = 23 WHERE name = 'Asha';
+db.users.updateOne({ name: "Asha" }, { $set: { age: 23 } });
+
+-- SQL: DELETE FROM users WHERE name = 'Asha';
+db.users.deleteOne({ name: "Asha" });</code></pre>
+    <h3>ACID vs BASE and CAP theorem</h3>
+    <table>
+      <tr>
+        <th>ACID (relational)</th>
+        <th>BASE (many NoSQL)</th>
+      </tr>
+      <tr>
+        <td><b>A</b>tomicity: all-or-nothing</td>
+        <td><b>B</b>asically <b>A</b>vailable: system stays responsive</td>
+      </tr>
+      <tr>
+        <td><b>C</b>onsistency: valid state always</td>
+        <td><b>S</b>oft state: state may change without input</td>
+      </tr>
+      <tr>
+        <td><b>I</b>solation: concurrent transactions do not interfere</td>
+        <td><b>E</b>ventual consistency: replicas converge over time</td>
+      </tr>
+      <tr>
+        <td><b>D</b>urability: committed data survives crashes</td>
+        <td></td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ CAP theorem: a distributed store can guarantee only TWO of three
+            Consistency
+               /\
+              /  \
+   CA (RDBMS) /    \ CP  ← MongoDB (default: favours consistency; primary handles writes)
+            /______\
+   Availability ── Partition tolerance   AP ← Cassandra, DynamoDB
+ Partitions (network failures) are unavoidable, so real choice is C vs A.
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> NoSQL is <u>not</u> "better" than SQL; it is
+      a different trade-off. Choose by data shape and access pattern, not by
+      fashion.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> NoSQL does <b>not</b> mean "no SQL-like
+      querying" and it does <u>not</u> mean "no ACID": MongoDB offers
+      single-document atomicity and multi-document transactions. MongoDB is
+      classified as a <b>CP</b> system in CAP discussions. Joins exist
+      (<code>$lookup</code>) but are not its strength. Do not say MongoDB is
+      "schema-less so no structure needed".
+    </div>
+
+    <!-- ============ 4 ============ -->
+    <h2>4. Document-Oriented vs Other Types of Storage</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>document-oriented</b> database stores each record as a
+      self-describing, hierarchical document that bundles related data together.
+      This contrasts with <b>relational</b> (flattened across tables),
+      <b>key-value</b> (opaque blob per key), <b>column-family</b> and
+      <b>graph</b> storage.
+    </p>
+    <h3>Same data, different storage models</h3>
+    <pre><code>// RELATIONAL: 3 tables, joined at read time
+users(id, name)                    orders(id, user_id, date)       order_items(order_id, product, qty)
+ 1 | Asha                           10 | 1 | 2026-07-01              10 | Pen   | 3
+                                                                      10 | Book  | 1
+
+// DOCUMENT: one self-contained document, read in a single operation
+{
+  _id: 1, name: "Asha",
+  orders: [
+    { id: 10, date: ISODate("2026-07-01"),
+      items: [ { product: "Pen", qty: 3 }, { product: "Book", qty: 1 } ] }
+  ]
+}
+
+// KEY-VALUE (Redis): value is opaque; you can only fetch by key
+SET user:1 '{"name":"Asha"}'      GET user:1</code></pre>
+    <div class="diagram">
+      <pre>
+ Relational:   users ──&lt; orders ──&lt; order_items      (joins reconstruct the object)
+ Document  :   { user { orders [ { items [ ... ] } ] } }  (object stored as-is: "data that is
+                                                           accessed together is stored together")
+ Graph     :   (Asha)──BOUGHT──►(Pen)──SIMILAR_TO──►(Marker)
+</pre
+      >
+    </div>
+    <h3>Document Model Design: Embed vs Reference</h3>
+    <table>
+      <tr>
+        <th>Embedding (denormalised)</th>
+        <th>Referencing (normalised)</th>
+      </tr>
+      <tr>
+        <td>Sub-document or array inside parent</td>
+        <td>Store another document's <code>_id</code></td>
+      </tr>
+      <tr>
+        <td>One read, fast, atomic update</td>
+        <td>Needs second query or <code>$lookup</code></td>
+      </tr>
+      <tr>
+        <td>
+          Use for "contains" / one-to-few (address, comments of a post limited
+          in size)
+        </td>
+        <td>
+          Use for one-to-many large, many-to-many, data shared by many (users ↔
+          courses)
+        </td>
+      </tr>
+      <tr>
+        <td>Risk: 16 MB doc limit, unbounded growth, duplication</td>
+        <td>Risk: extra round trips, no foreign-key enforcement</td>
+      </tr>
+    </table>
+    <pre><code>// Referencing example
+// courses: { _id: "C1", title: "MERN" }
+// students: { _id: "S1", name: "Asha", courseIds: ["C1"] }
+db.students.aggregate([
+  { $lookup: { from: "courses", localField: "courseIds", foreignField: "_id", as: "courses" } }
+]);</code></pre>
+    <table>
+      <tr>
+        <th>Storage type</th>
+        <th>Strength</th>
+        <th>Weakness</th>
+      </tr>
+      <tr>
+        <td>Document</td>
+        <td>Natural objects, flexible, fast reads, scales out</td>
+        <td>Weaker multi-collection joins, duplication</td>
+      </tr>
+      <tr>
+        <td>Relational</td>
+        <td>Integrity, joins, mature tooling</td>
+        <td>Rigid schema, impedance mismatch with objects</td>
+      </tr>
+      <tr>
+        <td>Key-value</td>
+        <td>Fastest simple lookups</td>
+        <td>No rich queries</td>
+      </tr>
+      <tr>
+        <td>Column-family</td>
+        <td>Massive write throughput</td>
+        <td>Query patterns must be designed up front</td>
+      </tr>
+      <tr>
+        <td>Graph</td>
+        <td>Relationship traversal</td>
+        <td>Not for bulk tabular analytics</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> Design rule for MongoDB:
+      <b>model data according to how the application queries it</b> ("data that
+      is accessed together should be stored together").
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> A document database is <u>not</u> a
+      file/document store like PDFs; "document" means a structured JSON-like
+      record. Embedding unbounded arrays (e.g., every log entry in one document)
+      hits the <b>16 MB</b> limit and hurts performance. Normalising everything
+      like SQL defeats MongoDB's advantage.
+    </div>
+
+    <!-- ============ 5 ============ -->
+    <h2>5. MongoDB Databases</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>database</b> is a physical container for collections. One MongoDB
+      server can host many databases, each with its own files and permissions.
+    </p>
+    <h3>Built-in databases</h3>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>admin</code></td>
+        <td>Administration, users and roles; special commands run here</td>
+      </tr>
+      <tr>
+        <td><code>local</code></td>
+        <td>
+          Server-local data such as the replication oplog; never replicated
+        </td>
+      </tr>
+      <tr>
+        <td><code>config</code></td>
+        <td>Sharded-cluster metadata</td>
+      </tr>
+      <tr>
+        <td><code>test</code></td>
+        <td>Default db a bare <code>mongosh</code> session starts in</td>
+      </tr>
+    </table>
+    <h3>Database commands</h3>
+    <pre><code>show dbs                       // list databases (only non-empty ones appear)
+db                             // print the CURRENT database name
+use shopDB                     // switch to shopDB (created lazily on first write!)
+db.getName()
+db.stats()                     // size, collections, indexes
+db.dropDatabase()              // permanently deletes the CURRENT database
+db.getSiblingDB("other")       // reference another db without switching
+db.runCommand({ listDatabases: 1 })
+
+// Example of lazy creation
+use blogDB                     // switched, but not yet on disk
+show dbs                       // blogDB NOT listed
+db.posts.insertOne({ title: "Hi" })   // first write creates database + collection
+show dbs                       // blogDB now appears</code></pre>
+    <pre><code>// Node.js driver
+const db = client.db("shopDB");
+const dbs = await client.db().admin().listDatabases();
+await db.dropDatabase();</code></pre>
+    <h3>Naming rules</h3>
+    <ul>
+      <li>Case-sensitive; max 64 characters; cannot be empty.</li>
+      <li>
+        Cannot contain: <code>/ \ . " $ * &lt; &gt; : | ?</code> space or null
+        character.
+      </li>
+      <li>
+        Avoid reserved names <code>admin, local, config</code>. Lower-case is
+        convention (on Windows names differing only by case clash).
+      </li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ mongod
+  ├── admin
+  ├── local
+  ├── config
+  ├── shopDB   ── products, orders, users
+  └── blogDB   ── posts, comments
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>use dbname</code> does <u>not</u> create
+      the database; the first insert does. <code>show dbs</code> hides empty
+      databases. <code>db.dropDatabase()</code> drops whichever database you are
+      currently in, so check with <code>db</code> first. Database names are
+      <b>case-sensitive</b> (<code>Shop</code> ≠ <code>shop</code>).
+    </div>
+
+    <!-- ============ 6 ============ -->
+    <h2>6. MongoDB Collections</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>collection</b> is a group of documents inside a database (analogous
+      to a table). Collections do not enforce a schema by default, but documents
+      are normally related by purpose (e.g., <code>users</code>,
+      <code>products</code>).
+    </p>
+    <pre><code>use shopDB
+
+// Implicit creation: on first insert
+db.products.insertOne({ name: "Pen", price: 10 });
+
+// Explicit creation with options
+db.createCollection("orders");
+
+// Capped collection: fixed size, FIFO, insertion order kept (logs, caches)
+db.createCollection("logs", { capped: true, size: 1048576, max: 5000 });
+
+// Collection with schema validation
+db.createCollection("students", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["name", "age"],
+      properties: {
+        name: { bsonType: "string", description: "must be a string" },
+        age:  { bsonType: "int", minimum: 16, maximum: 60 },
+        email:{ bsonType: "string", pattern: "^.+@.+$" }
+      }
+    }
+  },
+  validationLevel: "strict",     // or "moderate"
+  validationAction: "error"      // or "warn"
+});
+
+show collections                 // list collections in the current db
+db.getCollectionNames()
+db.products.countDocuments()     // exact count
+db.products.estimatedDocumentCount()   // fast, from metadata
+db.products.stats()
+db.products.renameCollection("items")
+db.products.drop()               // delete the collection (+ its indexes)
+
+// Time-series collection (sensor data)
+db.createCollection("sensor", { timeseries: { timeField: "ts", metaField: "deviceId" } });</code></pre>
+    <table>
+      <tr>
+        <th>Collection type</th>
+        <th>Feature</th>
+      </tr>
+      <tr>
+        <td>Standard</td>
+        <td>Default, unlimited growth</td>
+      </tr>
+      <tr>
+        <td>Capped</td>
+        <td>
+          Fixed size; oldest documents overwritten; cannot delete individual
+          documents
+        </td>
+      </tr>
+      <tr>
+        <td>Time-series</td>
+        <td>Optimised for timestamped measurements</td>
+      </tr>
+      <tr>
+        <td>View</td>
+        <td>
+          Read-only virtual collection from an aggregation pipeline
+          (<code>db.createView()</code>)
+        </td>
+      </tr>
+      <tr>
+        <td>Validated</td>
+        <td>Has <code>$jsonSchema</code> rules</td>
+      </tr>
+    </table>
+    <h3>Collection naming rules</h3>
+    <ul>
+      <li>
+        Must begin with a letter or underscore; cannot be empty; cannot contain
+        <code>$</code> or the null character.
+      </li>
+      <li>
+        Cannot start with <code>system.</code> (reserved). Use plural lowercase
+        names by convention (<code>users</code>).
+      </li>
+      <li>
+        Mongoose automatically pluralises and lower-cases model names (<code
+          >User</code
+        >
+        → <code>users</code>).
+      </li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ shopDB
+  ├── products   [ {..}, {..}, {..} ]   ← documents need NOT share identical fields
+  ├── orders     [ {..}, {..} ]
+  └── logs (capped, 1 MB)  [ oldest ◄──────────── newest ]  ring buffer
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Collections are created on first insert too.
+      In a <b>capped</b> collection you cannot remove single documents or grow
+      beyond the size; oldest entries are overwritten automatically.
+      <code>drop()</code> removes the whole collection, whereas
+      <code>deleteMany({})</code> removes documents but keeps the collection and
+      its indexes. Schema validation applies only to <i>new</i> inserts/updates
+      unless <code>validationLevel</code> says otherwise.
+    </div>
+
+    <!-- ============ 7 ============ -->
+    <h2>7. MongoDB Documents</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>document</b> is an ordered set of <b>field : value</b> pairs, stored
+      as BSON; it is the basic unit of data in MongoDB. Maximum size is
+      <b>16 MB</b> (use GridFS for larger files).
+    </p>
+    <pre><code>{
+  _id: ObjectId("665f1c2a9b1e8a3d4c5e6f70"),     // primary key (auto-generated if omitted)
+  name: "Asha",                                    // string
+  age: 22,                                         // number
+  isActive: true,                                  // boolean
+  marks: [78, 85, 91],                             // array
+  address: { city: "Dehradun", pin: "248001" },    // embedded document
+  joined: new Date("2026-07-01"),                  // date
+  cgpa: Decimal128("8.75"),                        // exact decimal
+  photo: null                                      // null
+}</code></pre>
+    <h3>BSON Data Types</h3>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Example</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>String</td>
+        <td><code>"hello"</code></td>
+        <td>UTF-8</td>
+      </tr>
+      <tr>
+        <td>Int32 / Int64 / Double</td>
+        <td>
+          <code>NumberInt(5)</code>, <code>NumberLong(5)</code>,
+          <code>3.14</code>
+        </td>
+        <td>Shell default for plain numbers is Double</td>
+      </tr>
+      <tr>
+        <td>Decimal128</td>
+        <td><code>Decimal128("9.99")</code></td>
+        <td>Use for money</td>
+      </tr>
+      <tr>
+        <td>Boolean</td>
+        <td><code>true</code></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Date</td>
+        <td><code>new Date()</code>, <code>ISODate()</code></td>
+        <td>UTC milliseconds</td>
+      </tr>
+      <tr>
+        <td>ObjectId</td>
+        <td><code>ObjectId()</code></td>
+        <td>12-byte unique id</td>
+      </tr>
+      <tr>
+        <td>Array</td>
+        <td><code>[1,2,3]</code></td>
+        <td>Can mix types</td>
+      </tr>
+      <tr>
+        <td>Object (embedded)</td>
+        <td><code>{a:1}</code></td>
+        <td>Nesting up to 100 levels</td>
+      </tr>
+      <tr>
+        <td>Null, Regex, Binary, Timestamp, MinKey/MaxKey</td>
+        <td></td>
+        <td>Special types</td>
+      </tr>
+    </table>
+    <h3>The <code>_id</code> field and ObjectId</h3>
+    <ul>
+      <li>
+        Every document <b>must</b> have a unique <code>_id</code>; it is the
+        primary key and is automatically indexed (unique).
+      </li>
+      <li>
+        If omitted, MongoDB generates an <b>ObjectId</b>. You may supply your
+        own (number, string, UUID) but it must be unique and immutable.
+      </li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ ObjectId = 12 bytes = 24 hex characters
+ ┌────────────────┬──────────────────┬──────────────┐
+ │ 4 bytes        │ 5 bytes          │ 3 bytes      │
+ │ timestamp(sec) │ random per-process│ incrementing │
+ │                │ value            │ counter      │
+ └────────────────┴──────────────────┴──────────────┘
+ Roughly time-ordered; ObjectId().getTimestamp() returns creation date.
+</pre
+      >
+    </div>
+    <pre><code>const id = new ObjectId();
+id.getTimestamp();                      // creation date
+id.toString();                          // "665f1c2a..."
+db.users.findOne({ _id: ObjectId("665f1c2a9b1e8a3d4c5e6f70") });  // must wrap string!
+
+// Field name rules
+// - strings; cannot contain the null character
+// - should not start with "$" and should avoid "." (dot is used for nested paths)
+// - field order is preserved; duplicate names are not allowed</code></pre>
+    <h3>Dot notation (embedded fields and arrays)</h3>
+    <pre><code>db.users.find({ "address.city": "Dehradun" });   // embedded field
+db.users.find({ "marks.0": 78 });                // array element by index
+// Quotes are required around dotted names</code></pre>
+    <table>
+      <tr>
+        <th>JSON</th>
+        <th>BSON</th>
+      </tr>
+      <tr>
+        <td>Text format</td>
+        <td>Binary format</td>
+      </tr>
+      <tr>
+        <td>Limited types (string, number, bool, null, array, object)</td>
+        <td>Adds Date, ObjectId, Decimal128, Binary, Int32/64...</td>
+      </tr>
+      <tr>
+        <td>Human-readable</td>
+        <td>Machine-efficient, traversable (stores lengths)</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> A string id is not an ObjectId:
+      <code>find({_id: "665f..."})</code> returns nothing; wrap it with
+      <code>ObjectId("...")</code>. <code>_id</code> cannot be changed after
+      insertion. Plain numbers in the shell are stored as <b>Double</b>, so use
+      <code>NumberInt</code> / <code>Decimal128</code> where type matters (and
+      for money avoid float). Max document size is <b>16 MB</b>; max nesting
+      depth 100.
+    </div>
+
+    <!-- ============ 8 ============ -->
+    <h2>8. CRUD Operations in MongoDB</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>CRUD</b> = <b>C</b>reate, <b>R</b>ead, <b>U</b>pdate, <b>D</b>elete:
+      the four fundamental data operations. Every one targets a collection and
+      (except create) uses a <b>filter</b> document to choose which documents
+      are affected.
+    </p>
+    <table>
+      <tr>
+        <th>Operation</th>
+        <th>Modern methods</th>
+        <th>SQL equivalent</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td><b>Create</b></td>
+        <td><code>insertOne()</code>, <code>insertMany()</code></td>
+        <td><code>INSERT</code></td>
+        <td><code>{acknowledged, insertedId(s)}</code></td>
+      </tr>
+      <tr>
+        <td><b>Read</b></td>
+        <td><code>find()</code>, <code>findOne()</code></td>
+        <td><code>SELECT</code></td>
+        <td>Cursor / one document</td>
+      </tr>
+      <tr>
+        <td><b>Update</b></td>
+        <td>
+          <code>updateOne()</code>, <code>updateMany()</code>,
+          <code>replaceOne()</code>
+        </td>
+        <td><code>UPDATE</code></td>
+        <td><code>{matchedCount, modifiedCount, upsertedId}</code></td>
+      </tr>
+      <tr>
+        <td><b>Delete</b></td>
+        <td><code>deleteOne()</code>, <code>deleteMany()</code></td>
+        <td><code>DELETE</code></td>
+        <td><code>{deletedCount}</code></td>
+      </tr>
+    </table>
+    <h3>End-to-end walkthrough (mongosh)</h3>
+    <pre><code>use school
+
+// CREATE
+db.students.insertOne({ name: "Asha", age: 22, course: "MCA", marks: [78, 85] });
+db.students.insertMany([
+  { name: "Ravi",  age: 24, course: "MCA", marks: [66, 72] },
+  { name: "Meera", age: 21, course: "BCA", marks: [90, 88] }
+]);
+
+// READ
+db.students.find();                                  // all
+db.students.find({ course: "MCA" });                 // filter
+db.students.findOne({ name: "Asha" });               // first match
+db.students.find({ age: { $gt: 21 } }, { name: 1, _id: 0 });   // projection
+
+// UPDATE
+db.students.updateOne({ name: "Asha" }, { $set: { age: 23 } });
+db.students.updateMany({ course: "MCA" }, { $inc: { age: 1 } });
+
+// DELETE
+db.students.deleteOne({ name: "Ravi" });
+db.students.deleteMany({ course: "BCA" });</code></pre>
+    <h3>Same CRUD in an Express REST API (Node driver)</h3>
+    <pre><code>const { MongoClient, ObjectId } = require("mongodb");
+const students = client.db("school").collection("students");
+
+app.post("/students", async (req, res) =&gt; {                       // CREATE
+  const r = await students.insertOne(req.body);
+  res.status(201).json({ _id: r.insertedId });
+});
+app.get("/students", async (req, res) =&gt; {                        // READ
+  res.json(await students.find().toArray());                       // cursor → array
+});
+app.put("/students/:id", async (req, res) =&gt; {                    // UPDATE
+  const r = await students.updateOne({ _id: new ObjectId(req.params.id) }, { $set: req.body });
+  res.json({ matched: r.matchedCount, modified: r.modifiedCount });
+});
+app.delete("/students/:id", async (req, res) =&gt; {                 // DELETE
+  const r = await students.deleteOne({ _id: new ObjectId(req.params.id) });
+  res.json({ deleted: r.deletedCount });
+});</code></pre>
+    <div class="diagram">
+      <pre>
+ HTTP verb   CRUD     Mongo method                 Result
+ POST        Create   insertOne / insertMany       insertedId
+ GET         Read     find / findOne               documents
+ PUT/PATCH   Update   updateOne / replaceOne       matchedCount, modifiedCount
+ DELETE      Delete   deleteOne / deleteMany       deletedCount
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>find()</code> returns a <b>cursor</b>,
+      not an array; in Node call <code>.toArray()</code> (and it is lazy: shell
+      shows only 20 documents, type <code>it</code> for more).
+      <code>matchedCount</code> vs <code>modifiedCount</code> differ when the
+      new value equals the old one. All single-document operations are
+      <b>atomic</b>. Writes are acknowledged by default (<code>w: 1</code>).
+    </div>
+
+    <!-- ============ 9 ============ -->
+    <h2>9. MongoDB Methods: insert(), update(), save(), find(), delete()</h2>
+    <p>
+      The syllabus names the classic method names. Modern MongoDB (drivers and
+      <code>mongosh</code>) prefers the specific
+      <code>*One / *Many</code> forms. Both are explained below.
+    </p>
+    <table>
+      <tr>
+        <th>Legacy (syllabus)</th>
+        <th>Status</th>
+        <th>Modern replacement</th>
+      </tr>
+      <tr>
+        <td><code>insert()</code></td>
+        <td>Deprecated</td>
+        <td><code>insertOne()</code> / <code>insertMany()</code></td>
+      </tr>
+      <tr>
+        <td><code>update()</code></td>
+        <td>Deprecated</td>
+        <td>
+          <code>updateOne()</code> / <code>updateMany()</code> /
+          <code>replaceOne()</code>
+        </td>
+      </tr>
+      <tr>
+        <td><code>save()</code></td>
+        <td>Deprecated; <b>removed from mongosh</b></td>
+        <td>
+          <code>insertOne()</code> or
+          <code>replaceOne(..., {upsert:true})</code>
+        </td>
+      </tr>
+      <tr>
+        <td><code>find()</code></td>
+        <td>Current</td>
+        <td>(unchanged) + <code>findOne()</code></td>
+      </tr>
+      <tr>
+        <td><code>remove()</code> / "delete"</td>
+        <td><code>remove()</code> deprecated</td>
+        <td><code>deleteOne()</code> / <code>deleteMany()</code></td>
+      </tr>
+    </table>
+
+    <h3>9.1 insert()</h3>
+    <pre><code>// Legacy: accepts a document OR an array
+db.users.insert({ name: "Asha" });
+db.users.insert([{ name: "A" }, { name: "B" }]);
+
+// Modern
+db.users.insertOne({ name: "Asha", age: 22 });
+// → { acknowledged: true, insertedId: ObjectId("...") }
+
+db.users.insertMany([{ name: "Ravi" }, { name: "Meera" }]);
+// → { acknowledged: true, insertedIds: { '0': ObjectId(...), '1': ObjectId(...) } }
+
+// Custom _id; duplicate _id → E11000 duplicate key error
+db.users.insertOne({ _id: 101, name: "Custom" });
+
+// ordered: true (default) stops at first error; false continues with the rest
+db.users.insertMany([{_id:1},{_id:1},{_id:2}], { ordered: false });</code></pre>
+
+    <h3>9.2 find()</h3>
+    <pre><code>db.users.find()                         // all documents (cursor)
+db.users.find({ age: 22 })              // filter
+db.users.findOne({ name: "Asha" })      // single document or null
+
+// Projection (2nd argument): 1 = include, 0 = exclude (cannot mix, except _id)
+db.users.find({}, { name: 1, age: 1 });          // _id included by default
+db.users.find({}, { name: 1, _id: 0 });
+db.users.find({}, { password: 0 });              // hide one field
+
+// Cursor modifiers (chainable)
+db.users.find().sort({ age: -1, name: 1 })       // 1 ascending, -1 descending
+db.users.find().limit(5)
+db.users.find().skip(10).limit(5)                // pagination: page 3 of size 5
+db.users.find().count()                          // deprecated → use countDocuments(filter)
+db.users.countDocuments({ age: { $gt: 20 } })
+db.users.distinct("course")                      // unique values of a field
+db.users.find().pretty()                         // legacy shell only (mongosh pretty-prints)
+db.users.find().explain("executionStats")        // query plan
+
+// Node driver
+const list = await users.find({ age: { $gt: 20 } }).project({ name: 1 }).sort({ age: -1 }).limit(10).toArray();</code></pre>
+
+    <h3>9.3 update()</h3>
+    <pre><code>// Legacy update(query, update, options)
+db.users.update({ name: "Asha" }, { $set: { age: 23 } });                     // ONE doc (default)
+db.users.update({ course: "MCA" }, { $set: { year: 2 } }, { multi: true });   // ALL matches
+db.users.update({ name: "Zed" }, { $set: { age: 30 } }, { upsert: true });    // insert if none
+
+// DANGER (legacy): update WITHOUT an operator REPLACES the whole document
+db.users.update({ name: "Asha" }, { age: 25 });      // doc becomes { _id, age: 25 } !!
+
+// Modern, safer
+db.users.updateOne({ name: "Asha" }, { $set: { age: 23 } });
+db.users.updateMany({ course: "MCA" }, { $set: { year: 2 } });
+db.users.replaceOne({ name: "Asha" }, { name: "Asha", age: 25 });   // explicit full replace
+// Result: { acknowledged, matchedCount, modifiedCount, upsertedId, upsertedCount }</code></pre>
+
+    <h3>9.4 save() (legacy)</h3>
+    <p>
+      <code>save(doc)</code> was a shortcut:
+      <b
+        >if the document has an <code>_id</code> that exists → replace it;
+        otherwise → insert it</b
+      >. It is removed from <code>mongosh</code>.
+    </p>
+    <pre><code>// Legacy mongo shell behaviour
+db.users.save({ name: "New" });                       // no _id → INSERT
+db.users.save({ _id: 101, name: "Changed", age: 30 }); // _id exists → REPLACE whole doc
+                                                       // _id not found → INSERT with that _id
+
+// Modern equivalents
+db.users.insertOne({ name: "New" });
+db.users.replaceOne({ _id: 101 }, { name: "Changed", age: 30 }, { upsert: true });</code></pre>
+
+    <h3>9.5 delete() / remove()</h3>
+    <pre><code>// There is no db.collection.delete(); the methods are:
+db.users.deleteOne({ name: "Asha" });      // first match only → { acknowledged, deletedCount: 1 }
+db.users.deleteMany({ age: { $lt: 18 } }); // all matches
+db.users.deleteMany({});                    // ALL documents (collection and indexes remain)
+
+// Legacy
+db.users.remove({ name: "Asha" });                  // removes ALL matches by default
+db.users.remove({ name: "Asha" }, { justOne: true });
+db.users.remove({});                                // all documents</code></pre>
+    <div class="diagram">
+      <pre>
+ save(doc):                         update(q, u):
+   has _id? ──no──► INSERT            u has $operators? ─yes─► MODIFY fields
+      │yes                                   │no
+      ▼                                      ▼
+   _id exists? ─yes─► REPLACE doc        REPLACE entire document (keeps _id)
+      │no ─► INSERT
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap (very high-yield):</b>
+      <ul>
+        <li>
+          Legacy <code>update()</code> changes only <b>one</b> document unless
+          <code>{multi:true}</code>; legacy <code>remove()</code> deletes
+          <b>all</b> matches unless <code>{justOne:true}</code> (opposite
+          defaults!).
+        </li>
+        <li>
+          <code>update(filter, {age: 25})</code> without <code>$set</code>
+          <u>replaces</u> the document; this is the classic data-loss mistake.
+          <code>updateOne</code> rejects a document without operators.
+        </li>
+        <li>
+          <code>save()</code> = insert-or-replace based on <code>_id</code>; it
+          does <u>not</u> merge fields.
+        </li>
+        <li>
+          <code>insertMany</code>: <code>ordered:true</code> stops at first
+          failure; <code>ordered:false</code> continues.
+        </li>
+        <li>
+          Projection cannot mix inclusion and exclusion (except
+          <code>_id: 0</code>).
+        </li>
+        <li>
+          There is no <code>db.collection.delete()</code>; use
+          <code>deleteOne</code>/<code>deleteMany</code>.
+        </li>
+      </ul>
+    </div>
+
+    <!-- ============ 10 ============ -->
+    <h2>10. Working with Equality</h2>
+    <h3>Core Concept</h3>
+    <p>
+      The simplest query is an <b>equality match</b>:
+      <code>{ field: value }</code> returns documents where the field equals the
+      value. It is shorthand for <code>{ field: { $eq: value } }</code>.
+      Multiple fields in one filter are combined with an implicit <b>AND</b>.
+    </p>
+    <pre><code>// Sample data
+db.people.insertMany([
+  { _id: 1, name: "Asha", age: 22, city: "Delhi",  tags: ["js", "node"], address: { city: "Delhi", pin: "110001" }, phone: null },
+  { _id: 2, name: "Ravi", age: 24, city: "Pune",   tags: ["java"],       address: { city: "Pune",  pin: "411001" } },
+  { _id: 3, name: "Meera",age: 22, city: "Delhi",  tags: ["node", "js"], address: { pin: "110002", city: "Delhi" } }
+]);
+
+// 1. Basic equality
+db.people.find({ name: "Asha" });                 // = { name: { $eq: "Asha" } }
+
+// 2. Multiple conditions = implicit AND
+db.people.find({ age: 22, city: "Delhi" });       // _id 1 and 3
+
+// 3. Embedded document: EXACT match (field order and all fields matter!)
+db.people.find({ address: { city: "Delhi", pin: "110001" } });   // matches _id 1 ONLY
+db.people.find({ address: { pin: "110002", city: "Delhi" } });   // matches _id 3 only (order differs)
+db.people.find({ address: { city: "Delhi" } });                  // matches NOTHING (not exact)
+
+// 3b. Dot notation: match one embedded field (preferred)
+db.people.find({ "address.city": "Delhi" });                     // _id 1 and 3
+
+// 4. Array equality
+db.people.find({ tags: "node" });                 // array CONTAINS "node" → _id 1 and 3
+db.people.find({ tags: ["node", "js"] });         // EXACT array, same order → _id 3 only
+db.people.find({ "tags.0": "js" });               // first element is "js" → _id 1
+db.people.find({ tags: { $size: 2 } });           // array length
+
+// 5. null matches null AND missing fields
+db.people.find({ phone: null });                  // _id 1 (null) + _id 2, 3 (field missing)
+db.people.find({ phone: { $exists: false } });    // only 2 and 3 (field absent)
+db.people.find({ phone: { $type: "null" } });     // only 1 (explicit null)
+
+// 6. _id equality needs ObjectId for auto ids
+db.people.find({ _id: 2 });                       // custom numeric _id here
+db.users.find({ _id: ObjectId("665f1c2a9b1e8a3d4c5e6f70") });
+
+// 7. Type matters: no automatic coercion
+db.people.find({ age: "22" });                    // nothing (string ≠ number)
+
+// 8. Case-sensitive strings
+db.people.find({ city: "delhi" });                // nothing
+db.people.find({ city: /^delhi$/i });             // case-insensitive via regex
+
+// 9. Explicit $eq (needed inside operators like $and/$or/aggregation)
+db.people.find({ $and: [{ age: { $eq: 22 } }, { city: { $eq: "Delhi" } }] });</code></pre>
+    <table>
+      <tr>
+        <th>Query</th>
+        <th>What it really means</th>
+      </tr>
+      <tr>
+        <td><code>{ tags: "node" }</code></td>
+        <td>Array contains element "node"</td>
+      </tr>
+      <tr>
+        <td><code>{ tags: ["node","js"] }</code></td>
+        <td>Array equals exactly this array (order matters)</td>
+      </tr>
+      <tr>
+        <td><code>{ address: {city:"Delhi"} }</code></td>
+        <td>Embedded doc equals exactly this doc</td>
+      </tr>
+      <tr>
+        <td><code>{ "address.city": "Delhi" }</code></td>
+        <td>That one field equals "Delhi"</td>
+      </tr>
+      <tr>
+        <td><code>{ phone: null }</code></td>
+        <td>null OR field does not exist</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> Equality on a field that holds an
+      <b>array</b> succeeds if <u>any element</u> equals the value, unless you
+      pass the whole array (then it must match exactly).
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Embedded document equality is
+      <b>exact and order-sensitive</b>; use <b>dot notation</b> instead.
+      <code>{field: null}</code> also matches documents where the field is
+      missing. <code>"22"</code> ≠ <code>22</code>. String comparison is
+      case-sensitive. Dotted field names must be in quotes. Two same keys in one
+      filter object (<code>{age:20, age:30}</code>) overwrite each other; use
+      <code>$or</code>/<code>$and</code>.
+    </div>
+
+    <!-- ============ 11 ============ -->
+    <h2>11. Query Operators</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Query operators</b> start with <code>$</code> and let a filter express
+      more than equality: comparison, logic, existence, patterns and array
+      conditions. Syntax: <code>{ field: { $operator: value } }</code>.
+    </p>
+    <h3>Comparison operators</h3>
+    <table>
+      <tr>
+        <th>Operator</th>
+        <th>Meaning</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td><code>$eq</code></td>
+        <td>Equal</td>
+        <td><code>{ age: { $eq: 22 } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$ne</code></td>
+        <td>Not equal (also matches missing field)</td>
+        <td><code>{ city: { $ne: "Delhi" } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$gt</code> / <code>$gte</code></td>
+        <td>Greater than / or equal</td>
+        <td><code>{ age: { $gte: 18 } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$lt</code> / <code>$lte</code></td>
+        <td>Less than / or equal</td>
+        <td><code>{ price: { $lt: 500 } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$in</code></td>
+        <td>Equals any value in the list</td>
+        <td><code>{ city: { $in: ["Delhi","Pune"] } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$nin</code></td>
+        <td>Equals none (also missing field)</td>
+        <td><code>{ city: { $nin: ["Delhi"] } }</code></td>
+      </tr>
+    </table>
+    <pre><code>db.people.find({ age: { $gte: 22, $lte: 30 } });            // range: 22..30 (same field, both ops in one object)
+db.people.find({ city: { $in: ["Delhi", "Pune"] } });
+db.people.find({ name: { $in: [/^A/, /^R/] } });            // $in accepts regex too</code></pre>
+    <h3>Logical operators</h3>
+    <table>
+      <tr>
+        <th>Operator</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td><code>$and</code></td>
+        <td>
+          All conditions true (implicit when comma-separated on different
+          fields)
+        </td>
+      </tr>
+      <tr>
+        <td><code>$or</code></td>
+        <td>At least one condition true</td>
+      </tr>
+      <tr>
+        <td><code>$nor</code></td>
+        <td>None of the conditions true</td>
+      </tr>
+      <tr>
+        <td><code>$not</code></td>
+        <td>Inverts one operator expression on a field</td>
+      </tr>
+    </table>
+    <pre><code>db.people.find({ $or: [{ city: "Delhi" }, { age: { $gt: 23 } }] });
+db.people.find({ $and: [{ age: { $gt: 20 } }, { age: { $lt: 25 } }] });
+db.people.find({ $nor: [{ city: "Pune" }, { age: 30 }] });
+db.people.find({ age: { $not: { $gt: 22 } } });             // age ≤ 22 OR age missing
+// $and is REQUIRED when the same key/operator repeats:
+db.people.find({ $and: [{ $or: [{a:1},{b:2}] }, { $or: [{c:3},{d:4}] }] });</code></pre>
+    <h3>Element operators</h3>
+    <pre><code>db.people.find({ phone: { $exists: true } });        // field present (even if null)
+db.people.find({ age: { $type: "number" } });        // by BSON type name or number
+db.people.find({ _id: { $type: "objectId" } });</code></pre>
+    <h3>Evaluation operators</h3>
+    <pre><code>db.people.find({ name: { $regex: "^a", $options: "i" } });     // or { name: /^a/i }
+db.people.find({ age: { $mod: [2, 0] } });                      // even ages (age % 2 == 0)
+db.people.find({ $expr: { $gt: ["$spent", "$budget"] } });      // compare two fields
+db.articles.find({ $text: { $search: "mongodb tutorial" } });   // needs a text index
+db.people.find({ $where: "this.age &gt; 20" });                   // JS expression: SLOW, avoid</code></pre>
+    <h3>Array operators</h3>
+    <table>
+      <tr>
+        <th>Operator</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td><code>$all</code></td>
+        <td>Array contains <b>all</b> listed elements (any order)</td>
+      </tr>
+      <tr>
+        <td><code>$elemMatch</code></td>
+        <td>One <b>single element</b> satisfies <b>all</b> given conditions</td>
+      </tr>
+      <tr>
+        <td><code>$size</code></td>
+        <td>Array has exactly this length</td>
+      </tr>
+    </table>
+    <pre><code>db.people.find({ tags: { $all: ["js", "node"] } });            // both present
+db.people.find({ tags: { $size: 2 } });
+
+// $elemMatch vs plain conditions
+// scores: [ {sub:"math", mark:90}, {sub:"sci", mark:40} ]
+db.exams.find({ scores: { $elemMatch: { sub: "math", mark: { $gt: 80 } } } });  // SAME element
+db.exams.find({ "scores.sub": "math", "scores.mark": { $lt: 50 } });            // can match DIFFERENT elements!</code></pre>
+    <h3>Projection and cursor helpers</h3>
+    <pre><code>db.exams.find({}, { scores: { $slice: 2 } });            // first 2 array items
+db.exams.find({ "scores.sub": "math" }, { "scores.$": 1 }); // first matching element only</code></pre>
+    <div class="diagram">
+      <pre>
+ Operator families
+  Comparison : $eq $ne $gt $gte $lt $lte $in $nin
+  Logical    : $and $or $nor $not
+  Element    : $exists $type
+  Evaluation : $regex $mod $expr $text $where $jsonSchema
+  Array      : $all $elemMatch $size
+  Geospatial : $near $geoWithin $geoIntersects
+  Bitwise    : $bitsAllSet ...
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Several conditions on <u>one field</u> go in
+      one object: <code>{age:{$gt:20,$lt:30}}</code>; repeating the key
+      <code>{age:{$gt:20}, age:{$lt:30}}</code> keeps only the last.
+      <code>$ne</code> and <code>$nin</code> also return documents where the
+      field is <b>missing</b>. <code>$or</code> takes an <b>array</b> of
+      conditions. <code>$and</code> is implicit for different fields.
+      <code>$not</code> wraps an operator expression
+      (<code>{age:{$not:{$gt:5}}}</code>), it is not a top-level logical like
+      <code>$nor</code>. <code>$elemMatch</code> forces conditions to hit the
+      <u>same</u> array element.
+    </div>
+
+    <!-- ============ 12 ============ -->
+    <h2>12. Building Complex Queries</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Complex queries combine
+      <b
+        >operators, nested logic, embedded paths, projection, sorting,
+        pagination and aggregation</b
+      >
+      to answer real business questions. Build them step by step: start with the
+      simplest filter, then add conditions, test, then add
+      sort/limit/projection.
+    </p>
+    <h3>Step-by-step construction (example: products collection)</h3>
+    <pre><code>// Goal: "Electronics OR Books, priced 100–5000, in stock, rating ≥ 4,
+//        not 'Refurbished', show name+price, cheapest first, 10 per page (page 2)"
+
+db.products.find(
+  {
+    category: { $in: ["Electronics", "Books"] },          // 1. membership
+    price:    { $gte: 100, $lte: 5000 },                   // 2. range
+    stock:    { $gt: 0 },                                   // 3. availability
+    "ratings.avg": { $gte: 4 },                             // 4. embedded field (dot notation)
+    condition: { $ne: "Refurbished" },                      // 5. exclusion
+    $or: [                                                  // 6. either/or branch
+      { brand: "Sony" },
+      { tags: { $all: ["wireless", "bluetooth"] } }
+    ]
+  },
+  { name: 1, price: 1, _id: 0 }                             // 7. projection
+).sort({ price: 1, name: 1 })                               // 8. sort (cheapest first)
+ .skip(10).limit(10);                                       // 9. pagination (page 2)</code></pre>
+    <h3>More patterns</h3>
+    <pre><code>// Nested AND/OR
+db.users.find({ $and: [
+  { $or: [{ city: "Delhi" }, { city: "Pune" }] },
+  { $or: [{ age: { $lt: 18 } }, { age: { $gt: 60 } }] }
+]});
+
+// Date range (last 7 days)
+const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+db.orders.find({ createdAt: { $gte: since } });
+
+// Search / autocomplete (case-insensitive prefix)
+db.users.find({ name: { $regex: "^as", $options: "i" } });
+
+// Array of objects: same-element match
+db.orders.find({ items: { $elemMatch: { product: "Pen", qty: { $gte: 3 } } } });
+
+// Fields that exist and are non-empty
+db.users.find({ email: { $exists: true, $ne: "" } });
+
+// Compare two fields of the same doc
+db.accounts.find({ $expr: { $lt: ["$balance", "$minBalance"] } });
+
+// Top 3 highest marks
+db.students.find().sort({ marks: -1 }).limit(3);
+
+// Dynamic filter built in Express from query string
+app.get("/products", async (req, res) =&gt; {
+  const { category, min, max, q, page = 1, limit = 10, sort = "price" } = req.query;
+  const filter = {};
+  if (category) filter.category = category;
+  if (min || max) filter.price = { ...(min &amp;&amp; { $gte: +min }), ...(max &amp;&amp; { $lte: +max }) };
+  if (q) filter.name = { $regex: q, $options: "i" };
+  const data = await products.find(filter)
+    .sort({ [sort]: 1 })
+    .skip((page - 1) * limit).limit(+limit).toArray();
+  res.json(data);
+});</code></pre>
+    <h3>Aggregation pipeline (for grouping and reports)</h3>
+    <pre><code>// Total sales and average order value per city, only cities with total &gt; 10000
+db.orders.aggregate([
+  { $match:  { status: "paid" } },                                   // 1. filter (like WHERE)
+  { $group:  { _id: "$city", total: { $sum: "$amount" },
+               avg: { $avg: "$amount" }, count: { $sum: 1 } } },     // 2. GROUP BY
+  { $match:  { total: { $gt: 10000 } } },                            // 3. HAVING
+  { $sort:   { total: -1 } },                                        // 4. ORDER BY
+  { $limit:  5 },                                                    // 5. LIMIT
+  { $project:{ _id: 0, city: "$_id", total: 1, avg: { $round: ["$avg", 2] } } }
+]);
+
+// Join with $lookup
+db.orders.aggregate([
+  { $lookup: { from: "users", localField: "userId", foreignField: "_id", as: "user" } },
+  { $unwind: "$user" }
+]);</code></pre>
+    <table>
+      <tr>
+        <th>Stage</th>
+        <th>SQL analogue</th>
+      </tr>
+      <tr>
+        <td><code>$match</code></td>
+        <td><code>WHERE</code> / <code>HAVING</code></td>
+      </tr>
+      <tr>
+        <td><code>$group</code></td>
+        <td><code>GROUP BY</code> + aggregates</td>
+      </tr>
+      <tr>
+        <td><code>$project</code></td>
+        <td><code>SELECT</code> columns / expressions</td>
+      </tr>
+      <tr>
+        <td><code>$sort</code>, <code>$limit</code>, <code>$skip</code></td>
+        <td><code>ORDER BY</code>, <code>LIMIT</code>, <code>OFFSET</code></td>
+      </tr>
+      <tr>
+        <td><code>$lookup</code></td>
+        <td><code>LEFT JOIN</code></td>
+      </tr>
+      <tr>
+        <td><code>$unwind</code></td>
+        <td>Flatten an array into rows</td>
+      </tr>
+    </table>
+    <h3>Making queries fast: indexes and explain</h3>
+    <pre><code>db.products.createIndex({ category: 1, price: 1 });          // compound index (order matters)
+db.users.createIndex({ email: 1 }, { unique: true });
+db.products.getIndexes();
+db.products.find({ category: "Books" }).explain("executionStats");
+// Good: stage IXSCAN, totalDocsExamined ≈ nReturned
+// Bad : stage COLLSCAN (scans every document)</code></pre>
+    <div class="diagram">
+      <pre>
+ Aggregation pipeline (documents flow left → right)
+ collection ─► $match ─► $group ─► $match ─► $sort ─► $limit ─► $project ─► result
+ Put $match and $limit EARLY to reduce the data flowing through.
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> Logical order of cursor modifiers is always
+      <b>sort → skip → limit</b>, regardless of the order you chain them. Large
+      <code>skip()</code> values are slow; for deep pagination use a range
+      filter on an indexed field (e.g., <code>_id &gt; lastId</code>).
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Conditions on different fields are ANDed
+      automatically, but <code>$or</code> must be an array. Unindexed queries
+      cause a <b>COLLSCAN</b>. Regex that does not start with <code>^</code> or
+      uses <code>i</code> cannot use an index efficiently. Query-string values
+      are strings; convert with <code>Number()</code> before comparing to
+      numbers. Never pass raw <code>req.body</code> as a filter (NoSQL
+      injection, e.g., <code>{"password": {"$ne": null}}</code>); validate and
+      sanitise input. In compound index <code>{a:1,b:1}</code> the
+      <b>leftmost prefix</b> rule applies.
+    </div>
+
+    <!-- ============ 13 ============ -->
+    <h2>13. Updating Documents</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Updating changes existing documents in place using
+      <b>update operators</b> so you modify only chosen fields instead of
+      replacing the whole document. Syntax:
+      <code>updateOne(filter, update, options)</code>.
+    </p>
+    <h3>Field update operators</h3>
+    <table>
+      <tr>
+        <th>Operator</th>
+        <th>Effect</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td><code>$set</code></td>
+        <td>Set / add field value</td>
+        <td><code>{ $set: { age: 23, "address.city": "Pune" } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$unset</code></td>
+        <td>Remove field</td>
+        <td><code>{ $unset: { phone: "" } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$inc</code></td>
+        <td>Increment (negative to decrement)</td>
+        <td><code>{ $inc: { stock: -1, views: 1 } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$mul</code></td>
+        <td>Multiply</td>
+        <td><code>{ $mul: { price: 1.1 } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$min</code> / <code>$max</code></td>
+        <td>Update only if new value is smaller / larger</td>
+        <td><code>{ $max: { highScore: 95 } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$rename</code></td>
+        <td>Rename a field</td>
+        <td><code>{ $rename: { fname: "firstName" } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$currentDate</code></td>
+        <td>Set to current date/timestamp</td>
+        <td><code>{ $currentDate: { updatedAt: true } }</code></td>
+      </tr>
+      <tr>
+        <td><code>$setOnInsert</code></td>
+        <td>Set only when upsert inserts</td>
+        <td><code>{ $setOnInsert: { createdAt: new Date() } }</code></td>
+      </tr>
+    </table>
+    <h3>Array update operators</h3>
+    <table>
+      <tr>
+        <th>Operator</th>
+        <th>Effect</th>
+      </tr>
+      <tr>
+        <td><code>$push</code></td>
+        <td>
+          Append element (with <code>$each</code>, <code>$position</code>,
+          <code>$slice</code>, <code>$sort</code>)
+        </td>
+      </tr>
+      <tr>
+        <td><code>$addToSet</code></td>
+        <td>Append only if not already present (unique)</td>
+      </tr>
+      <tr>
+        <td><code>$pull</code></td>
+        <td>Remove all elements matching a condition</td>
+      </tr>
+      <tr>
+        <td><code>$pullAll</code></td>
+        <td>Remove all listed values</td>
+      </tr>
+      <tr>
+        <td><code>$pop</code></td>
+        <td>Remove first (<code>-1</code>) or last (<code>1</code>) element</td>
+      </tr>
+      <tr>
+        <td><code>$</code>, <code>$[]</code>, <code>$[id]</code></td>
+        <td>Positional: first match / all elements / filtered elements</td>
+      </tr>
+    </table>
+    <pre><code>// Basic
+db.users.updateOne({ name: "Asha" }, { $set: { age: 23, city: "Pune" } });
+db.users.updateMany({ city: "Delhi" }, { $set: { zone: "North" } });
+db.users.updateOne({ name: "Asha" }, { $unset: { phone: "" } });
+db.products.updateOne({ _id: 1 }, { $inc: { stock: -1 }, $currentDate: { updatedAt: true } });
+
+// Multiple operators in one atomic update
+db.users.updateOne({ _id: 1 }, {
+  $set:   { status: "active" },
+  $inc:   { loginCount: 1 },
+  $push:  { logins: new Date() }
+});
+
+// Arrays
+db.users.updateOne({ _id: 1 }, { $push: { tags: "mongodb" } });
+db.users.updateOne({ _id: 1 }, { $push: { tags: { $each: ["a", "b"], $slice: -5 } } }); // keep last 5
+db.users.updateOne({ _id: 1 }, { $addToSet: { tags: "node" } });                         // no duplicates
+db.users.updateOne({ _id: 1 }, { $pull: { tags: "old" } });
+db.users.updateOne({ _id: 1 }, { $pop: { tags: 1 } });
+
+// Positional operators
+db.exams.updateOne({ _id: 1, "scores.sub": "math" }, { $set: { "scores.$.mark": 95 } });   // first match
+db.exams.updateOne({ _id: 1 }, { $inc: { "scores.$[].mark": 5 } });                         // ALL elements
+db.exams.updateOne({ _id: 1 }, { $set: { "scores.$[e].grade": "A" } },
+                   { arrayFilters: [{ "e.mark": { $gte: 90 } }] });                         // filtered elements
+
+// Upsert: update if found, otherwise insert
+db.counters.updateOne({ _id: "visits" }, { $inc: { n: 1 }, $setOnInsert: { since: new Date() } }, { upsert: true });
+
+// Replace a whole document (keeps _id)
+db.users.replaceOne({ _id: 1 }, { name: "Asha", age: 25 });
+
+// Pipeline-style update (reference other fields)
+db.orders.updateMany({}, [{ $set: { total: { $multiply: ["$price", "$qty"] } } }]);
+
+// Get the document back (atomic read-modify-write)
+db.users.findOneAndUpdate({ name: "Asha" }, { $inc: { age: 1 } }, { returnDocument: "after" });</code></pre>
+    <h3>Result object</h3>
+    <pre><code>{ acknowledged: true,
+  matchedCount: 1,      // documents that matched the filter
+  modifiedCount: 1,     // documents actually changed (0 if value was already the same)
+  upsertedId: null,     // _id of inserted doc when upsert created one
+  upsertedCount: 0 }</code></pre>
+    <h3>Express update route</h3>
+    <pre><code>app.patch("/users/:id", async (req, res) =&gt; {
+  const { name, age } = req.body;                     // whitelist fields; never spread raw body blindly
+  const r = await users.updateOne({ _id: new ObjectId(req.params.id) }, { $set: { name, age } });
+  if (r.matchedCount === 0) return res.status(404).json({ error: "Not found" });
+  res.json({ modified: r.modifiedCount });
+});</code></pre>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Scope</th>
+        <th>Replaces whole doc?</th>
+      </tr>
+      <tr>
+        <td><code>updateOne</code></td>
+        <td>First match</td>
+        <td>No (needs operators)</td>
+      </tr>
+      <tr>
+        <td><code>updateMany</code></td>
+        <td>All matches</td>
+        <td>No (needs operators)</td>
+      </tr>
+      <tr>
+        <td><code>replaceOne</code></td>
+        <td>First match</td>
+        <td><b>Yes</b> (except <code>_id</code>)</td>
+      </tr>
+      <tr>
+        <td><code>findOneAndUpdate</code></td>
+        <td>First match, returns doc</td>
+        <td>No</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> A multi-operator update on one document is
+      <b>atomic</b>, so counters like <code>$inc</code> are safe under
+      concurrency (unlike read → modify → save in application code).
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Forgetting <code>$set</code> in legacy
+      <code>update()</code> replaces the whole document. <code>_id</code> cannot
+      be modified. <code>$set</code> on a missing field <b>creates</b> it.
+      <code>$push</code> allows duplicates; <code>$addToSet</code> does not.
+      <code>modifiedCount</code> can be 0 even when <code>matchedCount</code> is
+      1. <code>$</code> updates only the <b>first</b> matching array element;
+      use <code>$[]</code> for all. You cannot use the same field in two
+      operators in one update (conflict error). <code>upsert</code> with
+      <code>_id</code>-less filters generates a new ObjectId. Using
+      <code>$inc</code> on a non-numeric field throws an error.
+    </div>
+
+    <!-- ============ 14 ============ -->
+    <h2>14. Deleting Documents</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Deletion permanently removes documents that match a filter. Deletes are
+      <b>irreversible</b> (no recycle bin), so always test the filter with
+      <code>find()</code> first.
+    </p>
+    <pre><code>// Preview what would be deleted
+db.users.find({ status: "inactive" });
+db.users.countDocuments({ status: "inactive" });
+
+// Delete ONE (first match)
+db.users.deleteOne({ name: "Asha" });
+// → { acknowledged: true, deletedCount: 1 }
+
+// Delete MANY
+db.users.deleteMany({ status: "inactive" });
+db.users.deleteMany({ createdAt: { $lt: new Date("2025-01-01") } });
+
+// Delete by _id (most common in APIs)
+db.users.deleteOne({ _id: ObjectId("665f1c2a9b1e8a3d4c5e6f70") });
+
+// Delete ALL documents (collection + indexes stay)
+db.users.deleteMany({});
+
+// Delete and return the removed document
+db.users.findOneAndDelete({ name: "Ravi" });
+
+// Legacy
+db.users.remove({ name: "Asha" });                       // removes ALL matches
+db.users.remove({ name: "Asha" }, { justOne: true });    // only first
+
+// Remove only part of a document → that is an UPDATE, not a delete
+db.users.updateOne({ _id: 1 }, { $unset: { phone: "" } });         // delete a field
+db.users.updateOne({ _id: 1 }, { $pull: { tags: "old" } });        // delete an array element
+
+// Drop whole collection / database
+db.users.drop();               // removes collection AND its indexes (fast)
+db.dropDatabase();</code></pre>
+    <h3>Express DELETE route</h3>
+    <pre><code>app.delete("/users/:id", async (req, res) =&gt; {
+  if (!ObjectId.isValid(req.params.id)) return res.status(400).json({ error: "Invalid id" });
+  const r = await users.deleteOne({ _id: new ObjectId(req.params.id) });
+  if (r.deletedCount === 0) return res.status(404).json({ error: "Not found" });
+  res.sendStatus(204);                                   // 204 No Content
+});</code></pre>
+    <h3>Safer alternatives</h3>
+    <pre><code>// 1. Soft delete: mark instead of removing (can restore, keep audit trail)
+db.users.updateOne({ _id: 1 }, { $set: { isDeleted: true, deletedAt: new Date() } });
+db.users.find({ isDeleted: { $ne: true } });             // normal queries hide them
+
+// 2. TTL index: MongoDB auto-deletes documents after a time (sessions, OTPs, logs)
+db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 });   // 1 hour
+// (the TTL monitor runs about once a minute, so deletion is not instant)
+
+// 3. Transaction for multi-collection deletes (replica set / Atlas)
+const session = client.startSession();
+await session.withTransaction(async () =&gt; {
+  await db.collection("orders").deleteMany({ userId: 1 }, { session });
+  await db.collection("users").deleteOne({ _id: 1 }, { session });
+});</code></pre>
+    <table>
+      <tr>
+        <th>Goal</th>
+        <th>Use</th>
+        <th>Collection / indexes kept?</th>
+      </tr>
+      <tr>
+        <td>Delete one document</td>
+        <td><code>deleteOne(filter)</code></td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Delete matching documents</td>
+        <td><code>deleteMany(filter)</code></td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Empty the collection</td>
+        <td><code>deleteMany({})</code></td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Remove the collection itself</td>
+        <td><code>drop()</code></td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>Remove the database</td>
+        <td><code>dropDatabase()</code></td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>Remove one field</td>
+        <td><code>updateOne + $unset</code></td>
+        <td>(update, not delete)</td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ deleteOne({..})      → removes 1 document
+ deleteMany({..})     → removes all matching documents
+ deleteMany({})       → collection becomes empty (still exists, indexes remain)
+ drop()               → collection gone (also its indexes)       ← faster for clearing everything
+ dropDatabase()       → entire database gone
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>deleteMany({})</code> with an
+      <b>empty filter</b> wipes every document; a typo that yields
+      <code>{}</code> (e.g., an undefined variable in a filter object) is a
+      classic production disaster. <code>deleteOne</code> removes only the
+      <i>first</i> match, and "first" is not guaranteed to be the oldest unless
+      you control it with a unique filter like <code>_id</code>. Legacy
+      <code>remove()</code> deletes <b>all</b> matches by default. Deleting
+      documents from a <b>capped</b> collection is not allowed.
+      <code>deletedCount: 0</code> is not an error; check it to return 404.
+      Always validate <code>ObjectId</code> strings with
+      <code>ObjectId.isValid()</code> to avoid a 500 error. There is no undo:
+      back up with <code>mongodump</code> or use soft delete.
+    </div>
+
+    <h2>Unit V: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          <b>MongoDB:</b> document-oriented NoSQL, BSON, collections of
+          documents, flexible schema, default port 27017,
+          <code>mongod</code> (server) vs <code>mongosh</code> (shell).
+        </li>
+        <li>
+          <b>Install:</b> Community Server / Atlas / Docker; start the service;
+          verify with <code>mongosh</code>; connection string
+          <code>mongodb://</code> vs <code>mongodb+srv://</code>.
+        </li>
+        <li>
+          <b>SQL vs NoSQL:</b> table↔collection, row↔document, column↔field,
+          JOIN↔<code>$lookup</code>/embedding; ACID vs BASE; CAP (MongoDB = CP);
+          4+ NoSQL types.
+        </li>
+        <li>
+          <b>Document model:</b> embed (one-to-few, read together) vs reference
+          (large/many-to-many); 16 MB limit.
+        </li>
+        <li>
+          <b>Database / collection:</b> lazy creation, <code>use</code>,
+          <code>show dbs</code>, <code>show collections</code>,
+          <code>createCollection</code>, capped, validation,
+          <code>drop</code> vs <code>deleteMany({})</code>.
+        </li>
+        <li>
+          <b>Document:</b> <code>_id</code> (ObjectId 12 bytes = timestamp +
+          random + counter), BSON types, dot notation.
+        </li>
+        <li>
+          <b>CRUD:</b> insertOne/Many, find/findOne, updateOne/Many/replaceOne,
+          deleteOne/Many; result objects.
+        </li>
+        <li>
+          <b>Legacy methods:</b> <code>update</code> default one doc and needs
+          <code>$set</code>; <code>remove</code> default all;
+          <code>save</code> = insert-or-replace by <code>_id</code>.
+        </li>
+        <li>
+          <b>Equality:</b> implicit AND; exact embedded-doc and exact array
+          match; <code>null</code> matches missing; type and case sensitive.
+        </li>
+        <li>
+          <b>Operators:</b> comparison (<code>$gt $in $ne ...</code>), logical
+          (<code>$and $or $nor $not</code>), element (<code>$exists $type</code
+          >), evaluation (<code>$regex $expr</code>), array (<code
+            >$all $elemMatch $size</code
+          >).
+        </li>
+        <li>
+          <b>Complex queries:</b> combine filter + projection + sort → skip →
+          limit; aggregation (<code>$match $group $sort $lookup</code>); indexes
+          and <code>explain</code> (IXSCAN vs COLLSCAN).
+        </li>
+        <li>
+          <b>Updating:</b>
+          <code>$set $unset $inc $push $addToSet $pull $pop</code>, positional
+          <code>$ $[] $[id]</code>, <code>upsert</code>, atomicity, matchedCount
+          vs modifiedCount.
+        </li>
+        <li>
+          <b>Deleting:</b> irreversible; preview with <code>find</code>; soft
+          delete; TTL index; <code>deletedCount</code>.
+        </li>
+      </ul>
+    </div>
+
+    <!-- HTML -->
+    <a href="MERN6.html" class="btn">Click for unit 6</a>
+  </body>
+</html>

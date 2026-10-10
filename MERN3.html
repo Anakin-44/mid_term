@@ -1,0 +1,1577 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCA301 Unit III - React, Node.js, NPM and Modules</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      /* CSS */
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        color: inherit;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA301: MERN Full Stack Development – Backend<br /><small
+        style="font-size: 60%"
+        >Module 3 (Unit III): React, Node.js, NPM and Modules</small
+      >
+    </h1>
+
+    <div class="key">
+      <b class="t">Unit III Map:</b> Introduction to React → Introduction to
+      NodeJS → What is Node.js → Introduction to NPM → Node Process Model →
+      Setup Node.js → Debugging Node.js App → Modules in NodeJS → Understanding
+      exports and require → Creating Modules.
+    </div>
+
+    <!-- ============ 1. REACT ============ -->
+    <h2>1. Introduction to React</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>React</b> is an open-source, declarative, component-based
+      <b>JavaScript library</b> for building user interfaces (the "R" in MERN).
+      It was created at Facebook (Meta) and released in 2013. It is a
+      <u>library</u> focused on the <b>View layer</b>, not a full framework.
+    </p>
+    <h3>Technical Breakdown</h3>
+    <ul>
+      <li>
+        <b>Component-based:</b> the UI is split into small, reusable,
+        independent pieces (function components in modern React).
+      </li>
+      <li>
+        <b>JSX:</b> an HTML-like syntax inside JavaScript, compiled (by
+        Babel/Vite) to <code>React.createElement()</code> calls.
+      </li>
+      <li>
+        <b>Virtual DOM:</b> a lightweight JS copy of the real DOM. On state
+        change, React builds a new virtual tree, <b>diffs</b> it against the old
+        one (reconciliation) and updates only the changed real DOM nodes.
+      </li>
+      <li>
+        <b>Declarative:</b> you describe <i>what</i> the UI should look like for
+        a given state; React works out <i>how</i> to update it.
+      </li>
+      <li>
+        <b>One-way data flow:</b> data moves parent → child through
+        <b>props</b>.
+      </li>
+      <li>
+        <b>Hooks:</b> <code>useState</code>, <code>useEffect</code>,
+        <code>useRef</code>, <code>useContext</code> give function components
+        state and lifecycle behaviour.
+      </li>
+    </ul>
+    <pre><code>// Create a project (Vite is the modern tool; create-react-app is deprecated)
+// npm create vite@latest my-app -- --template react
+// cd my-app &amp;&amp; npm install &amp;&amp; npm run dev
+
+// src/App.jsx
+import { useState, useEffect } from "react";
+
+// Child component receiving props (read-only)
+function Greeting({ name }) {
+  return &lt;h2&gt;Hello, {name}!&lt;/h2&gt;;          // {} embeds JS expressions in JSX
+}
+
+export default function App() {
+  const [count, setCount] = useState(0);      // state: [value, setter]
+  const [users, setUsers] = useState([]);
+
+  // Side effect: runs after render. [] = only once on mount
+  useEffect(() =&gt; {
+    fetch("http://localhost:5000/api/users")   // talks to the Express backend
+      .then(res =&gt; res.json())
+      .then(data =&gt; setUsers(data));
+  }, []);
+
+  return (
+    &lt;div&gt;
+      &lt;Greeting name="Asha" /&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Clicked {count}&lt;/button&gt;
+      &lt;ul&gt;{users.map(u =&gt; &lt;li key={u.id}&gt;{u.name}&lt;/li&gt;)}&lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+    <div class="diagram">
+      <pre>
+ State change ──► Re-render component ──► New Virtual DOM
+                                              │  diff (reconciliation)
+                                              ▼
+                          Minimal patch applied to the REAL DOM
+
+ MERN data flow:
+ React (UI) ──HTTP/JSON──► Express (routes) ──► Node.js runtime ──► MongoDB
+     ▲                                                                  │
+     └──────────────────────── JSON response ◄─────────────────────────┘
+</pre
+      >
+    </div>
+    <table>
+      <tr>
+        <th>Concept</th>
+        <th>Props</th>
+        <th>State</th>
+      </tr>
+      <tr>
+        <td>Owned by</td>
+        <td>Parent component</td>
+        <td>The component itself</td>
+      </tr>
+      <tr>
+        <td>Mutable?</td>
+        <td>No (read-only)</td>
+        <td>Yes, via the setter function</td>
+      </tr>
+      <tr>
+        <td>Change causes</td>
+        <td>Re-render of child</td>
+        <td>Re-render of the component</td>
+      </tr>
+    </table>
+    <p>
+      <b>Real-world example:</b> On an e-commerce page,
+      <code>ProductCard</code> is one component reused 50 times with different
+      props, while the cart count is state that updates the header instantly
+      without a page reload.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b>
+      <ul>
+        <li>
+          React is a <b>library</b>, not a framework (Angular is a framework).
+        </li>
+        <li>
+          Never modify state directly (<code>count++</code>); always use the
+          setter (<code>setCount</code>). State updates are
+          asynchronous/batched.
+        </li>
+        <li>
+          Lists need a unique <code>key</code> prop. JSX uses
+          <code>className</code> and <code>htmlFor</code>, not
+          <code>class</code>/<code>for</code>.
+        </li>
+        <li>
+          Components must start with a <b>capital letter</b>; a component must
+          return a single root (or a Fragment <code>&lt;&gt;&lt;/&gt;</code>).
+        </li>
+        <li>Props are immutable inside the child.</li>
+      </ul>
+    </div>
+
+    <!-- ============ 2. INTRO NODEJS ============ -->
+    <h2>2. Introduction to NodeJS</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Before Node.js, JavaScript ran only inside browsers. In
+      <b>2009 Ryan Dahl</b> took Google's <b>V8 engine</b> out of Chrome and
+      combined it with an event-driven I/O layer, letting JavaScript run on the
+      server. Node.js is maintained by the OpenJS Foundation.
+    </p>
+    <h3>Why Node.js was created</h3>
+    <p>
+      Traditional servers (e.g., classic Apache/PHP) create
+      <b>one thread per request</b>, which wastes memory and blocks while
+      waiting for disk or database. Node.js handles thousands of concurrent
+      connections on <b>one thread</b> using non-blocking I/O.
+    </p>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Explanation</th>
+      </tr>
+      <tr>
+        <td>Asynchronous / non-blocking I/O</td>
+        <td>Operations like file or DB access do not stop the main thread</td>
+      </tr>
+      <tr>
+        <td>Event-driven</td>
+        <td>Code reacts to events (request received, file read finished)</td>
+      </tr>
+      <tr>
+        <td>Single-threaded event loop</td>
+        <td>One main thread runs your JS; I/O is delegated</td>
+      </tr>
+      <tr>
+        <td>Very fast</td>
+        <td>V8 compiles JS to machine code</td>
+      </tr>
+      <tr>
+        <td>Cross-platform</td>
+        <td>Windows, Linux, macOS</td>
+      </tr>
+      <tr>
+        <td>Huge ecosystem</td>
+        <td>NPM, the largest package registry</td>
+      </tr>
+      <tr>
+        <td>Full-stack JS</td>
+        <td>Same language on frontend and backend; JSON everywhere</td>
+      </tr>
+    </table>
+    <h3>Where Node.js is used (and not used)</h3>
+    <table>
+      <tr>
+        <th>Good fit (I/O-heavy)</th>
+        <th>Poor fit (CPU-heavy)</th>
+      </tr>
+      <tr>
+        <td>
+          REST APIs, chat apps, streaming, real-time dashboards, microservices,
+          CLI tools
+        </td>
+        <td>
+          Video encoding, heavy image processing, large number crunching (blocks
+          the single thread unless using Worker Threads)
+        </td>
+      </tr>
+    </table>
+    <pre><code>// Smallest possible Node.js web server (core http module, no Express)
+const http = require("http");
+
+const server = http.createServer((req, res) =&gt; {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Hello from Node.js");
+});
+
+server.listen(3000, () =&gt; console.log("Listening on http://localhost:3000"));</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> Node.js = <b>V8 + libuv + core modules</b>.
+      It excels at I/O-bound tasks, not CPU-bound tasks.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Node.js is <u>not</u> a language, a framework
+      or a library. It is a <b>runtime environment</b>. It does not have the
+      browser's <code>window</code> or <code>document</code>; it has
+      <code>global</code>/<code>globalThis</code> and <code>process</code>.
+    </div>
+
+    <!-- ============ 3. WHAT IS NODE ============ -->
+    <h2>3. What is Node.js (Definition and Architecture)</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b
+        >Node.js is an open-source, cross-platform, server-side JavaScript
+        runtime environment built on Chrome's V8 engine</b
+      >, which uses an event-driven, non-blocking I/O model.
+    </p>
+    <h3>Architecture Components</h3>
+    <ul>
+      <li>
+        <b>V8 Engine (C++):</b> parses and compiles JavaScript to machine code.
+      </li>
+      <li>
+        <b>libuv (C):</b> cross-platform library providing the
+        <b>event loop</b>, <b>thread pool</b> (default size 4) and async
+        file/network/DNS operations.
+      </li>
+      <li>
+        <b>Node Bindings:</b> C++ glue connecting JS to the C/C++ libraries.
+      </li>
+      <li>
+        <b>Node Core API:</b> built-in modules (<code
+          >fs, http, path, os, events, crypto, stream, url, util</code
+        >).
+      </li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ ┌──────────────────────────────────────────┐
+ │        Your JavaScript application       │
+ ├──────────────────────────────────────────┤
+ │ Node.js Core API (fs, http, path, events)│
+ ├──────────────────────────────────────────┤
+ │   Node.js Bindings (C++ glue code)       │
+ ├─────────────────────┬────────────────────┤
+ │   V8 Engine         │     libuv          │
+ │ (JS → machine code) │ (event loop +      │
+ │                     │  thread pool + I/O)│
+ └─────────────────────┴────────────────────┘
+        Operating System (files, network, timers)
+</pre
+      >
+    </div>
+    <table>
+      <tr>
+        <th>Aspect</th>
+        <th>Browser JavaScript</th>
+        <th>Node.js</th>
+      </tr>
+      <tr>
+        <td>Global object</td>
+        <td><code>window</code></td>
+        <td><code>global</code> / <code>globalThis</code></td>
+      </tr>
+      <tr>
+        <td>DOM / <code>document</code></td>
+        <td>Available</td>
+        <td>Not available</td>
+      </tr>
+      <tr>
+        <td>File system access</td>
+        <td>Restricted (sandbox)</td>
+        <td>Full via <code>fs</code></td>
+      </tr>
+      <tr>
+        <td>Module system</td>
+        <td>ES Modules</td>
+        <td>CommonJS (default) and ES Modules</td>
+      </tr>
+      <tr>
+        <td>Main use</td>
+        <td>UI and user interaction</td>
+        <td>Servers, APIs, tools</td>
+      </tr>
+    </table>
+    <pre><code>// Using the Node core API
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
+
+console.log(os.platform(), os.cpus().length);          // e.g. linux 8
+console.log(path.join("folder", "sub", "file.txt"));   // folder/sub/file.txt
+
+// Non-blocking read
+fs.readFile("notes.txt", "utf8", (err, data) =&gt; {
+  if (err) return console.error(err.message);
+  console.log("File content:", data);
+});
+console.log("This prints FIRST (non-blocking)");</code></pre>
+    <p>
+      <b>Analogy:</b> A restaurant waiter (event loop) takes many orders without
+      standing at the kitchen waiting for each dish; the kitchen (OS/thread
+      pool) cooks in the background and the waiter delivers when ready.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> "Node.js is single-threaded" is only true for
+      <i>your JavaScript code</i>. Internally, libuv uses a
+      <b>thread pool</b> for file system, DNS, crypto and zlib tasks. Node.js is
+      built on V8 (Chrome's engine) but is <u>not</u> a browser.
+    </div>
+
+    <!-- ============ 4. NPM ============ -->
+    <h2>4. Introduction to NPM</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>NPM (Node Package Manager)</b> is the default package manager for
+      Node.js. It has three parts: the <b>online registry</b> (npmjs.com,
+      millions of packages), the <b>CLI tool</b> (<code>npm</code>) and the
+      <b>website</b>. It installs, updates and manages project dependencies. It
+      is installed automatically with Node.js.
+    </p>
+    <h3>Essential Commands</h3>
+    <table>
+      <tr>
+        <th>Command</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>npm init</code> / <code>npm init -y</code></td>
+        <td>Create <code>package.json</code> (interactive / with defaults)</td>
+      </tr>
+      <tr>
+        <td><code>npm install express</code> (<code>npm i</code>)</td>
+        <td>Install a package as a <b>dependency</b></td>
+      </tr>
+      <tr>
+        <td><code>npm install nodemon --save-dev</code> (<code>-D</code>)</td>
+        <td>Install as a <b>devDependency</b> (development only)</td>
+      </tr>
+      <tr>
+        <td><code>npm install -g nodemon</code></td>
+        <td>Install <b>globally</b> (system-wide CLI tool)</td>
+      </tr>
+      <tr>
+        <td><code>npm install</code></td>
+        <td>Install everything listed in <code>package.json</code></td>
+      </tr>
+      <tr>
+        <td><code>npm ci</code></td>
+        <td>
+          Clean install exactly from <code>package-lock.json</code> (CI/CD)
+        </td>
+      </tr>
+      <tr>
+        <td><code>npm uninstall express</code></td>
+        <td>Remove a package</td>
+      </tr>
+      <tr>
+        <td><code>npm update</code> / <code>npm outdated</code></td>
+        <td>Update / list outdated packages</td>
+      </tr>
+      <tr>
+        <td><code>npm run dev</code></td>
+        <td>Run a script defined in <code>package.json</code></td>
+      </tr>
+      <tr>
+        <td><code>npm start</code> / <code>npm test</code></td>
+        <td>
+          Shortcuts for the <code>start</code> / <code>test</code> scripts (no
+          <code>run</code> needed)
+        </td>
+      </tr>
+      <tr>
+        <td><code>npx create-vite@latest</code></td>
+        <td>Run a package binary without installing it permanently</td>
+      </tr>
+      <tr>
+        <td><code>npm list</code> / <code>npm audit</code></td>
+        <td>Show dependency tree / check vulnerabilities</td>
+      </tr>
+    </table>
+    <h3>package.json Anatomy</h3>
+    <pre><code>{
+  "name": "my-backend",
+  "version": "1.0.0",
+  "description": "MERN backend",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"no tests\""
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "~3.1.0"
+  },
+  "license": "ISC"
+}</code></pre>
+    <h3>Semantic Versioning (MAJOR.MINOR.PATCH)</h3>
+    <table>
+      <tr>
+        <th>Symbol</th>
+        <th>Example</th>
+        <th>Allows updates to</th>
+      </tr>
+      <tr>
+        <td><code>^</code> (caret)</td>
+        <td><code>^4.19.2</code></td>
+        <td>Any 4.x.x (minor and patch)</td>
+      </tr>
+      <tr>
+        <td><code>~</code> (tilde)</td>
+        <td><code>~4.19.2</code></td>
+        <td>Only 4.19.x (patch)</td>
+      </tr>
+      <tr>
+        <td>none</td>
+        <td><code>4.19.2</code></td>
+        <td>Exactly this version</td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ my-project/
+ ├── node_modules/        ← downloaded packages (huge; NEVER commit to Git)
+ ├── package.json         ← project metadata + dependency ranges
+ ├── package-lock.json    ← exact resolved versions (reproducible installs)
+ ├── .gitignore           ← contains: node_modules
+ └── index.js
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> <code>package.json</code> = what you
+      <i>want</i> (ranges); <code>package-lock.json</code> = what you
+      <i>got</i> (exact versions). Anyone can rebuild
+      <code>node_modules</code> by running <code>npm install</code>.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> NPM is not the same as Node.js, and
+      <code>npx</code> is not the same as <code>npm</code>.
+      <code>dependencies</code> are needed in production;
+      <code>devDependencies</code> only for development. Never commit
+      <code>node_modules</code>. Since npm 5, <code>--save</code> is the
+      default. <code>^</code> and <code>~</code> differ in how much they let
+      versions float. <code>npm start</code> works without <code>run</code>, but
+      <code>npm dev</code> does not (you need <code>npm run dev</code>).
+    </div>
+
+    <!-- ============ 5. PROCESS MODEL ============ -->
+    <h2>5. Node Process Model</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Traditional servers use the <b>multi-threaded request/response model</b>:
+      one thread per client. Node.js uses the
+      <b>Single Threaded Event Loop Model</b>: one main thread handles all
+      requests and offloads blocking work to the system / libuv thread pool,
+      then runs the callback when the work is done.
+    </p>
+    <h3>Step-by-step Request Handling</h3>
+    <ol>
+      <li>Clients send requests; they are placed in the <b>Event Queue</b>.</li>
+      <li>The <b>Event Loop</b> (single thread) picks requests one by one.</li>
+      <li>
+        If a request is simple (non-blocking), it is processed and the response
+        returned immediately.
+      </li>
+      <li>
+        If it needs blocking I/O (DB, file, network), it is handed to a
+        <b>worker thread</b> from the <b>Thread Pool</b> (libuv) / OS.
+      </li>
+      <li>The event loop is free to take the next request.</li>
+      <li>
+        When the worker finishes, its <b>callback</b> is queued and executed by
+        the event loop, and the response is sent.
+      </li>
+    </ol>
+    <div class="diagram">
+      <pre>
+ Client 1 ─┐                       ┌───────────────────────┐
+ Client 2 ─┼─► Event Queue ──────► │ EVENT LOOP (1 thread) │
+ Client 3 ─┘                       └───┬───────────────▲───┘
+                                       │ blocking I/O  │ callback
+                                       ▼               │
+                              ┌──────────────────────────────┐
+                              │ Thread Pool (libuv, 4 default)│
+                              │ fs · DNS · crypto · zlib · DB │
+                              └──────────────────────────────┘
+</pre
+      >
+    </div>
+    <h3>Event Loop Phases (in order)</h3>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Phase</th>
+        <th>What runs</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Timers</td>
+        <td><code>setTimeout</code>, <code>setInterval</code> callbacks</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Pending callbacks</td>
+        <td>Deferred system I/O callbacks</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Idle, prepare</td>
+        <td>Internal use</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Poll</td>
+        <td>Retrieve new I/O events; run I/O callbacks</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Check</td>
+        <td><code>setImmediate</code> callbacks</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Close callbacks</td>
+        <td>e.g. <code>socket.on("close")</code></td>
+      </tr>
+    </table>
+    <p>
+      Between every phase, Node drains <code>process.nextTick</code> queue
+      first, then the <b>Promise microtask</b> queue.
+    </p>
+    <pre><code>console.log("1 sync start");
+setTimeout(() =&gt; console.log("5 setTimeout"), 0);
+setImmediate(() =&gt; console.log("6 setImmediate"));
+Promise.resolve().then(() =&gt; console.log("4 promise microtask"));
+process.nextTick(() =&gt; console.log("3 nextTick"));
+console.log("2 sync end");
+// Output order: 1, 2, 3 (nextTick), 4 (promise), 5/6 (timeout vs immediate*)
+// *from the main module the order of 5 and 6 is not guaranteed;
+//  inside an I/O callback, setImmediate always runs first.
+
+// The process object
+console.log(process.pid, process.platform, process.version);
+console.log(process.argv);        // [node path, script path, ...args]
+console.log(process.env.PORT);    // environment variable
+process.on("exit", (code) =&gt; console.log("Exit code", code));
+// process.exit(0)  → terminate; 0 = success, non-zero = error
+
+// Blocking vs non-blocking
+const fs = require("fs");
+const a = fs.readFileSync("big.txt");           // BLOCKS the event loop
+fs.readFile("big.txt", () =&gt; {});               // does NOT block</code></pre>
+    <table>
+      <tr>
+        <th>Multi-threaded (e.g., Java servlet)</th>
+        <th>Node.js Event Loop</th>
+      </tr>
+      <tr>
+        <td>New thread per request</td>
+        <td>One thread for all requests</td>
+      </tr>
+      <tr>
+        <td>High memory, context switching</td>
+        <td>Low memory footprint</td>
+      </tr>
+      <tr>
+        <td>Good for CPU-heavy work</td>
+        <td>Good for I/O-heavy work</td>
+      </tr>
+      <tr>
+        <td>Race conditions / locks possible</td>
+        <td>No thread-sync issues in your JS code</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> Priority order:
+      <b
+        >synchronous code → process.nextTick → Promise microtasks → event loop
+        phases (timers → poll → check ...)</b
+      >.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> A CPU-heavy loop or any
+      <code>*Sync</code> method (e.g., <code>readFileSync</code>)
+      <b>blocks every user</b> of the server. <code>setImmediate</code> runs in
+      the <i>check</i> phase after poll; <code>nextTick</code> runs
+      <u>before</u> the event loop continues (and before promises). Node.js can
+      scale across CPU cores using the <code>cluster</code> module,
+      <code>worker_threads</code> or PM2, because one process uses just one
+      core.
+    </div>
+
+    <!-- ============ 6. SETUP ============ -->
+    <h2>6. Setup Node.js</h2>
+    <h3>Installation Steps</h3>
+    <ol>
+      <li>
+        Visit <b>nodejs.org</b> and download the
+        <b>LTS (Long Term Support)</b> version (stable for production) rather
+        than "Current".
+      </li>
+      <li>
+        Run the installer (Windows <code>.msi</code>/macOS <code>.pkg</code>).
+        It installs <b>Node.js, npm</b> and adds them to the system <b>PATH</b>.
+        On Linux use a package manager or NodeSource.
+      </li>
+      <li>Verify in a new terminal.</li>
+      <li>
+        Install a code editor (VS Code) and optionally <b>nvm</b> to switch
+        versions.
+      </li>
+    </ol>
+    <pre><code># Verify installation
+node -v          # e.g. v22.x.x
+npm -v           # e.g. 10.x.x
+
+# Linux (Ubuntu) example
+sudo apt update
+sudo apt install nodejs npm
+
+# Better: Node Version Manager (nvm) for multiple versions
+nvm install --lts
+nvm use 20
+nvm ls
+
+# REPL: interactive Node shell
+node
+&gt; 2 + 3
+5
+&gt; .exit
+
+# Run a file
+node app.js
+
+# Create the first project
+mkdir myapp &amp;&amp; cd myapp
+npm init -y
+npm install express
+npm install -D nodemon        # auto-restarts server on file change</code></pre>
+    <pre><code>// app.js : first program
+const name = process.argv[2] || "World";   // node app.js Asha
+console.log(`Hello, ${name}!`);
+
+// .env style configuration (using the dotenv package)
+// npm install dotenv
+require("dotenv").config();               // loads .env into process.env
+console.log(process.env.PORT);</code></pre>
+    <table>
+      <tr>
+        <th>Release type</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td><b>LTS</b> (even numbers: 20, 22)</td>
+        <td>
+          Stable, supported ~30 months, recommended for production and learning
+        </td>
+      </tr>
+      <tr>
+        <td><b>Current</b> (odd numbers)</td>
+        <td>Latest features, shorter support</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> If <code>node -v</code> says "command not
+      found", the PATH is not set or the terminal was not restarted. NPM comes
+      <u>bundled</u> with Node.js (no separate installation). Use LTS for
+      production. Do not confuse the <b>REPL</b> (<code>node</code> with no
+      file) with running a script (<code>node file.js</code>). Always store
+      secrets in <code>.env</code> and add it to <code>.gitignore</code>.
+    </div>
+
+    <!-- ============ 7. DEBUGGING ============ -->
+    <h2>7. Debugging Node.js App</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Debugging</b> is the process of finding and fixing defects. Node.js
+      includes the <b>V8 Inspector</b> protocol so debuggers (Chrome DevTools,
+      VS Code) can attach to a running process.
+    </p>
+    <h3>Techniques</h3>
+    <table>
+      <tr>
+        <th>Technique</th>
+        <th>How</th>
+        <th>When</th>
+      </tr>
+      <tr>
+        <td><code>console</code> methods</td>
+        <td><code>log, error, warn, table, time/timeEnd, trace</code></td>
+        <td>Quick checks</td>
+      </tr>
+      <tr>
+        <td><code>debugger</code> statement</td>
+        <td>Add <code>debugger;</code> in code; run with inspector</td>
+        <td>Pause at a point</td>
+      </tr>
+      <tr>
+        <td>Built-in CLI debugger</td>
+        <td><code>node inspect app.js</code></td>
+        <td>Terminal only</td>
+      </tr>
+      <tr>
+        <td>Chrome DevTools</td>
+        <td>
+          <code>node --inspect app.js</code> then open
+          <code>chrome://inspect</code>
+        </td>
+        <td>Visual breakpoints</td>
+      </tr>
+      <tr>
+        <td>VS Code debugger</td>
+        <td>F5, <code>launch.json</code>, breakpoints</td>
+        <td>Everyday development</td>
+      </tr>
+      <tr>
+        <td>Nodemon</td>
+        <td><code>nodemon app.js</code></td>
+        <td>Auto-restart on save</td>
+      </tr>
+      <tr>
+        <td>Logging libraries</td>
+        <td>winston, morgan, pino</td>
+        <td>Production</td>
+      </tr>
+      <tr>
+        <td>Env-based debug logs</td>
+        <td>
+          <code>DEBUG=express:* node app.js</code>, <code>NODE_DEBUG=http</code>
+        </td>
+        <td>Internals</td>
+      </tr>
+    </table>
+    <pre><code>// Console tools
+console.log("value:", x);
+console.error("Something failed");       // goes to stderr
+console.table([{id:1,n:"A"},{id:2,n:"B"}]);
+console.time("loop");  /* work */  console.timeEnd("loop");   // loop: 12.5ms
+console.trace("Who called me?");
+
+// debugger statement
+function calc(a, b) {
+  debugger;                   // execution pauses here when an inspector is attached
+  return a / b;
+}
+
+// Global safety nets (log and exit; do not just ignore)
+process.on("uncaughtException", (err) =&gt; { console.error(err); process.exit(1); });
+process.on("unhandledRejection", (reason) =&gt; { console.error("Unhandled:", reason); });
+
+// Terminal commands
+// node --inspect app.js          start with inspector (port 9229)
+// node --inspect-brk app.js      pause on the first line
+// then open chrome://inspect → "inspect"</code></pre>
+    <pre><code>// .vscode/launch.json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug App",
+      "program": "${workspaceFolder}/app.js",
+      "skipFiles": ["&lt;node_internals&gt;/**"]
+    }
+  ]
+}</code></pre>
+    <div class="diagram">
+      <pre>
+ Debug cycle:
+ Reproduce bug ─► Read error + stack trace ─► Set breakpoint
+        ▲                                         │
+        │                                         ▼
+   Fix + retest ◄─ Find root cause ◄─ Step over / into / out, inspect variables
+
+ Stepping:  Continue (F5) | Step Over (F10) | Step Into (F11) | Step Out (Shift+F11)
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> Read the <b>stack trace</b> from the top:
+      the first line shows the error type and message, the next lines show the
+      file:line where it happened.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>--inspect</code> runs immediately;
+      <code>--inspect-brk</code> pauses before the first line. Do not leave the
+      inspector port open on a public production server (security risk).
+      <code>console.log</code> debugging is easy but leaves noise; remove or
+      replace it with a logger. <code>uncaughtException</code> handlers should
+      log and <b>exit</b>, because the app may be in an unsafe state.
+      <code>debugger;</code> does nothing without an attached debugger.
+    </div>
+
+    <!-- ============ 8. MODULES ============ -->
+    <h2>8. Modules in NodeJS</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>module</b> is a self-contained file (or folder) of code with its own
+      private scope that exposes only chosen parts to other files. In Node.js
+      <b>each file is a module</b>. Modules give
+      <b>encapsulation, reusability, maintainability and namespacing</b>.
+    </p>
+    <h3>Types of Modules</h3>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Load syntax</th>
+      </tr>
+      <tr>
+        <td><b>Core (built-in)</b></td>
+        <td>Ship with Node</td>
+        <td><code>require("fs")</code> or <code>require("node:fs")</code></td>
+      </tr>
+      <tr>
+        <td><b>Local (user-defined)</b></td>
+        <td>Your own files</td>
+        <td><code>require("./utils")</code></td>
+      </tr>
+      <tr>
+        <td><b>Third-party</b></td>
+        <td>Installed from NPM into <code>node_modules</code></td>
+        <td><code>require("express")</code></td>
+      </tr>
+    </table>
+    <h3>Commonly Used Core Modules</h3>
+    <table>
+      <tr>
+        <th>Module</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>fs</code></td>
+        <td>File system (read, write, delete)</td>
+      </tr>
+      <tr>
+        <td><code>path</code></td>
+        <td>File path utilities</td>
+      </tr>
+      <tr>
+        <td><code>http</code> / <code>https</code></td>
+        <td>Create servers, make requests</td>
+      </tr>
+      <tr>
+        <td><code>os</code></td>
+        <td>Operating system information</td>
+      </tr>
+      <tr>
+        <td><code>events</code></td>
+        <td>EventEmitter (observer pattern)</td>
+      </tr>
+      <tr>
+        <td><code>url</code>, <code>querystring</code></td>
+        <td>URL parsing</td>
+      </tr>
+      <tr>
+        <td><code>crypto</code></td>
+        <td>Hashing, encryption, random bytes</td>
+      </tr>
+      <tr>
+        <td><code>stream</code>, <code>zlib</code></td>
+        <td>Streaming data, compression</td>
+      </tr>
+      <tr>
+        <td><code>util</code></td>
+        <td>Helpers such as <code>promisify</code></td>
+      </tr>
+    </table>
+    <h3>CommonJS vs ES Modules</h3>
+    <table>
+      <tr>
+        <th>Aspect</th>
+        <th>CommonJS (CJS)</th>
+        <th>ES Modules (ESM)</th>
+      </tr>
+      <tr>
+        <td>Import</td>
+        <td><code>const x = require("x")</code></td>
+        <td><code>import x from "x"</code></td>
+      </tr>
+      <tr>
+        <td>Export</td>
+        <td><code>module.exports = ...</code></td>
+        <td><code>export</code> / <code>export default</code></td>
+      </tr>
+      <tr>
+        <td>Loading</td>
+        <td>Synchronous, at runtime</td>
+        <td>Asynchronous, statically analyzed</td>
+      </tr>
+      <tr>
+        <td>Enable</td>
+        <td>Default in Node (<code>.js</code>, <code>.cjs</code>)</td>
+        <td>
+          <code>"type": "module"</code> in package.json or <code>.mjs</code>
+        </td>
+      </tr>
+      <tr>
+        <td><code>__dirname</code>, <code>__filename</code></td>
+        <td>Available</td>
+        <td>Not available (use <code>import.meta.url</code>)</td>
+      </tr>
+      <tr>
+        <td>Top-level <code>await</code></td>
+        <td>No</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>File extension in path</td>
+        <td>Optional</td>
+        <td>Required (<code>./math.js</code>)</td>
+      </tr>
+    </table>
+    <pre><code>// Core modules in action
+const path = require("path");
+const os = require("os");
+const EventEmitter = require("events");
+
+console.log(path.basename("/a/b/file.txt"));    // file.txt
+console.log(path.extname("photo.png"));         // .png
+console.log(path.resolve("src", "app.js"));     // absolute path
+console.log(__dirname, __filename);             // current folder / file (CJS)
+
+// EventEmitter: the base of most Node APIs
+const emitter = new EventEmitter();
+emitter.on("order", (id) =&gt; console.log("Order received:", id));
+emitter.emit("order", 101);
+
+// The hidden module wrapper: every CJS file is wrapped by Node as
+// (function (exports, require, module, __filename, __dirname) {
+//    /* your code */
+// });
+// That is why variables in a file are private and why these 5 names are
+// available without being declared.
+
+// ESM equivalent of __dirname
+// import { fileURLToPath } from "url";
+// import path from "path";
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname  = path.dirname(__filename);</code></pre>
+    <h3>How require() resolves a module</h3>
+    <div class="diagram">
+      <pre>
+ require("x")
+   1. Is "x" a core module (fs, http...)?            → load it
+   2. Starts with ./ ../ or /  ?                      → load that file/folder
+        tries: x, x.js, x.json, x.node, x/package.json "main", x/index.js
+   3. Otherwise look in ./node_modules/x, then ../node_modules/x,
+      then ../../node_modules/x ... up to the root
+   4. Not found → Error: Cannot find module 'x'
+   Result is CACHED in require.cache (file runs only ONCE)
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> Modules are <b>cached</b> after the first
+      <code>require</code>. Every later <code>require</code> of the same file
+      returns the same object, which makes modules natural
+      <b>singletons</b> (e.g., a shared DB connection).
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Variables declared in a module are
+      <u>not</u> global; they are private to the file. Use
+      <code>require("./file")</code> with <code>./</code> for local files;
+      without it Node searches core modules and <code>node_modules</code>. You
+      cannot mix <code>require</code> and <code>import</code> freely:
+      <code>require is not defined in ES module scope</code> and
+      <code>Cannot use import statement outside a module</code> are classic
+      errors. Core modules do not need installation. Circular dependencies
+      return a partially filled <code>exports</code> object.
+    </div>
+
+    <!-- ============ 9. EXPORTS AND REQUIRE ============ -->
+    <h2>9. Understanding exports and require</h2>
+    <h3>Core Concept</h3>
+    <ul>
+      <li>
+        <code>require(path)</code>: a function that loads a module and
+        <b>returns its <code>module.exports</code></b> value.
+      </li>
+      <li>
+        <code>module.exports</code>: the object that is actually returned to the
+        caller. It starts as an empty object <code>{}</code>.
+      </li>
+      <li>
+        <code>exports</code>: just a <b>shorthand reference</b> that initially
+        points to the same object as <code>module.exports</code>.
+      </li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ At the start of every module Node does:   exports = module.exports = {}
+
+   exports ─────────┐
+                    ├──► { }   ◄── this object is what require() returns
+   module.exports ──┘
+
+ exports.a = 1            → adds property to the shared object          ✔ works
+ exports = function(){}   → rebinds ONLY the local variable "exports"   ✘ lost
+ module.exports = fn      → replaces the object that require() returns  ✔ works
+</pre
+      >
+    </div>
+    <h3>Pattern 1: Attach properties (named exports)</h3>
+    <pre><code>// math.js
+exports.add = (a, b) =&gt; a + b;
+exports.sub = (a, b) =&gt; a - b;
+const PI = 3.14159;          // private, not exported
+
+// app.js
+const math = require("./math");
+console.log(math.add(2, 3));          // 5
+const { sub } = require("./math");    // destructuring the result
+console.log(sub(5, 1));               // 4
+console.log(math.PI);                 // undefined (private)</code></pre>
+    <h3>Pattern 2: Replace module.exports (single export)</h3>
+    <pre><code>// greet.js
+module.exports = function (name) { return `Hello ${name}`; };
+
+// user.js
+class User { constructor(n) { this.name = n; } }
+module.exports = User;
+
+// app.js
+const greet = require("./greet");
+const User  = require("./user");
+console.log(greet("Asha"), new User("Ravi").name);</code></pre>
+    <h3>Pattern 3: Export an object of many things</h3>
+    <pre><code>// utils.js
+const square = x =&gt; x * x;
+const cube = x =&gt; x * x * x;
+module.exports = { square, cube };       // shorthand properties
+
+// app.js
+const { square, cube } = require("./utils");</code></pre>
+    <h3>The classic mistake</h3>
+    <pre><code>// bad.js
+exports = { hello: () =&gt; "hi" };          // ✘ only rebinds local variable
+// main.js
+console.log(require("./bad"));            // {}  ← EMPTY OBJECT
+
+// fixed: module.exports = { hello: () =&gt; "hi" };
+
+// Mixing: after this the exports.x line is IGNORED
+exports.x = 1;
+module.exports = { y: 2 };               // require() returns { y: 2 } only</code></pre>
+    <h3>Caching demonstration</h3>
+    <pre><code>// counter.js
+let count = 0;
+module.exports = { inc: () =&gt; ++count };
+console.log("counter.js loaded");        // prints only ONCE
+
+// app.js
+const a = require("./counter");
+const b = require("./counter");          // served from cache
+a.inc(); b.inc();
+console.log(a === b);                    // true (same object)
+console.log(a.inc());                    // 3</code></pre>
+    <h3>Equivalent ES Module syntax</h3>
+    <pre><code>// math.mjs  (or "type":"module")
+export const add = (a, b) =&gt; a + b;          // named export
+export default function sub(a, b) { return a - b; }   // one default export
+
+// app.mjs
+import sub, { add } from "./math.mjs";           // default + named
+import * as math from "./math.mjs";              // namespace import
+const mod = await import("./math.mjs");          // dynamic import</code></pre>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th><code>exports.x = ...</code></th>
+        <th><code>module.exports = ...</code></th>
+      </tr>
+      <tr>
+        <td>Can export a function / class directly</td>
+        <td>No</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Can export many named things</td>
+        <td>Yes</td>
+        <td>Yes (as an object)</td>
+      </tr>
+      <tr>
+        <td>Safe to reassign</td>
+        <td>No (breaks the link)</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>What <code>require</code> returns</td>
+        <td>Always <code>module.exports</code></td>
+        <td>Always <code>module.exports</code></td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap (very high-yield):</b>
+      <ul>
+        <li>
+          <b
+            ><code>require()</code> always returns <code>module.exports</code>,
+            never <code>exports</code>.</b
+          >
+        </li>
+        <li>
+          <code>exports = something</code> does <u>not</u> work;
+          <code>module.exports = something</code> does.
+        </li>
+        <li>
+          If you assign <code>module.exports</code> after
+          <code>exports.x</code>, the earlier <code>exports.x</code> is lost.
+        </li>
+        <li>
+          <code>require</code> is synchronous and cached, so the module code
+          executes only once.
+        </li>
+        <li>
+          Destructuring <code>const { add } = require("./math")</code> works
+          only for object-style exports.
+        </li>
+        <li>
+          In ESM there can be only <b>one default export</b> per file but many
+          named exports.
+        </li>
+      </ul>
+    </div>
+
+    <!-- ============ 10. CREATING MODULES ============ -->
+    <h2>10. Creating Modules</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Creating a module means putting related functionality in its own file,
+      deciding what to expose, and loading it where needed. Follow the
+      <b>Single Responsibility Principle</b>: one module, one purpose.
+    </p>
+    <h3>Step-by-Step</h3>
+    <ol>
+      <li>Create a new file (e.g., <code>calculator.js</code>).</li>
+      <li>Write functions/classes/constants; keep helpers private.</li>
+      <li>
+        Export the public API via <code>module.exports</code> (or
+        <code>export</code>).
+      </li>
+      <li>
+        Import it with <code>require("./calculator")</code> in another file.
+      </li>
+      <li>Run the main file with <code>node app.js</code>.</li>
+    </ol>
+    <h3>Example Project Structure</h3>
+    <div class="diagram">
+      <pre>
+ project/
+ ├── app.js                  ← entry point
+ ├── package.json
+ ├── modules/
+ │    ├── calculator.js      ← functions module
+ │    ├── logger.js          ← class module
+ │    └── config.js          ← constants module
+ └── utils/
+      ├── index.js           ← "barrel": re-exports everything in the folder
+      ├── string.js
+      └── date.js
+</pre
+      >
+    </div>
+    <h3>Module 1: Functions (calculator.js)</h3>
+    <pre><code>// modules/calculator.js
+function add(a, b) { return a + b; }
+function divide(a, b) {
+  if (b === 0) throw new Error("Cannot divide by zero");
+  return a / b;
+}
+function _validate(n) { return typeof n === "number"; }   // private helper (not exported)
+
+module.exports = { add, divide };</code></pre>
+    <h3>Module 2: Class (logger.js)</h3>
+    <pre><code>// modules/logger.js
+const EventEmitter = require("events");
+
+class Logger extends EventEmitter {
+  constructor(prefix = "APP") { super(); this.prefix = prefix; }
+  log(msg) {
+    const line = `[${this.prefix}] ${new Date().toISOString()} ${msg}`;
+    console.log(line);
+    this.emit("logged", line);          // custom event
+  }
+}
+module.exports = Logger;                // export the class itself</code></pre>
+    <h3>Module 3: Constants / Configuration (config.js)</h3>
+    <pre><code>// modules/config.js
+module.exports = Object.freeze({
+  PORT: process.env.PORT || 5000,
+  DB_URL: process.env.DB_URL || "mongodb://localhost:27017/mydb",
+  APP_NAME: "MERN Backend"
+});</code></pre>
+    <h3>Module 4: Factory / Singleton pattern</h3>
+    <pre><code>// modules/db.js
+let connection = null;                  // private state, lives in module scope
+module.exports = {
+  connect() {
+    if (!connection) { connection = { connectedAt: Date.now() }; console.log("DB connected"); }
+    return connection;                  // same connection every time (cached module)
+  }
+};</code></pre>
+    <h3>Barrel file (index.js)</h3>
+    <pre><code>// utils/index.js
+module.exports = {
+  ...require("./string"),
+  ...require("./date")
+};
+// app.js:  const { capitalize, formatDate } = require("./utils");   // loads utils/index.js</code></pre>
+    <h3>Using the modules (app.js)</h3>
+    <pre><code>// app.js
+const { add, divide } = require("./modules/calculator");
+const Logger = require("./modules/logger");
+const config = require("./modules/config");
+const db = require("./modules/db");
+
+const logger = new Logger("MAIN");
+logger.on("logged", (line) =&gt; { /* e.g. save to a file */ });
+
+logger.log(`Starting ${config.APP_NAME} on port ${config.PORT}`);
+logger.log(`2 + 3 = ${add(2, 3)}`);
+
+try { divide(4, 0); }
+catch (e) { logger.log("Error: " + e.message); }
+
+db.connect(); db.connect();     // "DB connected" printed once only
+
+// Run: node app.js</code></pre>
+    <h3>Same module in ES Module style</h3>
+    <pre><code>// package.json → "type": "module"
+// modules/calculator.js
+export const add = (a, b) =&gt; a + b;
+export default class Calculator { /* ... */ }
+
+// app.js
+import Calculator, { add } from "./modules/calculator.js";   // note the .js extension</code></pre>
+    <h3>Publishing your own package (overview)</h3>
+    <pre><code>npm init                 # fill name, version, main
+npm login                # NPM account
+npm publish              # uploads package to the registry
+npm link                 # test a package locally before publishing</code></pre>
+    <table>
+      <tr>
+        <th>Export style</th>
+        <th>Best used for</th>
+      </tr>
+      <tr>
+        <td><code>module.exports = function/class</code></td>
+        <td>Module with one main thing</td>
+      </tr>
+      <tr>
+        <td><code>module.exports = { a, b }</code></td>
+        <td>Utility collections</td>
+      </tr>
+      <tr>
+        <td><code>exports.name = ...</code></td>
+        <td>Adding items one by one</td>
+      </tr>
+      <tr>
+        <td>Barrel <code>index.js</code></td>
+        <td>Clean folder-level imports</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Forgetting <code>./</code> in
+      <code>require("calculator")</code> makes Node look in
+      <code>node_modules</code> and throw <code>Cannot find module</code>. If
+      you forget to export a function, it is <code>undefined</code> or "is not a
+      function" in the importer. Because of caching, module-level variables are
+      <b>shared</b> across all importers. Circular requires (A requires B, B
+      requires A) give incomplete exports; restructure to avoid them. In ESM,
+      the file extension in the import path is <u>mandatory</u>.
+    </div>
+
+    <h2>Unit III: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          <b>React:</b> library (not framework), components, JSX, props
+          (read-only) vs state, Virtual DOM diffing, hooks
+          (<code>useState</code>, <code>useEffect</code>).
+        </li>
+        <li>
+          <b>Node.js:</b> runtime (not language), V8 + libuv + core API, created
+          by Ryan Dahl in 2009, good for I/O-bound apps.
+        </li>
+        <li>
+          <b>NPM:</b> registry + CLI, <code>package.json</code> vs
+          <code>package-lock.json</code>, dependencies vs devDependencies,
+          <code>^</code> vs <code>~</code>, <code>npx</code>.
+        </li>
+        <li>
+          <b>Process model:</b> single-threaded event loop + libuv thread pool;
+          6 loop phases; <code>nextTick</code> &gt; promises &gt;
+          timers/immediates; never block the loop.
+        </li>
+        <li>
+          <b>Setup:</b> LTS version, <code>node -v</code>, <code>npm -v</code>,
+          REPL, <code>node file.js</code>, nvm, nodemon.
+        </li>
+        <li>
+          <b>Debugging:</b> <code>console.*</code>, <code>debugger</code>,
+          <code>--inspect</code> / <code>--inspect-brk</code>,
+          <code>chrome://inspect</code>, VS Code <code>launch.json</code>, stack
+          traces.
+        </li>
+        <li>
+          <b>Modules:</b> core / local / third-party; CommonJS vs ESM; module
+          wrapper; <code>require</code> resolution and caching.
+        </li>
+        <li>
+          <b>exports vs module.exports:</b> <code>require</code> returns
+          <code>module.exports</code>; <code>exports = x</code> breaks the link.
+        </li>
+        <li>
+          <b>Creating modules:</b> one responsibility per file, export only the
+          public API, use <code>./</code> for local files, barrel
+          <code>index.js</code>.
+        </li>
+      </ul>
+    </div>
+
+    <!-- HTML -->
+    <a href="MERN4.html" class="btn">Click for unit 4</a>
+  </body>
+</html>

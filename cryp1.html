@@ -1,0 +1,1769 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCA302 Unit I - Cryptography and Network Security Basics</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        color: inherit;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA302: Cryptography and Cyber Security<br /><small style="font-size: 60%"
+        >Module 7 (Unit I): Security Goals, Attacks, Services, Mechanisms,
+        Techniques and Traditional Symmetric Key Ciphers</small
+      >
+    </h1>
+
+    <div class="key">
+      <b class="t">Unit I Map:</b> Introduction → Security Goals → Attacks →
+      Security Services → Security Mechanisms → Techniques (Cryptography and
+      Steganography) → Traditional Symmetric Key Ciphers (fundamentals,
+      substitution, transposition, stream vs block).
+    </div>
+
+    <!-- ============ 1 ============ -->
+    <h2>1. Introduction to Cryptography and Network Security</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Cryptography</b> (Greek <i>kryptos</i> = hidden, <i>graphein</i> =
+      writing) is the science of transforming information into an unreadable
+      form so that only authorised parties can read it.
+      <b>Network security</b> is the set of policies, practices and technologies
+      that protect data and resources while they are stored in, or travelling
+      across, a network.
+    </p>
+    <h3>Basic Terminology</h3>
+    <table>
+      <tr>
+        <th>Term</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td><b>Plaintext (P)</b></td>
+        <td>Original readable message</td>
+      </tr>
+      <tr>
+        <td><b>Ciphertext (C)</b></td>
+        <td>Scrambled, unreadable output</td>
+      </tr>
+      <tr>
+        <td><b>Encryption (enciphering)</b></td>
+        <td>
+          Plaintext → ciphertext, done by the sender: <code>C = E(K, P)</code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Decryption (deciphering)</b></td>
+        <td>
+          Ciphertext → plaintext, done by the receiver: <code>P = D(K, C)</code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Cipher / Algorithm</b></td>
+        <td>The pair of encryption and decryption procedures</td>
+      </tr>
+      <tr>
+        <td><b>Key (K)</b></td>
+        <td>Secret value that controls the cipher</td>
+      </tr>
+      <tr>
+        <td><b>Cryptography</b></td>
+        <td>Designing ciphers (the "defender's" side)</td>
+      </tr>
+      <tr>
+        <td><b>Cryptanalysis</b></td>
+        <td>Breaking ciphers without the key (the "attacker's" side)</td>
+      </tr>
+      <tr>
+        <td><b>Cryptology</b></td>
+        <td>Cryptography + Cryptanalysis</td>
+      </tr>
+      <tr>
+        <td><b>Alice, Bob, Eve</b></td>
+        <td>Sender, receiver, eavesdropper (conventional names)</td>
+      </tr>
+    </table>
+    <h3>Model of Network Security</h3>
+    <div class="diagram">
+      <pre>
+   Alice (sender)                                              Bob (receiver)
+ ┌─────────────────┐   Plaintext      Ciphertext     ┌──────────────────┐
+ │ Plaintext P     │──► Encrypt ─────► C ──────────► │ Decrypt ──► P    │
+ │ Key K1          │      E(K1,P)       │            │  D(K2,C)  Key K2 │
+ └─────────────────┘                    │            └──────────────────┘
+                                        ▼
+                                  Eve (adversary)  reads, alters, injects
+ Symmetric cipher: K1 = K2 (shared secret)     Asymmetric cipher: K1 ≠ K2 (public/private)
+</pre
+      >
+    </div>
+    <h3>OSI Security Architecture (ITU-T X.800)</h3>
+    <p>
+      X.800 organises security around three ideas: <b>Security Attack</b> (any
+      action that compromises security), <b>Security Mechanism</b> (a process to
+      detect, prevent or recover from an attack) and <b>Security Service</b> (a
+      service that enhances security using one or more mechanisms). These are
+      covered in sections 3 to 5.
+    </p>
+    <div class="diagram">
+      <pre>
+ ATTACKS (what goes wrong) ──countered by──► SERVICES (what we provide) ──implemented using──► MECHANISMS (how)
+</pre
+      >
+    </div>
+    <p>
+      <b>Real-world example:</b> When you open a banking site over HTTPS,
+      encryption hides your password (confidentiality), a hash/MAC detects
+      tampering (integrity), a certificate proves the bank's identity
+      (authentication) and server rate-limiting resists flooding (availability).
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <u>Cryptography</u> creates ciphers;
+      <u>cryptanalysis</u> breaks them; <u>cryptology</u> covers both.
+      Encryption is done by the sender, decryption by the receiver. A cipher is
+      the <i>algorithm</i>; the key is the <i>secret input</i>. Security is not
+      only encryption: it also needs authentication, access control and
+      availability.
+    </div>
+
+    <!-- ============ 2 ============ -->
+    <h2>2. Security Goals</h2>
+    <h3>Core Concept</h3>
+    <p>
+      The three fundamental goals form the <b>CIA triad</b>. Every security
+      measure aims to preserve one or more of them.
+    </p>
+    <div class="diagram">
+      <pre>
+                Confidentiality
+                     /\
+                    /  \
+                   /CIA \
+                  /______\
+          Integrity ──── Availability
+</pre
+      >
+    </div>
+    <table>
+      <tr>
+        <th>Goal</th>
+        <th>Definition</th>
+        <th>Threat</th>
+        <th>Typical countermeasure</th>
+      </tr>
+      <tr>
+        <td><b>Confidentiality</b></td>
+        <td>Only authorised parties can read the information</td>
+        <td>Snooping, traffic analysis</td>
+        <td>Encryption, access control</td>
+      </tr>
+      <tr>
+        <td><b>Integrity</b></td>
+        <td>
+          Data is not altered in an unauthorised way (accuracy and completeness)
+        </td>
+        <td>Modification, masquerading, replaying</td>
+        <td>Hash functions, MAC, digital signatures</td>
+      </tr>
+      <tr>
+        <td><b>Availability</b></td>
+        <td>Systems and data are accessible to authorised users when needed</td>
+        <td>Denial of service</td>
+        <td>Redundancy, firewalls, backups, DDoS protection</td>
+      </tr>
+    </table>
+    <h3>Additional (extended) goals</h3>
+    <table>
+      <tr>
+        <th>Goal</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td><b>Authenticity</b></td>
+        <td>Entities and data origin are genuine (who you claim to be)</td>
+      </tr>
+      <tr>
+        <td><b>Non-repudiation</b></td>
+        <td>
+          Sender cannot later deny having sent a message; receiver cannot deny
+          receipt
+        </td>
+      </tr>
+      <tr>
+        <td><b>Accountability</b></td>
+        <td>Actions can be traced to the responsible entity (logs, audit)</td>
+      </tr>
+      <tr>
+        <td><b>Privacy</b></td>
+        <td>Individual control over personal data</td>
+      </tr>
+    </table>
+    <p><b>Examples:</b></p>
+    <ul>
+      <li>
+        <b>Confidentiality:</b> a hospital database exposes patient records only
+        to doctors.
+      </li>
+      <li>
+        <b>Integrity:</b> a bank transfer of 1,000 must not arrive as 10,000.
+      </li>
+      <li>
+        <b>Availability:</b> an exam-result portal must stay online on result
+        day.
+      </li>
+    </ul>
+    <pre><code># Integrity demonstration: any change flips the hash completely
+import hashlib
+a = hashlib.sha256(b"Pay Ravi 1000").hexdigest()
+b = hashlib.sha256(b"Pay Ravi 9000").hexdigest()
+print(a == b)      # False -> tampering detected</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> Confidentiality is about
+      <b>who can read</b>, integrity about <b>whether it was changed</b>,
+      availability about <b>whether it can be reached</b>. Encryption alone
+      gives confidentiality but not integrity.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Encryption does <u>not</u> automatically
+      ensure integrity (an attacker may flip bits in ciphertext).
+      Confidentiality is not the same as privacy or authentication. Availability
+      attacks (DoS) do not steal data at all, but they still break security.
+    </div>
+
+    <!-- ============ 3 ============ -->
+    <h2>3. Attacks</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>security attack</b> is any action that compromises the security of
+      information. Attacks are grouped by <b>which goal they threaten</b> and by
+      <b>whether they alter the system</b> (passive vs active).
+    </p>
+    <h3>Classification by goal</h3>
+    <table>
+      <tr>
+        <th>Goal threatened</th>
+        <th>Attacks</th>
+      </tr>
+      <tr>
+        <td>Confidentiality</td>
+        <td>Snooping, Traffic analysis</td>
+      </tr>
+      <tr>
+        <td>Integrity</td>
+        <td>Modification, Masquerading (spoofing), Replaying, Repudiation</td>
+      </tr>
+      <tr>
+        <td>Availability</td>
+        <td>Denial of Service (DoS / DDoS)</td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>Attack</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td><b>Snooping</b></td>
+        <td>Unauthorised access to or interception of data</td>
+        <td>Sniffing Wi-Fi packets with Wireshark</td>
+      </tr>
+      <tr>
+        <td><b>Traffic analysis</b></td>
+        <td>
+          Studying traffic patterns (who, when, how much) even if content is
+          encrypted
+        </td>
+        <td>Spotting a burst of traffic before a product launch</td>
+      </tr>
+      <tr>
+        <td><b>Modification (alteration)</b></td>
+        <td>
+          Intercepting and changing a message, then delivering or
+          delaying/deleting it
+        </td>
+        <td>Changing the amount in a payment message</td>
+      </tr>
+      <tr>
+        <td><b>Masquerading (spoofing)</b></td>
+        <td>Attacker impersonates another entity</td>
+        <td>Fake website, IP/ARP spoofing</td>
+      </tr>
+      <tr>
+        <td><b>Replaying</b></td>
+        <td>Attacker captures a valid message and resends it later</td>
+        <td>Re-sending a valid "transfer money" request</td>
+      </tr>
+      <tr>
+        <td><b>Repudiation</b></td>
+        <td>
+          Sender or receiver later denies having sent or received a message
+        </td>
+        <td>Customer denies placing an order</td>
+      </tr>
+      <tr>
+        <td><b>Denial of Service</b></td>
+        <td>
+          Slows or stops a service by overwhelming it or by faking replies
+        </td>
+        <td>SYN flood, DDoS botnet</td>
+      </tr>
+    </table>
+    <h3>Passive vs Active attacks (X.800)</h3>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Passive attack</th>
+        <th>Active attack</th>
+      </tr>
+      <tr>
+        <td>Goal</td>
+        <td>Learn or use information</td>
+        <td>Alter data or disrupt the system</td>
+      </tr>
+      <tr>
+        <td>System changed?</td>
+        <td>No</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Types</td>
+        <td>Release of message contents (snooping), traffic analysis</td>
+        <td>Masquerade, replay, modification, DoS</td>
+      </tr>
+      <tr>
+        <td>Detection</td>
+        <td><b>Hard</b> to detect (nothing changes)</td>
+        <td><b>Easier</b> to detect</td>
+      </tr>
+      <tr>
+        <td>Main defence</td>
+        <td><b>Prevention</b> (encryption)</td>
+        <td><b>Detection and recovery</b> (hashes, signatures, firewalls)</td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ Normal flow:        Source ───────────────────────► Destination
+
+ Interception        Source ──────┬────────────────► Destination      (confidentiality)
+ (passive)                        └──► Eve (copies)
+
+ Modification        Source ──► Eve (alters) ──────► Destination      (integrity)
+ Fabrication/Masq.   Eve ───────────────────────────► Destination      (authenticity)
+ Interruption/DoS    Source ──✕ link/server destroyed ✕► Destination   (availability)
+</pre
+      >
+    </div>
+    <h3>Other attack classes you should know</h3>
+    <ul>
+      <li>
+        <b>Insider vs outsider</b> attacks; <b>targeted vs opportunistic</b>.
+      </li>
+      <li>
+        <b>Man-in-the-Middle (MitM):</b> attacker silently sits between two
+        parties, reading and possibly altering messages.
+      </li>
+      <li>
+        <b>Malware, phishing, social engineering, brute force, SQL injection</b>
+        (covered further in later units).
+      </li>
+      <li>
+        <b>Cryptanalytic attacks</b> on ciphers (section 7): ciphertext-only,
+        known-plaintext, chosen-plaintext, chosen-ciphertext.
+      </li>
+    </ul>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <b>Snooping</b> and
+      <b>traffic analysis</b> are both <u>passive</u> and threaten
+      <u>confidentiality</u>. <b>Replaying</b> reuses a <i>valid</i> old message
+      (nothing is altered), while <b>modification</b> changes the content.
+      <b>Masquerading</b> is pretending to be someone else;
+      <b>repudiation</b> is denying your own action. Passive = hard to detect,
+      easy to prevent; Active = easy to detect, hard to prevent completely.
+    </div>
+
+    <!-- ============ 4 ============ -->
+    <h2>4. Security Services</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>security service</b> is a processing or communication service
+      provided by a system to give specific protection to resources. X.800
+      defines <b>five categories</b>. Services are the "what"; mechanisms are
+      the "how".
+    </p>
+    <table>
+      <tr>
+        <th>Service</th>
+        <th>What it provides</th>
+        <th>Variants</th>
+      </tr>
+      <tr>
+        <td><b>Authentication</b></td>
+        <td>
+          Assurance that the communicating entity or data source is who it
+          claims to be
+        </td>
+        <td>
+          <b>Peer-entity</b> authentication (during a connection);
+          <b>Data-origin</b> authentication (connectionless, e.g. email)
+        </td>
+      </tr>
+      <tr>
+        <td><b>Access control</b></td>
+        <td>Limits who may use a resource and what they may do with it</td>
+        <td>Roles, permissions, ACLs</td>
+      </tr>
+      <tr>
+        <td><b>Data confidentiality</b></td>
+        <td>Protects data from unauthorised disclosure</td>
+        <td>
+          Connection, connectionless, selective-field, traffic-flow
+          confidentiality
+        </td>
+      </tr>
+      <tr>
+        <td><b>Data integrity</b></td>
+        <td>Ensures data received is exactly as sent</td>
+        <td>
+          With/without recovery; connection-oriented, connectionless,
+          selective-field
+        </td>
+      </tr>
+      <tr>
+        <td><b>Non-repudiation</b></td>
+        <td>Prevents denial of sending or receiving</td>
+        <td>Proof of <b>origin</b> and proof of <b>delivery</b></td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ Goals:     Confidentiality     Integrity          Availability
+               │                  │                    │
+ Services:  Data confidentiality  Data integrity       (availability is addressed by
+            Access control        Authentication        services/mechanisms such as access
+                                  Non-repudiation       control and redundancy)
+</pre
+      >
+    </div>
+    <p>
+      <b>Examples:</b> logging in with a password + OTP (authentication); file
+      permissions <code>rwx</code> (access control); HTTPS encryption
+      (confidentiality); SHA-256 checksum of a download (integrity); digitally
+      signed contract (non-repudiation).
+    </p>
+    <div class="key">
+      <b class="t">Key Concept:</b> Service ≠ mechanism. For example, the
+      <i>data integrity service</i> may be implemented by the
+      <i>digital signature</i> or <i>data integrity</i> mechanism.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> X.800 lists exactly <b>five</b> service
+      categories (authentication, access control, data confidentiality, data
+      integrity, non-repudiation); availability is treated as a property that
+      these services help to achieve. Do not confuse <b>authentication</b> (who
+      are you?) with <b>access control</b> (what may you do?), nor
+      <b>integrity</b> (unchanged) with <b>non-repudiation</b> (cannot deny).
+    </div>
+
+    <!-- ============ 5 ============ -->
+    <h2>5. Security Mechanisms</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>security mechanism</b> is a technique or process designed to detect,
+      prevent or recover from a security attack. X.800 splits them into
+      <b>specific</b> (tied to a particular service) and <b>pervasive</b> (not
+      tied to any one service).
+    </p>
+    <h3>Specific security mechanisms</h3>
+    <table>
+      <tr>
+        <th>Mechanism</th>
+        <th>Description</th>
+        <th>Used for</th>
+      </tr>
+      <tr>
+        <td><b>Encipherment</b></td>
+        <td>Uses mathematical algorithms (cryptography) to hide data</td>
+        <td>Confidentiality</td>
+      </tr>
+      <tr>
+        <td><b>Digital signature</b></td>
+        <td>
+          Data appended to, or a transformation of, a data unit that proves
+          origin and integrity
+        </td>
+        <td>Authentication, integrity, non-repudiation</td>
+      </tr>
+      <tr>
+        <td><b>Access control</b></td>
+        <td>
+          Methods that enforce rights to resources (passwords, ACLs, tokens)
+        </td>
+        <td>Access control</td>
+      </tr>
+      <tr>
+        <td><b>Data integrity</b></td>
+        <td>Checksum, hash or MAC appended to data, verified at receiver</td>
+        <td>Integrity</td>
+      </tr>
+      <tr>
+        <td><b>Authentication exchange</b></td>
+        <td>
+          Protocol in which entities prove identity (challenge-response,
+          handshake)
+        </td>
+        <td>Authentication</td>
+      </tr>
+      <tr>
+        <td><b>Traffic padding</b></td>
+        <td>Insert dummy bits/messages to hide traffic patterns</td>
+        <td>Defeat traffic analysis</td>
+      </tr>
+      <tr>
+        <td><b>Routing control</b></td>
+        <td>Choose or change secure routes; avoid compromised links</td>
+        <td>Confidentiality, availability</td>
+      </tr>
+      <tr>
+        <td><b>Notarization</b></td>
+        <td>
+          Trusted third party assures properties of an exchange (time, origin,
+          integrity)
+        </td>
+        <td>Non-repudiation</td>
+      </tr>
+    </table>
+    <h3>Pervasive security mechanisms</h3>
+    <table>
+      <tr>
+        <th>Mechanism</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>Trusted functionality</td>
+        <td>Hardware/software considered correct per security policy</td>
+      </tr>
+      <tr>
+        <td>Security label</td>
+        <td>
+          Marking a resource with sensitivity (e.g., Confidential, Secret)
+        </td>
+      </tr>
+      <tr>
+        <td>Event detection</td>
+        <td>Detecting security-relevant events (intrusion detection)</td>
+      </tr>
+      <tr>
+        <td>Security audit trail</td>
+        <td>Independent logs reviewed for violations</td>
+      </tr>
+      <tr>
+        <td>Security recovery</td>
+        <td>Actions after a breach (restore from backup, revoke keys)</td>
+      </tr>
+    </table>
+    <h3>Mapping services to mechanisms</h3>
+    <table>
+      <tr>
+        <th>Service</th>
+        <th>Enciph.</th>
+        <th>Dig. sig.</th>
+        <th>Access ctrl</th>
+        <th>Data integ.</th>
+        <th>Auth. exch.</th>
+        <th>Traffic padding</th>
+        <th>Routing ctrl</th>
+        <th>Notar.</th>
+      </tr>
+      <tr>
+        <td>Peer-entity authentication</td>
+        <td>Y</td>
+        <td>Y</td>
+        <td></td>
+        <td></td>
+        <td>Y</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Data-origin authentication</td>
+        <td>Y</td>
+        <td>Y</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Access control</td>
+        <td></td>
+        <td></td>
+        <td>Y</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Confidentiality</td>
+        <td>Y</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Y</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Traffic-flow confidentiality</td>
+        <td>Y</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Y</td>
+        <td>Y</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Data integrity</td>
+        <td>Y</td>
+        <td>Y</td>
+        <td></td>
+        <td>Y</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Non-repudiation</td>
+        <td></td>
+        <td>Y</td>
+        <td></td>
+        <td>Y</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Y</td>
+      </tr>
+    </table>
+    <pre><code># Mechanism examples in code (Python standard library)
+import hashlib, hmac, secrets
+
+# Data-integrity mechanism: hash
+digest = hashlib.sha256(b"hello").hexdigest()
+
+# Data-origin authentication + integrity: HMAC (keyed hash)
+key = secrets.token_bytes(32)
+tag = hmac.new(key, b"hello", hashlib.sha256).digest()
+print(hmac.compare_digest(tag, hmac.new(key, b"hello", hashlib.sha256).digest()))   # True</code></pre>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Remember the eight <b>specific</b> mechanisms
+      by heart:
+      <i
+        >encipherment, digital signature, access control, data integrity,
+        authentication exchange, traffic padding, routing control,
+        notarization</i
+      >. Traffic padding defends against <b>traffic analysis</b>, not snooping.
+      Notarization needs a <b>trusted third party</b>. Do not confuse the
+      <i>data integrity service</i> with the <i>data integrity mechanism</i>.
+    </div>
+
+    <!-- ============ 6 ============ -->
+    <h2>6. Techniques (Cryptography and Steganography)</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Mechanisms such as encipherment and integrity rely on two families of
+      techniques: <b>cryptography</b> (scramble the meaning of data) and
+      <b>steganography</b> (hide the very existence of data).
+    </p>
+    <h3>6.1 Cryptography</h3>
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>Keys</th>
+        <th>Purpose</th>
+        <th>Examples</th>
+      </tr>
+      <tr>
+        <td><b>Symmetric-key (secret-key)</b></td>
+        <td>One shared secret key</td>
+        <td>Fast bulk confidentiality</td>
+        <td>Caesar, Vigenère, DES, 3DES, AES</td>
+      </tr>
+      <tr>
+        <td><b>Asymmetric-key (public-key)</b></td>
+        <td>Key pair: public + private</td>
+        <td>Key exchange, signatures</td>
+        <td>RSA, ECC, Diffie-Hellman</td>
+      </tr>
+      <tr>
+        <td><b>Hashing</b></td>
+        <td>No key (or keyed for MAC)</td>
+        <td>Integrity, fingerprints</td>
+        <td>SHA-256, SHA-512, MD5 (broken)</td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ Symmetric :  Alice ─[ K ]─► ciphertext ─[ K ]─► Bob        (same key; key distribution problem)
+ Asymmetric:  Alice ─[ Bob's PUBLIC key ]─► ciphertext ─[ Bob's PRIVATE key ]─► Bob
+ Hash      :  message ──► H() ──► fixed-length digest         (one-way, no decryption)
+</pre
+      >
+    </div>
+    <h3>6.2 Steganography</h3>
+    <p>
+      <b>Steganography</b> (Greek: "covered writing") conceals a secret message
+      inside an innocent <b>cover medium</b> (image, audio, video, text) so that
+      nobody suspects a message exists. Historical forms: invisible ink,
+      microdots, tattooing a messenger's shaved head.
+    </p>
+    <table>
+      <tr>
+        <th>Cover medium</th>
+        <th>Technique</th>
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td><b>LSB (Least Significant Bit)</b> substitution in pixels</td>
+      </tr>
+      <tr>
+        <td>Audio / video</td>
+        <td>Phase coding, echo hiding, frame data</td>
+      </tr>
+      <tr>
+        <td>Text</td>
+        <td>Whitespace, first letter of each word (acrostic), font changes</td>
+      </tr>
+      <tr>
+        <td>Network</td>
+        <td>Unused header fields in TCP/IP packets</td>
+      </tr>
+    </table>
+    <pre><code># LSB steganography idea (hide one bit in a pixel byte)
+pixel = 0b10110110          # original red value = 182
+bit   = 1                   # secret bit to hide
+stego = (pixel &amp; 0b11111110) | bit    # clear last bit, then set it
+print(stego)                # 183 (change of 1 is invisible to the eye)
+# Extraction:  secret_bit = stego &amp; 1</code></pre>
+    <h3>Cryptography vs Steganography</h3>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Cryptography</th>
+        <th>Steganography</th>
+      </tr>
+      <tr>
+        <td>Hides</td>
+        <td>The <b>meaning</b> of the message</td>
+        <td>The <b>existence</b> of the message</td>
+      </tr>
+      <tr>
+        <td>Visibility</td>
+        <td>Ciphertext looks scrambled (suspicious)</td>
+        <td>Stego-object looks ordinary</td>
+      </tr>
+      <tr>
+        <td>If detected</td>
+        <td>Attacker must still break the cipher</td>
+        <td>Message is exposed once found (unless also encrypted)</td>
+      </tr>
+      <tr>
+        <td>Best practice</td>
+        <td colspan="2">Combine both: <b>encrypt first, then hide</b></td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> Cryptography = <b>"I can't read it"</b>;
+      Steganography = <b>"I don't know it is there"</b>. They are complementary,
+      not alternatives.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Steganography is <u>not</u> encryption and
+      provides no secrecy by itself once the method is known (it relies on
+      obscurity). Hashing is <u>not</u> encryption (it is irreversible).
+      Symmetric ciphers are fast but need a secure way to share the key;
+      asymmetric ciphers solve key distribution but are slower.
+    </div>
+
+    <!-- ============ 7 ============ -->
+    <h2>
+      7. Traditional Symmetric-Key Ciphers: Fundamentals and Cryptanalysis
+    </h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>symmetric-key cipher</b> uses the <b>same secret key</b> for
+      encryption and decryption. <b>Traditional (classical) ciphers</b> are the
+      character-oriented ciphers used before computers; they are simple but
+      illustrate every core idea of modern cryptography: substitution,
+      transposition, key space and cryptanalysis.
+    </p>
+    <div class="diagram">
+      <pre>
+ Traditional symmetric-key ciphers
+ ├── Substitution ciphers  (replace symbols)
+ │     ├── Monoalphabetic : Additive (Caesar), Multiplicative, Affine, general mapping
+ │     └── Polyalphabetic : Autokey, Playfair, Vigenère, Hill, One-time pad, Rotor, Enigma
+ └── Transposition ciphers (rearrange positions)
+       ├── Keyless : Rail Fence
+       ├── Keyed   : Columnar transposition
+       └── Combined: Keyed + keyless, double transposition
+</pre
+      >
+    </div>
+    <h3>Kerckhoff's Principle</h3>
+    <p>
+      A cryptosystem must remain secure
+      <b>even if everything about it except the key is public</b>. Security must
+      depend on the secrecy of the key, never on the secrecy of the algorithm
+      (security through obscurity fails).
+    </p>
+    <h3>Cryptanalysis: types of attacks on a cipher</h3>
+    <table>
+      <tr>
+        <th>Attack</th>
+        <th>Attacker knows / can do</th>
+      </tr>
+      <tr>
+        <td><b>Ciphertext-only</b></td>
+        <td>Only ciphertext (weakest assumption; the most common real case)</td>
+      </tr>
+      <tr>
+        <td><b>Known-plaintext</b></td>
+        <td>Some plaintext–ciphertext pairs</td>
+      </tr>
+      <tr>
+        <td><b>Chosen-plaintext</b></td>
+        <td>Can encrypt plaintext of own choice and see the ciphertext</td>
+      </tr>
+      <tr>
+        <td><b>Chosen-ciphertext</b></td>
+        <td>Can decrypt ciphertext of own choice</td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>Cryptanalytic method</th>
+        <th>Idea</th>
+      </tr>
+      <tr>
+        <td><b>Brute force</b> (exhaustive key search)</td>
+        <td>Try every key; feasible only when the <b>key space</b> is small</td>
+      </tr>
+      <tr>
+        <td><b>Statistical (frequency) analysis</b></td>
+        <td>
+          Letters, digrams (TH, HE, IN, ER) and trigrams (THE, AND) have
+          characteristic frequencies
+        </td>
+      </tr>
+      <tr>
+        <td><b>Pattern analysis</b></td>
+        <td>Repeated sequences reveal key length (Kasiski)</td>
+      </tr>
+    </table>
+    <p>
+      <b>English letter frequency (approx.):</b> E 12.7%, T 9.1%, A 8.2%, O
+      7.5%, I 7.0%, N 6.7% ... Z 0.07%. Most frequent digram: <b>TH</b>; most
+      frequent trigram: <b>THE</b>.
+    </p>
+    <h3>Modular arithmetic needed (mod 26)</h3>
+    <pre><code>Letters:  A=0 B=1 C=2 D=3 E=4 F=5 G=6 H=7 I=8 J=9 K=10 L=11 M=12
+          N=13 O=14 P=15 Q=16 R=17 S=18 T=19 U=20 V=21 W=22 X=23 Y=24 Z=25
+
+a mod n  = remainder of a / n        (e.g., 35 mod 26 = 9,  -3 mod 26 = 23)
+Additive inverse of k  : (26 - k) mod 26
+Multiplicative inverse : a^-1 such that a * a^-1 ≡ 1 (mod 26); exists only if gcd(a, 26) = 1
+Valid multiplicative keys mod 26 (12 of them): 1,3,5,7,9,11,15,17,19,21,23,25
+Inverses: 1→1, 3→9, 5→21, 7→15, 9→3, 11→19, 15→7, 17→23, 19→11, 21→5, 23→17, 25→25</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> <b>Key space</b> = number of possible keys.
+      A cipher is breakable by brute force if the key space is small, and by
+      statistics if it preserves the plaintext's letter frequencies.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Kerckhoff's principle says
+      <u>only the key</u> is secret, not the algorithm. Ciphertext-only is the
+      <u>weakest</u> attacker assumption (hardest attack); chosen-plaintext
+      gives the attacker more power. A multiplicative key must satisfy
+      <code>gcd(key, 26) = 1</code>; otherwise decryption is impossible.
+    </div>
+
+    <!-- ============ 8 ============ -->
+    <h2>8. Substitution Ciphers</h2>
+    <p>
+      Each plaintext symbol is <b>replaced</b> by another symbol; the
+      <b>positions stay the same</b>. In a <b>monoalphabetic</b> cipher one
+      fixed mapping is used for the whole message; in a
+      <b>polyalphabetic</b> cipher the mapping changes with position.
+    </p>
+
+    <h3>8.1 Additive Cipher (Shift / Caesar Cipher)</h3>
+    <p>
+      Encryption: <code>C = (P + k) mod 26</code>. Decryption:
+      <code>P = (C − k) mod 26</code>. Key space = <b>26</b> (key 0 means no
+      change, so 25 useful keys). <b>Caesar cipher</b> is the special case
+      <b>k = 3</b> (used by Julius Caesar).
+    </p>
+    <pre><code>Plaintext : H  E  L  L  O        (7, 4, 11, 11, 14)
+k = 3     : +3 each              (10, 7, 14, 14, 17)
+Ciphertext: K  H  O  O  R   →  "KHOOR"
+
+Decrypt   : K(10)-3=7 H, H(7)-3=4 E, O(14)-3=11 L ... → "HELLO"</code></pre>
+    <pre><code>def caesar(text, k, decrypt=False):
+    if decrypt: k = -k
+    out = []
+    for ch in text.upper():
+        if ch.isalpha():
+            out.append(chr((ord(ch) - 65 + k) % 26 + 65))   # shift inside A-Z
+        else:
+            out.append(ch)                                   # keep spaces/punctuation
+    return "".join(out)
+
+c = caesar("HELLO", 3)           # KHOOR
+p = caesar(c, 3, decrypt=True)   # HELLO
+
+# Brute-force attack: try all 26 keys and look for readable text
+for k in range(26):
+    print(k, caesar("KHOOR", k, decrypt=True))</code></pre>
+    <p>
+      <b>Cryptanalysis:</b> brute force (only 26 keys) or frequency analysis.
+    </p>
+
+    <h3>8.2 Multiplicative Cipher</h3>
+    <p>
+      Encryption: <code>C = (P × k) mod 26</code>. Decryption:
+      <code>P = (C × k⁻¹) mod 26</code>, with <code>gcd(k, 26) = 1</code>. Key
+      space = <b>12</b>.
+    </p>
+    <pre><code>Key k = 7  (inverse 15 because 7*15 = 105 = 4*26 + 1)
+H(7)  → 7*7  = 49 mod 26 = 23 → X
+E(4)  → 7*4  = 28 mod 26 = 2  → C
+L(11) → 7*11 = 77 mod 26 = 25 → Z
+L(11) → Z
+O(14) → 7*14 = 98 mod 26 = 20 → U
+Ciphertext: "XCZZU"
+Decrypt X(23): 23*15 = 345 mod 26 = 7 → H ✓</code></pre>
+    <p>
+      <b>Weakness:</b> the letter <b>A (0)</b> always maps to A, and the key
+      space is tiny.
+    </p>
+
+    <h3>8.3 Affine Cipher</h3>
+    <p>
+      Combines both: <code>C = (a × P + b) mod 26</code>,
+      <code>P = a⁻¹ × (C − b) mod 26</code>. Key = <b>(a, b)</b> with
+      <code>gcd(a, 26) = 1</code>. Key space = <b>12 × 26 = 312</b>. Additive is
+      affine with a = 1; multiplicative is affine with b = 0.
+    </p>
+    <pre><code>Key (a, b) = (7, 2),  a^-1 = 15
+H(7)  → 7*7  + 2 = 51 mod 26 = 25 → Z
+E(4)  → 7*4  + 2 = 30 mod 26 = 4  → E
+L(11) → 7*11 + 2 = 79 mod 26 = 1  → B
+L(11) → B
+O(14) → 7*14 + 2 = 100 mod 26 = 22 → W
+Ciphertext: "ZEBBW"
+
+Decrypt Z(25): 15 * (25 - 2) = 15 * 23 = 345 mod 26 = 7 → H ✓</code></pre>
+    <pre><code>def affine(text, a, b, decrypt=False):
+    inv = pow(a, -1, 26)                      # modular inverse (raises error if gcd != 1)
+    out = []
+    for ch in text.upper():
+        if ch.isalpha():
+            x = ord(ch) - 65
+            y = (inv * (x - b)) % 26 if decrypt else (a * x + b) % 26
+            out.append(chr(y + 65))
+        else:
+            out.append(ch)
+    return "".join(out)
+
+print(affine("HELLO", 7, 2))                  # ZEBBW
+print(affine("ZEBBW", 7, 2, decrypt=True))    # HELLO</code></pre>
+
+    <h3>8.4 General Monoalphabetic (Simple Substitution) Cipher</h3>
+    <p>
+      Any one-to-one mapping of the alphabet: key space = <b>26! ≈ 4 × 10²⁶</b>.
+      Brute force is impossible, yet it is easily broken by
+      <b>frequency analysis</b> because letter statistics are preserved.
+    </p>
+    <pre><code>Plain : ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Cipher: QWERTYUIOPASDFGHJKLZXCVBNM       (key = a permutation)
+HELLO → ITSSG</code></pre>
+    <div class="diagram">
+      <pre>
+ Monoalphabetic family and key spaces
+ Additive 26  |  Multiplicative 12  |  Affine 312  |  General 26! ≈ 4×10^26
+ All of them keep letter-frequency patterns → vulnerable to statistical attack
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> More keys does not mean more security: even
+      the huge 26! key space falls to frequency analysis. Caesar key space is 26
+      (25 useful); multiplicative 12; affine 312. In affine decryption subtract
+      <b>b first</b>, then multiply by <b>a⁻¹</b>. If gcd(a, 26) ≠ 1 several
+      plaintext letters map to the same ciphertext letter and decryption is
+      ambiguous.
+    </div>
+
+    <h3>8.5 Polyalphabetic Ciphers</h3>
+    <p>
+      The same plaintext letter can map to <b>different</b> ciphertext letters
+      depending on its position, which
+      <b>flattens the frequency distribution</b>.
+    </p>
+
+    <h3>8.5.1 Autokey Cipher</h3>
+    <p>
+      The key stream = <b>initial key + the plaintext itself</b> (hence "auto").
+      <code>C<sub>i</sub> = (P<sub>i</sub> + k<sub>i</sub>) mod 26</code>.
+      Eliminates key repetition, but the plaintext leaks into the key stream.
+    </p>
+    <pre><code>Plaintext : H  E  L  L  O
+Key stream: D  H  E  L  L        (initial key k1 = 3 = D, then plaintext HELL)
+Addition  : 7+3=10 K, 4+7=11 L, 11+4=15 P, 11+11=22 W, 14+11=25 Z
+Ciphertext: K  L  P  W  Z   → "KLPWZ"
+Decrypt   : recover letters one by one; each recovered letter extends the key stream.</code></pre>
+
+    <h3>
+      8.5.2 Playfair Cipher (digraph substitution, 1854, Wheatstone / Lord
+      Playfair)
+    </h3>
+    <p>
+      Encrypts <b>pairs of letters</b> using a <b>5 × 5 key matrix</b> (I and J
+      share one cell).
+    </p>
+    <p>
+      <b>Building the matrix (key = MONARCHY):</b> write key letters without
+      repeats, then fill with remaining alphabet letters.
+    </p>
+    <pre><code>   M  O  N  A  R
+   C  H  Y  B  D
+   E  F  G  I/J K
+   L  P  Q  S  T
+   U  V  W  X  Z</code></pre>
+    <p>
+      <b>Preparing the plaintext:</b> split into digraphs; if a pair has the
+      <b>same letter</b>, insert a filler (X) between them; if the length is
+      odd, add X at the end.
+    </p>
+    <table>
+      <tr>
+        <th>Case</th>
+        <th>Rule (encryption)</th>
+        <th>Decryption</th>
+      </tr>
+      <tr>
+        <td>Same row</td>
+        <td>
+          Replace each letter by the one to its <b>right</b> (wrap around)
+        </td>
+        <td>Left</td>
+      </tr>
+      <tr>
+        <td>Same column</td>
+        <td>Replace each by the one <b>below</b> (wrap around)</td>
+        <td>Above</td>
+      </tr>
+      <tr>
+        <td>Rectangle (different row and column)</td>
+        <td>
+          Replace each by the letter in <b>its own row</b>, at the
+          <b>other letter's column</b>
+        </td>
+        <td>Same rule</td>
+      </tr>
+    </table>
+    <pre><code>Plaintext HELLO → digraphs: HE  LX  LO     (LL split by filler X)
+
+HE: H(row2,col2), E(row3,col1) → rectangle → H takes E's column: C ; E takes H's column: F  → CF
+LX: L(row4,col1), X(row5,col4) → rectangle → L→S ; X→U   → SU
+LO: L(row4,col1), O(row1,col2) → rectangle → L→P ; O→M   → PM
+
+Ciphertext: CFSUPM
+Same-row example:  MO → ON   (M→O, O→N)
+Same-col example:  MC → CE   (M→C, C→E)</code></pre>
+    <p>
+      <b>Strength:</b> 25 × 25 = 625 digraphs instead of 26 letters, so
+      single-letter frequency analysis fails. <b>Weakness:</b> still
+      digraph-frequency vulnerable; key space 25! (about 1.5 × 10²⁵).
+    </p>
+
+    <h3>8.5.3 Vigenère Cipher</h3>
+    <p>
+      Uses a <b>keyword</b> repeated over the plaintext; each key letter defines
+      a Caesar shift.
+      <code>C<sub>i</sub> = (P<sub>i</sub> + K<sub>i mod m</sub>) mod 26</code>,
+      where m = key length. Called "le chiffre indéchiffrable" until broken in
+      the 19th century.
+    </p>
+    <pre><code>Plaintext : H  E  L  L  O
+Key       : K  E  Y  K  E        (key "KEY" repeated; K=10, E=4, Y=24)
+Add       : 7+10=17 R, 4+4=8 I, 11+24=35→9 J, 11+10=21 V, 14+4=18 S
+Ciphertext: R  I  J  V  S   → "RIJVS"</code></pre>
+    <pre><code>def vigenere(text, key, decrypt=False):
+    out, j = [], 0
+    for ch in text.upper():
+        if ch.isalpha():
+            k = ord(key[j % len(key)].upper()) - 65
+            if decrypt: k = -k
+            out.append(chr((ord(ch) - 65 + k) % 26 + 65))
+            j += 1                                   # advance key only on letters
+        else:
+            out.append(ch)
+    return "".join(out)
+
+print(vigenere("HELLO", "KEY"))             # RIJVS
+print(vigenere("RIJVS", "KEY", True))       # HELLO</code></pre>
+    <p>
+      <b>Cryptanalysis:</b> (1) <b>Kasiski examination</b> finds repeated
+      ciphertext sequences; the distances between them are multiples of the key
+      length. (2) <b>Index of Coincidence (IC)</b> estimates the key length (IC
+      ≈ 0.067 for English, ≈ 0.038 for random text). (3) Once key length m is
+      known, split the text into m Caesar ciphers and solve each by frequency
+      analysis.
+    </p>
+
+    <h3>8.5.4 Hill Cipher (Lester Hill, 1929): matrix-based, block cipher</h3>
+    <p>
+      Encrypts a block of <b>n letters</b> at once using an
+      <b>n × n key matrix K</b>: <code>C = K · P mod 26</code>,
+      <code>P = K⁻¹ · C mod 26</code>. K is valid only if
+      <code>gcd(det K, 26) = 1</code>.
+    </p>
+    <pre><code>Key K = | 3  3 |      det = 3*5 - 3*2 = 9,   gcd(9,26)=1 → valid
+        | 2  5 |      det^-1 mod 26 = 3   (since 9*3 = 27 ≡ 1)
+
+Plaintext "HELP" → blocks HE = (7,4),  LP = (11,15)
+
+HE:  3*7 + 3*4  = 33 mod 26 = 7  → H
+     2*7 + 5*4  = 34 mod 26 = 8  → I          → "HI"
+LP:  3*11 + 3*15 = 78 mod 26 = 0  → A
+     2*11 + 5*15 = 97 mod 26 = 19 → T         → "AT"
+Ciphertext: "HIAT"
+
+Inverse key: K^-1 = 3 * | 5 -3 | = | 15 -9 | ≡ | 15 17 |  (mod 26)
+                        |-2  3 |   | -6  9 |   | 20  9 |
+Check: K × K^-1 ≡ I (mod 26)  ✓</code></pre>
+    <pre><code>import numpy as np
+K = np.array([[3, 3], [2, 5]])
+def hill_encrypt(text, K):
+    n = K.shape[0]
+    nums = [ord(c) - 65 for c in text.upper()]
+    while len(nums) % n: nums.append(23)            # pad with X
+    out = ""
+    for i in range(0, len(nums), n):
+        block = np.array(nums[i:i+n])
+        out += "".join(chr(int(v) + 65) for v in (K @ block) % 26)
+    return out
+print(hill_encrypt("HELP", K))                      # HIAT</code></pre>
+    <p>
+      <b>Strength:</b> hides single-letter and digraph frequencies.
+      <b>Weakness:</b> completely <b>linear</b>, so it falls to a
+      <b>known-plaintext attack</b> (n plaintext–ciphertext blocks let you solve
+      for K).
+    </p>
+
+    <h3>8.5.5 One-Time Pad (OTP, Vernam cipher)</h3>
+    <p>
+      Key is a <b>truly random</b> stream, <b>as long as the message</b>, used
+      <b>only once</b>. Letters: <code>C = (P + K) mod 26</code>; bits:
+      <code>C = P ⊕ K</code>. Proven by Claude Shannon to give
+      <b>perfect secrecy</b> (ciphertext reveals no information about
+      plaintext).
+    </p>
+    <pre><code>Bits:  P = 01001000 ('H')
+       K = 10110101   (random)
+       C = P XOR K = 11111101
+Decrypt: C XOR K = 01001000 = 'H'    (XOR is its own inverse)
+
+import secrets
+msg = b"HELLO"
+key = secrets.token_bytes(len(msg))                  # random, same length
+ct  = bytes(m ^ k for m, k in zip(msg, key))
+pt  = bytes(c ^ k for c, k in zip(ct,  key))         # b"HELLO"</code></pre>
+    <p>
+      <b>Requirements for perfect secrecy:</b> (1) truly random key, (2) key
+      length ≥ message length, (3) key never reused, (4) key kept secret.
+      <b>Problem:</b> key distribution and storage are as hard as the original
+      problem; reuse (two-time pad) leaks <code>P1 ⊕ P2</code>.
+    </p>
+
+    <h3>8.5.6 Rotor Cipher and Enigma</h3>
+    <p>
+      A <b>rotor</b> is a wheel with 26 contacts wired internally as a
+      substitution. After <b>every keystroke the rotor rotates</b>, so the
+      substitution changes (a polyalphabetic cipher with a very long period).
+      <b>Enigma</b> (Germany, WWII) used
+      <b>3 rotors, a reflector and a plugboard</b>; settings give about 1.6 ×
+      10²⁰ possibilities. It was broken by Polish mathematicians (Rejewski) and
+      then at Bletchley Park (Alan Turing, the "Bombe"), helped by operator
+      habits and a design flaw: <b>a letter was never encrypted to itself</b>.
+    </p>
+    <div class="diagram">
+      <pre>
+ key press ─► plugboard ─► R1 ─► R2 ─► R3 ─► reflector ─► R3 ─► R2 ─► R1 ─► plugboard ─► lamp
+ R1 steps every key; R2 steps once per 26 steps of R1 (odometer style)
+ Reciprocal: same settings both encrypt and decrypt
+</pre
+      >
+    </div>
+    <h3>Monoalphabetic vs Polyalphabetic summary</h3>
+    <table>
+      <tr>
+        <th>Cipher</th>
+        <th>Type</th>
+        <th>Key</th>
+        <th>Main weakness</th>
+      </tr>
+      <tr>
+        <td>Additive / Caesar</td>
+        <td>Mono</td>
+        <td>k (0-25)</td>
+        <td>26 keys; brute force</td>
+      </tr>
+      <tr>
+        <td>Multiplicative</td>
+        <td>Mono</td>
+        <td>k, gcd(k,26)=1</td>
+        <td>12 keys; A→A</td>
+      </tr>
+      <tr>
+        <td>Affine</td>
+        <td>Mono</td>
+        <td>(a, b)</td>
+        <td>312 keys; frequency analysis</td>
+      </tr>
+      <tr>
+        <td>Autokey</td>
+        <td>Poly</td>
+        <td>Initial key + plaintext</td>
+        <td>Key stream contains plaintext</td>
+      </tr>
+      <tr>
+        <td>Playfair</td>
+        <td>Poly (digraph)</td>
+        <td>5×5 matrix</td>
+        <td>Digraph frequency analysis</td>
+      </tr>
+      <tr>
+        <td>Vigenère</td>
+        <td>Poly</td>
+        <td>Repeating keyword</td>
+        <td>Kasiski, Index of Coincidence</td>
+      </tr>
+      <tr>
+        <td>Hill</td>
+        <td>Poly (block)</td>
+        <td>n×n matrix</td>
+        <td>Linear; known-plaintext attack</td>
+      </tr>
+      <tr>
+        <td>One-time pad</td>
+        <td>Poly</td>
+        <td>Random, length = message</td>
+        <td>Key distribution (unbreakable otherwise)</td>
+      </tr>
+      <tr>
+        <td>Rotor / Enigma</td>
+        <td>Poly</td>
+        <td>Rotor wiring + positions + plugboard</td>
+        <td>Operator errors, no self-encryption</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap (high-yield):</b>
+      <ul>
+        <li>
+          Playfair: no letter J (I/J merged);
+          <b>same letters in a pair → insert X</b>; odd length → pad X; same row
+          → <b>right</b>, same column → <b>down</b>, rectangle → swap columns.
+        </li>
+        <li>
+          Vigenère is polyalphabetic but <b>periodic</b>; the key length is
+          found by Kasiski or IC. If the key is as long as the text and random
+          it becomes a one-time pad.
+        </li>
+        <li>
+          Hill needs <code>gcd(det K, 26) = 1</code>; it is <u>linear</u>, hence
+          weak against known-plaintext.
+        </li>
+        <li>
+          OTP is only unbreakable if the key is truly random, as long as the
+          message and <u>never reused</u>.
+        </li>
+        <li>
+          Autokey: the key stream is <b>key + plaintext</b>, not a repeated key.
+        </li>
+      </ul>
+    </div>
+
+    <!-- ============ 9 ============ -->
+    <h2>9. Transposition Ciphers</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>transposition cipher</b> keeps the <b>same letters</b> but
+      <b>rearranges their positions</b> (permutation). Because letters are
+      unchanged, the <b>letter frequencies of the plaintext are preserved</b>,
+      which is the main hint for cryptanalysts.
+    </p>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Substitution</th>
+        <th>Transposition</th>
+      </tr>
+      <tr>
+        <td>Operation</td>
+        <td>Replaces symbols</td>
+        <td>Reorders symbols</td>
+      </tr>
+      <tr>
+        <td>Positions</td>
+        <td>Unchanged</td>
+        <td>Changed</td>
+      </tr>
+      <tr>
+        <td>Letter frequencies</td>
+        <td>Altered (mono: shifted, poly: flattened)</td>
+        <td><b>Same as plaintext</b></td>
+      </tr>
+      <tr>
+        <td>Typical attack</td>
+        <td>Frequency analysis</td>
+        <td>Anagramming / trying column counts</td>
+      </tr>
+    </table>
+
+    <h3>9.1 Keyless Transposition: Rail Fence Cipher</h3>
+    <p>
+      Write the message in a zigzag across <b>n rails</b> (rows) and read row by
+      row.
+    </p>
+    <pre><code>Plaintext HELLOWORLD, 2 rails:
+Rail 1:  H . L . O . O . L .
+Rail 2:  . E . L . W . R . D
+Row 1 = H L O O L     Row 2 = E L W R D
+Ciphertext: "HLOOLELWRD"
+
+Decrypt: first half (5 letters) is rail 1, second half is rail 2; interleave them.</code></pre>
+    <pre><code>def rail_fence_encrypt(text, rails=2):
+    rows = [""] * rails
+    r, step = 0, 1
+    for ch in text:
+        rows[r] += ch
+        if r == 0: step = 1                  # bounce at top
+        elif r == rails - 1: step = -1       # bounce at bottom
+        r += step
+    return "".join(rows)
+
+print(rail_fence_encrypt("HELLOWORLD", 2))   # HLOOLELWRD</code></pre>
+
+    <h3>9.2 Keyed Transposition: Columnar Transposition</h3>
+    <p>
+      Write plaintext in rows under a keyword (numbers show alphabetical order),
+      then <b>read columns in key order</b>.
+    </p>
+    <pre><code>Plaintext: ATTACKATDAWN     Key order: 3 1 4 2   (4 columns)
+
+ col1 col2 col3 col4
+  3    1    4    2        ← key
+  A    T    T    A
+  C    K    A    T
+  D    A    W    N
+
+Read column 1 (T K A), column 2 (A T N), column 3 (A C D), column 4 (T A W)
+Ciphertext: "TKAATNACDTAW"
+
+Decrypt: divide ciphertext into 4 equal columns (3 letters each), place them into
+the columns in key order, then read row by row.</code></pre>
+    <pre><code>def columnar_encrypt(text, key_order):         # key_order like [3,1,4,2]
+    n = len(key_order)
+    text += "X" * (-len(text) % n)             # pad to full rows
+    cols = {key_order[i]: text[i::n] for i in range(n)}   # column i = every n-th char
+    return "".join(cols[k] for k in sorted(cols))
+print(columnar_encrypt("ATTACKATDAWN", [3, 1, 4, 2]))     # TKAATNACDTAW</code></pre>
+
+    <h3>9.3 Combined / Double Transposition</h3>
+    <p>
+      Applying columnar transposition twice (with different keys or a keyless
+      step plus keyed step) greatly increases security by diffusing letters over
+      the whole message. Double transposition was used in field ciphers in both
+      World Wars. In modern terms, combining <b>substitution (confusion)</b> and
+      <b>transposition (diffusion)</b> is the principle behind DES and AES
+      (Shannon).
+    </p>
+    <div class="diagram">
+      <pre>
+ Product cipher idea (Shannon):  Substitution  ──►  Transposition  ──►  repeat (rounds)
+ Confusion: make the key–ciphertext relation complex   Diffusion: spread plaintext influence
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Transposition does <u>not</u> change letter
+      frequencies, so a ciphertext whose letter distribution looks like normal
+      English is probably transposition (not substitution). In columnar
+      transposition the key gives the <b>order in which columns are read</b>,
+      not the order they are written. Remember to pad the last row. Rail fence
+      with 2 rails is the weakest form (only about n−1 sensible keys).
+    </div>
+
+    <!-- ============ 10 ============ -->
+    <h2>10. Stream Ciphers and Block Ciphers</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Symmetric ciphers are also classified by
+      <b>how much data they process at once</b>.
+    </p>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Stream cipher</th>
+        <th>Block cipher</th>
+      </tr>
+      <tr>
+        <td>Unit processed</td>
+        <td>One bit/byte/character at a time</td>
+        <td>Fixed-size block (64 or 128 bits)</td>
+      </tr>
+      <tr>
+        <td>Key use</td>
+        <td>Key stream generated and combined by XOR</td>
+        <td>Same key applied to each block (in a mode of operation)</td>
+      </tr>
+      <tr>
+        <td>Speed / hardware</td>
+        <td>Very fast, small hardware</td>
+        <td>Slower per bit; flexible modes</td>
+      </tr>
+      <tr>
+        <td>Error propagation</td>
+        <td>Low (one bit error affects one bit)</td>
+        <td>Higher (a block is affected, depending on mode)</td>
+      </tr>
+      <tr>
+        <td>Traditional examples</td>
+        <td>Additive, Vigenère, Autokey, One-time pad, Enigma</td>
+        <td>Playfair (digraph), Hill, Transposition ciphers</td>
+      </tr>
+      <tr>
+        <td>Modern examples</td>
+        <td>RC4 (deprecated), ChaCha20, A5/1</td>
+        <td>DES, 3DES, AES</td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ Stream:  P1 P2 P3 ...  ⊕  K1 K2 K3 ... (keystream)   =  C1 C2 C3 ...
+ Block :  [P1 P2 P3 P4][P5 P6 P7 P8] ──E(K)──► [C1..C4][C5..C8]
+ A secure stream cipher approximates a one-time pad using a pseudo-random keystream.
+</pre
+      >
+    </div>
+    <pre><code># Toy stream cipher: XOR with a repeating key stream (insecure, illustration only)
+def xor_stream(data: bytes, key: bytes) -> bytes:
+    return bytes(b ^ key[i % len(key)] for i, b in enumerate(data))
+
+ct = xor_stream(b"ATTACK", b"K3")
+print(xor_stream(ct, b"K3"))    # b'ATTACK'  (same function decrypts)</code></pre>
+    <h3>Shannon's Principles: Confusion and Diffusion</h3>
+    <table>
+      <tr>
+        <th>Principle</th>
+        <th>Meaning</th>
+        <th>Achieved by</th>
+      </tr>
+      <tr>
+        <td><b>Confusion</b></td>
+        <td>
+          Make the relationship between key and ciphertext as complex as
+          possible
+        </td>
+        <td>Substitution (S-boxes)</td>
+      </tr>
+      <tr>
+        <td><b>Diffusion</b></td>
+        <td>
+          Spread the influence of each plaintext bit over many ciphertext bits
+          (avalanche effect)
+        </td>
+        <td>Permutation / transposition</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> Classical ciphers use
+      <b>either</b> substitution <b>or</b> transposition and are weak. Modern
+      block ciphers (DES, AES) <b>combine both repeatedly</b> in rounds: this is
+      Unit II.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Stream vs block is about the
+      <i>processing unit</i>, not about substitution vs transposition. Never
+      reuse a keystream in a stream cipher (XOR of two ciphertexts reveals XOR
+      of plaintexts). Confusion = substitution; diffusion =
+      transposition/permutation.
+    </div>
+
+    <h2>Unit I: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          <b>Terminology:</b> plaintext, ciphertext, key, encryption,
+          decryption, cryptography vs cryptanalysis vs cryptology; X.800 =
+          attack, service, mechanism.
+        </li>
+        <li>
+          <b>Goals:</b> CIA (confidentiality, integrity, availability) +
+          authenticity, non-repudiation, accountability.
+        </li>
+        <li>
+          <b>Attacks:</b> snooping, traffic analysis (confidentiality);
+          modification, masquerading, replaying, repudiation (integrity); DoS
+          (availability). Passive = hard to detect; active = hard to prevent.
+        </li>
+        <li>
+          <b>Services (5):</b> authentication, access control, data
+          confidentiality, data integrity, non-repudiation.
+        </li>
+        <li>
+          <b>Mechanisms (8 specific):</b> encipherment, digital signature,
+          access control, data integrity, authentication exchange, traffic
+          padding, routing control, notarization.
+        </li>
+        <li>
+          <b>Techniques:</b> cryptography (symmetric, asymmetric, hash) vs
+          steganography (hide existence; LSB).
+        </li>
+        <li>
+          <b>Kerckhoff's principle;</b> attack types: ciphertext-only,
+          known-plaintext, chosen-plaintext, chosen-ciphertext.
+        </li>
+        <li>
+          <b>Monoalphabetic:</b> additive (26 keys), multiplicative (12), affine
+          (312), general (26!); formulas and inverses mod 26.
+        </li>
+        <li>
+          <b>Polyalphabetic:</b> autokey, Playfair (5×5, digraph rules),
+          Vigenère (Kasiski, IC), Hill (matrix, det coprime to 26), OTP (perfect
+          secrecy), Rotor/Enigma.
+        </li>
+        <li>
+          <b>Transposition:</b> rail fence, columnar (read in key order),
+          double; frequencies preserved.
+        </li>
+        <li>
+          <b>Stream vs block;</b> confusion (substitution) vs diffusion
+          (permutation).
+        </li>
+      </ul>
+    </div>
+
+    <div class="end">
+      More units will be available soon ( token aa jane ke baad)
+    </div>
+  </body>
+</html>

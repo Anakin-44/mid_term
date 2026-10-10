@@ -1,0 +1,1483 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCA301 Unit II - Advanced JavaScript</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        color: inherit;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+      /* CSS */
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA301: MERN Full Stack Development – Backend<br /><small
+        style="font-size: 60%"
+        >Module 2 (Unit II): Advanced JavaScript, Async &amp; APIs</small
+      >
+    </h1>
+
+    <div class="key">
+      <b class="t">Unit II Map:</b> Array → Object → Array Destructuring →
+      Object Destructuring → ES6 → DOM Manipulation → Error Handling → Callbacks
+      → Promises → Async/Await → Introduction to API → Fetch → AXIOS → JSON
+      (parse, stringify).
+    </div>
+
+    <!-- ============ 1. ARRAY ============ -->
+    <h2>1. Array</h2>
+    <h3>Core Concept</h3>
+    <p>
+      An <b>Array</b> is an ordered, zero-indexed, resizable collection of
+      values. In JS, arrays are special <b>objects</b>, can hold mixed types,
+      and have a dynamic <code>length</code>.
+    </p>
+    <h3>Technical Breakdown</h3>
+    <pre><code>const fruits = ["apple", "banana"];         // array literal
+const arr2 = new Array(3);                  // 3 empty slots
+const arr3 = Array.from("abc");             // ["a","b","c"]
+const arr4 = Array.of(7);                   // [7]
+
+// Access and length
+fruits[0];            // "apple"
+fruits[fruits.length - 1];   // last element
+fruits.at(-1);        // "banana" (ES2022, negative index)
+
+// MUTATING methods (change the original)
+fruits.push("mango");      // add end   -> returns new length
+fruits.pop();              // remove end -> returns removed item
+fruits.unshift("kiwi");    // add start
+fruits.shift();            // remove start
+fruits.splice(1, 1, "pear");   // at index 1 remove 1, insert "pear"
+fruits.sort();             // sorts in place (as STRINGS by default!)
+fruits.reverse();
+
+// NON-MUTATING methods (return new array/value)
+fruits.slice(0, 2);        // copy portion [start, end)
+fruits.concat(["fig"]);
+fruits.indexOf("apple");   // -1 if not found
+fruits.includes("apple");  // true / false
+fruits.join(", ");         // "apple, pear"
+[1, [2, [3]]].flat(Infinity);   // [1,2,3]
+
+// Iteration / functional methods
+[1,2,3].forEach(x =&gt; console.log(x));
+[1,2,3].map(x =&gt; x * 2);        // [2,4,6]
+[1,2,3].filter(x =&gt; x &gt; 1);     // [2,3]
+[1,2,3].reduce((a, b) =&gt; a + b, 0);  // 6
+[1,2,3].find(x =&gt; x &gt; 1);       // 2 (first match)
+[1,2,3].findIndex(x =&gt; x &gt; 1);  // 1
+[1,2,3].some(x =&gt; x &gt; 2);       // true
+[1,2,3].every(x =&gt; x &gt; 0);      // true
+
+// Spread (copy / merge)
+const copy = [...fruits];
+const merged = [...[1,2], ...[3,4]];   // [1,2,3,4]</code></pre>
+    <table>
+      <tr>
+        <th>Mutating</th>
+        <th>Non-mutating</th>
+      </tr>
+      <tr>
+        <td>
+          <code>push, pop, shift, unshift, splice, sort, reverse, fill</code>
+        </td>
+        <td>
+          <code
+            >slice, concat, map, filter, reduce, join, indexOf, includes,
+            flat</code
+          >
+        </td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ index :   0       1        2
+ value : "apple" "banana" "mango"
+ length = 3   (always highest index + 1)
+ push  -> adds at index 3      pop  -> removes index 2
+ unshift/shift work at index 0 (re-index all other items: slower)
+</pre
+      >
+    </div>
+    <p>
+      <b>Real-world example:</b> A shopping cart is an array of product objects;
+      <code>filter</code> removes an item, <code>reduce</code> computes the
+      total.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b>
+      <ul>
+        <li>
+          <code>[10, 9, 1].sort()</code> gives <code>[1, 10, 9]</code> because
+          default sort compares strings. Use <code>sort((a,b)=&gt;a-b)</code>.
+        </li>
+        <li>
+          <code>slice</code> (copy, no mutation) vs
+          <code>splice</code> (mutates).
+        </li>
+        <li>
+          <code>const arr2 = arr1</code> copies the <u>reference</u>, not the
+          data. Use <code>[...arr1]</code>.
+        </li>
+        <li>
+          <code>typeof []</code> is <code>"object"</code>; use
+          <code>Array.isArray()</code>.
+        </li>
+        <li>Setting <code>arr.length = 0</code> empties the array.</li>
+      </ul>
+    </div>
+
+    <!-- ============ 2. OBJECT ============ -->
+    <h2>2. Object</h2>
+    <h3>Core Concept</h3>
+    <p>
+      An <b>Object</b> is an unordered collection of
+      <b>key–value pairs</b> (properties). Values can be primitives, arrays,
+      functions (called <b>methods</b>) or other objects. Keys are strings or
+      Symbols.
+    </p>
+    <pre><code>const student = {
+  name: "Asha",
+  age: 22,
+  skills: ["JS", "Node"],
+  address: { city: "Dehradun" },
+  greet() { return `Hi, I am ${this.name}`; }   // method shorthand
+};
+
+// Access
+student.name;              // dot notation
+student["age"];            // bracket notation (dynamic keys)
+const key = "name"; student[key];
+
+// Add / update / delete
+student.email = "a@x.com";
+student.age = 23;
+delete student.email;
+
+// Checking
+"name" in student;                     // true
+student.hasOwnProperty("age");         // true (own property only)
+Object.hasOwn(student, "age");         // modern version
+
+// Useful static methods
+Object.keys(student);      // ["name","age",...]
+Object.values(student);
+Object.entries(student);   // [["name","Asha"], ...]
+Object.assign({}, student, {age: 30}); // shallow merge/copy
+Object.freeze(student);    // prevents changes (shallow)
+
+// Spread
+const clone  = { ...student };                 // shallow copy
+const merged = { ...student, age: 25 };        // later keys override
+
+// Computed property name and shorthand
+const field = "score"; const score = 90;
+const obj = { [field]: 1, score };    // { score: 90 } ← shorthand wins (later key)
+
+// Iterating
+for (const k in student) console.log(k, student[k]);
+for (const [k, v] of Object.entries(student)) console.log(k, v);
+
+// Constructor function / class
+class Person {
+  constructor(name) { this.name = name; }
+  hello() { return "Hello " + this.name; }
+}
+const p = new Person("Ravi");</code></pre>
+    <div class="diagram">
+      <pre>
+ student ──► { name : "Asha"
+               age  : 22
+               skills ─► [ "JS", "Node" ]     (reference)
+               address ─► { city: "Dehradun" } (reference)
+               greet : function }
+ Spread/assign copy only the TOP level (shallow).
+ Deep copy: structuredClone(obj)  or  JSON.parse(JSON.stringify(obj))
+</pre
+      >
+    </div>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Array</th>
+        <th>Object</th>
+      </tr>
+      <tr>
+        <td>Keys</td>
+        <td>Numeric indices (0,1,2..)</td>
+        <td>Strings / Symbols</td>
+      </tr>
+      <tr>
+        <td>Order</td>
+        <td>Guaranteed by index</td>
+        <td>Insertion order for strings (integer-like keys first)</td>
+      </tr>
+      <tr>
+        <td>Best for</td>
+        <td>Lists</td>
+        <td>Records / entities</td>
+      </tr>
+      <tr>
+        <td>Iterate with</td>
+        <td><code>for...of</code></td>
+        <td><code>for...in</code> / <code>Object.entries</code></td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b>
+      <ul>
+        <li>
+          Spread and <code>Object.assign</code> make <u>shallow</u> copies;
+          nested objects remain shared.
+        </li>
+        <li>
+          Arrow functions as methods do not get the object as <code>this</code>.
+        </li>
+        <li>
+          Accessing a missing property gives <code>undefined</code>; accessing a
+          property of <code>undefined</code> throws TypeError (use
+          <code>?.</code>).
+        </li>
+        <li>
+          <code>{} === {}</code> is <code>false</code> because objects are
+          compared by reference.
+        </li>
+        <li>
+          Dot notation cannot use dynamic or invalid-identifier keys such as
+          <code>obj["first-name"]</code>.
+        </li>
+      </ul>
+    </div>
+
+    <!-- ============ 3. ARRAY DESTRUCTURING ============ -->
+    <h2>3. Array Destructuring</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Destructuring</b> (ES6) unpacks values from arrays into distinct
+      variables using a pattern on the left-hand side. Array destructuring is
+      <b>position-based</b>.
+    </p>
+    <pre><code>const [a, b] = [10, 20];           // a=10, b=20
+const [x, , z] = [1, 2, 3];        // skip with a comma  → x=1, z=3
+const [first, ...rest] = [1, 2, 3, 4];   // rest = [2,3,4]
+const [p = 5, q = 8] = [1];        // defaults → p=1, q=8
+[a, b] = [b, a];                   // swap without temp variable
+const [[m, n], o] = [[1, 2], 3];   // nested
+
+// From function return
+function minMax(arr) { return [Math.min(...arr), Math.max(...arr)]; }
+const [lo, hi] = minMax([4, 1, 9]);   // lo=1, hi=9
+
+// Any iterable works
+const [c1, c2] = "hi";             // "h", "i"
+
+// React's useState uses it:
+// const [count, setCount] = useState(0);</code></pre>
+    <div class="diagram">
+      <pre>
+ const [ a ,  b , ...rest ] = [ 1 , 2 , 3 , 4 ]
+         |     |      |
+         1     2    [3,4]
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> Defaults apply only when the value is
+      <code>undefined</code>, not <code>null</code>.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> The rest element must be <u>last</u>.
+      Destructuring <code>undefined</code> or <code>null</code> throws
+      TypeError. A leading line like <code>[a, b] = [b, a]</code> needs a
+      semicolon on the previous line (ASI hazard).
+    </div>
+
+    <!-- ============ 4. OBJECT DESTRUCTURING ============ -->
+    <h2>4. Object Destructuring</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Object destructuring extracts properties by <b>name</b> (not position)
+      into variables.
+    </p>
+    <pre><code>const user = { id: 1, name: "Asha", address: { city: "Delhi", pin: 110001 }, tags: ["a","b"] };
+
+const { id, name } = user;                    // id=1, name="Asha"
+const { name: userName } = user;              // rename → userName
+const { age = 18 } = user;                    // default value
+const { name: n2 = "NA", role: r = "user" } = user;  // rename + default
+const { address: { city } } = user;           // nested → city="Delhi"
+const { id: uid, ...others } = user;          // rest → others has remaining props
+
+// In function parameters (very common in React/Express)
+function show({ name, age = 0 }) { console.log(name, age); }
+show(user);
+
+// Express-style usage
+// app.post("/signup", (req, res) =&gt; { const { email, password } = req.body; })
+
+// Assigning to existing variables needs parentheses
+let a, b;
+({ a, b } = { a: 1, b: 2 });
+
+// Dynamic key
+const key = "name";
+const { [key]: dynamicVal } = user;</code></pre>
+    <table>
+      <tr>
+        <th>Aspect</th>
+        <th>Array</th>
+        <th>Object</th>
+      </tr>
+      <tr>
+        <td>Matching</td>
+        <td>By position</td>
+        <td>By property name</td>
+      </tr>
+      <tr>
+        <td>Brackets</td>
+        <td><code>[ ]</code></td>
+        <td><code>{ }</code></td>
+      </tr>
+      <tr>
+        <td>Rename</td>
+        <td>Not needed (any name)</td>
+        <td><code>{ old: newName }</code></td>
+      </tr>
+      <tr>
+        <td>Skip items</td>
+        <td>Leave a hole <code>[ , x]</code></td>
+        <td>Just omit the key</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> In <code>{ name: userName }</code> the
+      <u>left</u> side is the property and the <u>right</u> side is the new
+      variable (opposite of object literal creation intuition).
+      <code>{ a, b } = obj;</code> without parentheses is a SyntaxError because
+      <code>{</code> is parsed as a block. In nested destructuring,
+      <code>address</code> itself is not declared as a variable.
+    </div>
+
+    <!-- ============ 5. ES6 ============ -->
+    <h2>5. ES6 (ECMAScript 2015) Features</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>ES6</b> was the biggest JS revision, introducing modern syntax used
+      throughout React and Node.js code.
+    </p>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>let</code> / <code>const</code></td>
+        <td>Block-scoped variables</td>
+      </tr>
+      <tr>
+        <td>Arrow functions</td>
+        <td>Short syntax, lexical <code>this</code></td>
+      </tr>
+      <tr>
+        <td>Template literals</td>
+        <td>String interpolation, multi-line</td>
+      </tr>
+      <tr>
+        <td>Destructuring</td>
+        <td>Unpack arrays/objects</td>
+      </tr>
+      <tr>
+        <td>Spread / Rest (<code>...</code>)</td>
+        <td>Expand or collect items</td>
+      </tr>
+      <tr>
+        <td>Default parameters</td>
+        <td>Fallback arguments</td>
+      </tr>
+      <tr>
+        <td>Classes</td>
+        <td>Cleaner OOP syntax</td>
+      </tr>
+      <tr>
+        <td>Modules (<code>import/export</code>)</td>
+        <td>Code organization</td>
+      </tr>
+      <tr>
+        <td>Promises</td>
+        <td>Async handling</td>
+      </tr>
+      <tr>
+        <td>
+          <code>Map</code>, <code>Set</code>, <code>WeakMap</code>,
+          <code>WeakSet</code>
+        </td>
+        <td>New collections</td>
+      </tr>
+      <tr>
+        <td><code>Symbol</code>, iterators, generators</td>
+        <td>Unique keys, custom iteration</td>
+      </tr>
+      <tr>
+        <td>Enhanced object literals</td>
+        <td>Shorthand properties and methods</td>
+      </tr>
+    </table>
+    <pre><code>// Template literal
+const name = "Asha";
+console.log(`Hello ${name}, 2+3=${2 + 3}`);
+
+// Spread and rest
+const nums = [1, 2, 3];
+Math.max(...nums);                       // spread
+const sum = (...args) =&gt; args.reduce((a, b) =&gt; a + b, 0);   // rest
+
+// Class and inheritance
+class Animal {
+  constructor(name) { this.name = name; }
+  speak() { return `${this.name} makes a sound`; }
+}
+class Dog extends Animal {
+  speak() { return `${super.speak()} - Woof`; }
+}
+new Dog("Tommy").speak();
+
+// Modules
+// math.js
+export const PI = 3.14;
+export default function add(a, b) { return a + b; }
+// app.js
+// import add, { PI } from "./math.js";
+
+// Map and Set
+const set = new Set([1, 1, 2]);          // {1, 2} unique values
+const map = new Map([["a", 1]]);         // keys can be ANY type
+map.set({}, "obj-key");
+
+// Enhanced object literal
+const age = 20;
+const person = { age, hello() { return "hi"; } };</code></pre>
+    <div class="diagram">
+      <pre>
+ Spread (expands)                 Rest (collects)
+ [...[1,2],3] -&gt; [1,2,3]          function f(...a){}  f(1,2,3) -&gt; a=[1,2,3]
+ Same "..." symbol; position decides the meaning
+ (call/literal = spread, parameter/destructuring target = rest)
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> ES6 <code>class</code> is syntactic sugar over
+      prototypes; class declarations are <u>not</u> hoisted like functions (TDZ
+      applies). Template literals need backticks, not quotes.
+      <code>Set</code> removes duplicates only by strict-equality-like
+      (SameValueZero) comparison, so two separate <code>{}</code> remain
+      distinct. ES Modules use <code>import/export</code>; Node's older style is
+      <code>require/module.exports</code> (CommonJS).
+    </div>
+
+    <!-- ============ 6. DOM ============ -->
+    <h2>6. DOM Manipulation</h2>
+    <h3>Core Concept</h3>
+    <p>
+      The <b>Document Object Model (DOM)</b> is a tree-structured, in-memory
+      representation of an HTML page that JavaScript can read and modify.
+      <code>document</code> is the entry point (root).
+    </p>
+    <div class="diagram">
+      <pre>
+ document
+   └── html
+        ├── head ── title
+        └── body
+             ├── h1#title
+             ├── ul.list
+             │     ├── li
+             │     └── li
+             └── button#btn
+</pre
+      >
+    </div>
+    <h3>Selecting Elements</h3>
+    <pre><code>document.getElementById("title");          // single element
+document.getElementsByClassName("item");   // live HTMLCollection
+document.getElementsByTagName("li");       // live HTMLCollection
+document.querySelector(".list li");        // FIRST match (CSS selector)
+document.querySelectorAll(".item");        // static NodeList</code></pre>
+    <h3>Modifying Content, Attributes and Style</h3>
+    <pre><code>const h = document.querySelector("#title");
+h.textContent = "New &lt;b&gt;Title&lt;/b&gt;";   // plain text (safe)
+h.innerHTML   = "New &lt;b&gt;Title&lt;/b&gt;";   // parses HTML (XSS risk with user input)
+h.setAttribute("data-id", "5");
+h.getAttribute("data-id");
+h.style.color = "red";                       // inline style (camelCase)
+h.classList.add("active");                   // also remove, toggle, contains</code></pre>
+    <h3>Creating / Removing Elements</h3>
+    <pre><code>const li = document.createElement("li");
+li.textContent = "Item 3";
+document.querySelector("ul").appendChild(li);      // add at end
+document.querySelector("ul").prepend(li);          // add at start
+li.remove();                                       // delete element
+
+// Efficient bulk insertion
+const frag = document.createDocumentFragment();
+["a","b","c"].forEach(t =&gt; {
+  const x = document.createElement("li"); x.textContent = t; frag.appendChild(x);
+});
+document.querySelector("ul").appendChild(frag);</code></pre>
+    <h3>Event Handling</h3>
+    <pre><code>const btn = document.getElementById("btn");
+btn.addEventListener("click", (event) =&gt; {
+  event.preventDefault();       // stop default action (e.g. form submit)
+  console.log(event.target);    // element that was clicked
+});
+
+// Event delegation: ONE listener on parent handles all children
+document.querySelector("ul").addEventListener("click", (e) =&gt; {
+  if (e.target.tagName === "LI") e.target.classList.toggle("done");
+});</code></pre>
+    <table>
+      <tr>
+        <th>Property</th>
+        <th>Behavior</th>
+      </tr>
+      <tr>
+        <td><code>textContent</code></td>
+        <td>Plain text, fast, safe</td>
+      </tr>
+      <tr>
+        <td><code>innerText</code></td>
+        <td>Text as rendered (respects CSS), slower</td>
+      </tr>
+      <tr>
+        <td><code>innerHTML</code></td>
+        <td>Parses HTML, risk of XSS</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> Events <b>bubble</b> from the target up to
+      ancestors (capturing goes the opposite way). This enables event
+      delegation.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>getElementsBy*</code> return
+      <u>live</u> collections, while <code>querySelectorAll</code> returns a
+      <u>static</u> NodeList. <code>querySelector</code> returns
+      <code>null</code> if nothing matches, so check before use. Scripts must
+      run after the DOM loads (<code>defer</code> attribute or
+      <code>DOMContentLoaded</code> event). Never put user-supplied text in
+      <code>innerHTML</code>.
+    </div>
+
+    <!-- ============ 7. ERROR HANDLING ============ -->
+    <h2>7. Error Handling</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Error handling</b> lets a program detect, report and recover from
+      runtime errors without crashing, using
+      <code>try...catch...finally</code> and <code>throw</code>.
+    </p>
+    <pre><code>try {
+  const data = JSON.parse("{bad json}");   // throws SyntaxError
+} catch (err) {
+  console.error(err.name, err.message);    // SyntaxError ...
+} finally {
+  console.log("Always runs (cleanup)");
+}
+
+// Throwing your own errors
+function divide(a, b) {
+  if (b === 0) throw new Error("Division by zero");
+  return a / b;
+}
+
+// Custom error class
+class ValidationError extends Error {
+  constructor(message, field) {
+    super(message);
+    this.name = "ValidationError";
+    this.field = field;
+  }
+}
+try { throw new ValidationError("Email invalid", "email"); }
+catch (e) {
+  if (e instanceof ValidationError) console.log(e.field);
+  else throw e;                 // rethrow unknown errors
+}
+
+// Async errors
+async function load() {
+  try { const r = await fetch("/api"); if (!r.ok) throw new Error(r.status); }
+  catch (e) { console.error(e); }
+}</code></pre>
+    <table>
+      <tr>
+        <th>Built-in Error</th>
+        <th>Cause</th>
+      </tr>
+      <tr>
+        <td><code>SyntaxError</code></td>
+        <td>Invalid code or JSON</td>
+      </tr>
+      <tr>
+        <td><code>ReferenceError</code></td>
+        <td>Using an undeclared variable</td>
+      </tr>
+      <tr>
+        <td><code>TypeError</code></td>
+        <td>Wrong type operation (e.g., calling <code>undefined()</code>)</td>
+      </tr>
+      <tr>
+        <td><code>RangeError</code></td>
+        <td>Value out of range (e.g., <code>new Array(-1)</code>)</td>
+      </tr>
+      <tr>
+        <td><code>URIError</code>, <code>EvalError</code></td>
+        <td>Bad URI function use / eval issues</td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ try { ... }  ──error?──► catch(e) { ... } ──► finally { ... } ──► continue
+      │ no error                                   ▲
+      └────────────────────────────────────────────┘
+ finally ALWAYS runs (even after return/throw)
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>try/catch</code> cannot catch errors
+      from callbacks that run later (e.g., inside <code>setTimeout</code>) or an
+      un-awaited Promise rejection. <code>fetch()</code> does <u>not</u> reject
+      on HTTP 404/500, only on network failure. You can throw any value, but
+      throw <code>Error</code> objects to keep stack traces. A
+      <code>return</code> inside <code>finally</code> overrides one in
+      <code>try</code>.
+    </div>
+
+    <!-- ============ 8. CALLBACKS ============ -->
+    <h2>8. Asynchronous JavaScript: Callbacks</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Synchronous</b> code runs line by line and blocks;
+      <b>asynchronous</b> code starts a task and continues, handling the result
+      later. A <b>callback</b> is a function passed to another function, to be
+      called when work completes.
+    </p>
+    <pre><code>// Synchronous callback
+[1,2,3].forEach(n =&gt; console.log(n));
+
+// Asynchronous callback
+console.log("A");
+setTimeout(() =&gt; console.log("B (after 1s)"), 1000);
+console.log("C");           // Output order: A, C, B
+
+// Node.js error-first callback convention
+const fs = require("fs");
+fs.readFile("a.txt", "utf8", (err, data) =&gt; {
+  if (err) return console.error(err);   // 1st arg is always the error
+  console.log(data);
+});
+
+// Callback hell (pyramid of doom)
+getUser(1, (err, user) =&gt; {
+  getOrders(user.id, (err, orders) =&gt; {
+    getItems(orders[0], (err, items) =&gt; {
+      console.log(items);        // deeply nested, hard to read and handle errors
+    });
+  });
+});</code></pre>
+    <div class="diagram">
+      <pre>
+ Main thread:  A ─► C ─────────────────► B
+                     └─ timer runs in Web API / libuv ─┘ (callback queued)
+</pre
+      >
+    </div>
+    <p>
+      <b>Problems with callbacks:</b> callback hell, scattered error handling,
+      inversion of control (you trust another function to call your callback
+      correctly and exactly once). Promises were designed to fix these.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Passing <code>fn()</code> instead of
+      <code>fn</code> calls it immediately. For example,
+      <code>setTimeout(fn(), 1000)</code> is wrong. Callback does not always
+      mean async; <code>forEach</code> callbacks are synchronous. Node's
+      convention is <b>error-first</b>: <code>(err, result)</code>.
+    </div>
+
+    <!-- ============ 9. PROMISES ============ -->
+    <h2>9. Asynchronous JavaScript: Promises</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>Promise</b> is an object representing the eventual completion (or
+      failure) of an async operation and its resulting value.
+    </p>
+    <div class="diagram">
+      <pre>
+                  ┌──► fulfilled (resolve(value)) ──► .then(cb)
+   pending ───────┤
+                  └──► rejected  (reject(error))  ──► .catch(cb)
+   Once settled (fulfilled/rejected) the state NEVER changes.
+   .finally(cb) runs in both cases.
+</pre
+      >
+    </div>
+    <pre><code>// Creating a promise
+const wait = (ms) =&gt; new Promise((resolve, reject) =&gt; {
+  if (ms &lt; 0) return reject(new Error("negative"));
+  setTimeout(() =&gt; resolve(`waited ${ms}ms`), ms);
+});
+
+// Consuming + chaining
+wait(500)
+  .then(msg =&gt; { console.log(msg); return 42; })   // return value passes on
+  .then(n =&gt; console.log(n))                       // 42
+  .catch(err =&gt; console.error(err.message))        // handles ANY earlier rejection
+  .finally(() =&gt; console.log("done"));
+
+// Static combinators
+Promise.all([p1, p2, p3]);         // all fulfil → array; ANY rejection → reject
+Promise.allSettled([p1, p2]);      // waits for all; gives status of each
+Promise.race([p1, p2]);            // first to settle (win or fail)
+Promise.any([p1, p2]);             // first to FULFIL (AggregateError if all fail)
+Promise.resolve(5); Promise.reject(new Error("x"));</code></pre>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Resolves when</th>
+        <th>Rejects when</th>
+      </tr>
+      <tr>
+        <td><code>all</code></td>
+        <td>All fulfil</td>
+        <td>Any rejects (fail-fast)</td>
+      </tr>
+      <tr>
+        <td><code>allSettled</code></td>
+        <td>All settle (never rejects)</td>
+        <td>Never</td>
+      </tr>
+      <tr>
+        <td><code>race</code></td>
+        <td>First settles fulfilled</td>
+        <td>First settles rejected</td>
+      </tr>
+      <tr>
+        <td><code>any</code></td>
+        <td>First fulfils</td>
+        <td>All reject</td>
+      </tr>
+    </table>
+    <p>
+      <b>Analogy:</b> Ordering food with a token. You get a token (promise) now;
+      it later becomes either "order ready" (fulfilled) or "sold out"
+      (rejected).
+    </p>
+    <div class="key">
+      <b class="t">Key Concept:</b> <code>.then()</code> callbacks are
+      <b>microtasks</b>, so they run before <code>setTimeout</code> callbacks
+      (links back to the Event Loop in Unit I).
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Forgetting to <code>return</code> inside
+      <code>.then</code> breaks the chain (next <code>.then</code> gets
+      <code>undefined</code>). Always end a chain with <code>.catch</code>,
+      otherwise you get an unhandled rejection. The Promise executor runs
+      <u>synchronously</u>; only <code>.then</code> handlers are async.
+      <code>Promise.all</code> is fail-fast.
+    </div>
+
+    <!-- ============ 10. ASYNC AWAIT ============ -->
+    <h2>10. Asynchronous JavaScript: Async / Await</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <code>async/await</code> (ES2017) is syntactic sugar over Promises that
+      lets async code look synchronous. An <code>async</code> function
+      <b>always returns a Promise</b>; <code>await</code> pauses
+      <i>that function</i> (not the whole thread) until the Promise settles.
+    </p>
+    <pre><code>const delay = (ms, v) =&gt; new Promise(r =&gt; setTimeout(() =&gt; r(v), ms));
+
+async function main() {
+  try {
+    const a = await delay(1000, "A");   // pause here, thread stays free
+    const b = await delay(1000, "B");   // runs after A: total ≈ 2s (sequential)
+    console.log(a, b);
+  } catch (err) {
+    console.error("Failed:", err.message);
+  } finally {
+    console.log("cleanup");
+  }
+}
+main();
+
+// Parallel execution: start all, then await together (≈ 1s)
+async function parallel() {
+  const [x, y] = await Promise.all([delay(1000, "X"), delay(1000, "Y")]);
+  console.log(x, y);
+}
+
+// Async arrow, async in loops
+const getAll = async (ids) =&gt; {
+  for (const id of ids) {            // sequential, one after another
+    const res = await fetch(`/api/items/${id}`);
+    console.log(await res.json());
+  }
+};
+
+// Return value of async function is a Promise
+main().then(() =&gt; console.log("finished"));</code></pre>
+    <div class="diagram">
+      <pre>
+ Sequential:  |--A(1s)--|--B(1s)--|           = 2 s
+ Parallel  :  |--X(1s)--|
+              |--Y(1s)--|                    = 1 s
+</pre
+      >
+    </div>
+    <table>
+      <tr>
+        <th>Aspect</th>
+        <th>Callbacks</th>
+        <th>Promises</th>
+        <th>Async/Await</th>
+      </tr>
+      <tr>
+        <td>Readability</td>
+        <td>Poor (nesting)</td>
+        <td>Better (chaining)</td>
+        <td>Best (looks synchronous)</td>
+      </tr>
+      <tr>
+        <td>Error handling</td>
+        <td>Manual in every callback</td>
+        <td><code>.catch()</code></td>
+        <td><code>try/catch</code></td>
+      </tr>
+      <tr>
+        <td>Return</td>
+        <td>None</td>
+        <td>Promise</td>
+        <td>Promise</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>await</code> is only valid inside an
+      <code>async</code> function (or at top level of ES modules). Using
+      <code>await</code> in a <code>forEach</code> callback does
+      <u>not</u> wait; use <code>for...of</code> or
+      <code>Promise.all(arr.map(...))</code>. Awaiting independent tasks one by
+      one is needlessly slow. Without <code>try/catch</code>, a rejected awaited
+      Promise throws and rejects the async function's Promise.
+    </div>
+
+    <!-- ============ 11. API ============ -->
+    <h2>11. Introduction to API</h2>
+    <h3>Core Concept</h3>
+    <p>
+      An <b>API (Application Programming Interface)</b> is a contract that lets
+      one software component talk to another. A <b>Web API</b> /
+      <b>REST API</b> exposes resources over <b>HTTP</b>, usually exchanging
+      <b>JSON</b>.
+    </p>
+    <div class="diagram">
+      <pre>
+ ┌────────┐  HTTP Request (method, URL, headers, body)  ┌────────┐   ┌──────────┐
+ │ Client │ ─────────────────────────────────────────► │ Server │──►│ Database │
+ │ (React)│ ◄───────────────────────────────────────── │(Express)│◄──│ (MongoDB)│
+ └────────┘  HTTP Response (status code, headers, JSON) └────────┘   └──────────┘
+</pre
+      >
+    </div>
+    <table>
+      <tr>
+        <th>HTTP Method</th>
+        <th>CRUD</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>Read</td>
+        <td><code>GET /users</code>, <code>GET /users/5</code></td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td>Create</td>
+        <td><code>POST /users</code> (body = new user)</td>
+      </tr>
+      <tr>
+        <td>PUT / PATCH</td>
+        <td>Update (replace / partial)</td>
+        <td><code>PUT /users/5</code></td>
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>Delete</td>
+        <td><code>DELETE /users/5</code></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>Status Code</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td>200 OK / 201 Created / 204 No Content</td>
+        <td>Success</td>
+      </tr>
+      <tr>
+        <td>301 / 304</td>
+        <td>Redirect / Not Modified</td>
+      </tr>
+      <tr>
+        <td>
+          400 Bad Request / 401 Unauthorized / 403 Forbidden / 404 Not Found
+        </td>
+        <td>Client errors</td>
+      </tr>
+      <tr>
+        <td>500 Internal Server Error / 503 Service Unavailable</td>
+        <td>Server errors</td>
+      </tr>
+    </table>
+    <p>
+      <b>REST principles:</b> client–server, stateless, uniform interface
+      (resource URLs like <code>/api/users</code>), cacheable, layered.
+      <b>Example endpoint:</b>
+      <code>https://jsonplaceholder.typicode.com/posts/1</code> returns a JSON
+      post.
+    </p>
+    <div class="key">
+      <b class="t">Key Concept:</b> Request =
+      <b>method + URL + headers + (body)</b>. Response =
+      <b>status + headers + body</b>. REST is <b>stateless</b>: every request
+      carries all information needed.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> 401 = not authenticated (who are you?), 403 =
+      authenticated but not allowed. PUT replaces the whole resource; PATCH
+      changes part of it. GET requests have no body and must not change data. An
+      API is the interface; REST is just one architectural style (others: SOAP,
+      GraphQL).
+    </div>
+
+    <!-- ============ 12. FETCH ============ -->
+    <h2>12. Fetch API</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <code>fetch()</code> is the <b>built-in, Promise-based</b> browser API
+      (also built into Node 18+) for making HTTP requests. It returns a Promise
+      that resolves to a <code>Response</code> object.
+    </p>
+    <pre><code>// GET
+async function getPosts() {
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);   // MUST check manually
+    const data = await res.json();                        // 2nd promise: parse body
+    console.log(data[0]);
+  } catch (err) {
+    console.error("Request failed:", err.message);
+  }
+}
+
+// POST with JSON body
+async function createPost() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title: "Hello", body: "World", userId: 1 })
+  });
+  return res.json();
+}
+
+// PUT / DELETE
+fetch("/api/posts/1", { method: "PUT", headers: {"Content-Type":"application/json"}, body: JSON.stringify({title:"New"}) });
+fetch("/api/posts/1", { method: "DELETE" });
+
+// Promise-chain style
+fetch("/api/data")
+  .then(res =&gt; res.json())
+  .then(data =&gt; console.log(data))
+  .catch(err =&gt; console.error(err));</code></pre>
+    <table>
+      <tr>
+        <th>Response Property / Method</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>res.ok</code></td>
+        <td><code>true</code> if status is 200–299</td>
+      </tr>
+      <tr>
+        <td><code>res.status</code> / <code>res.statusText</code></td>
+        <td>Numeric code / text</td>
+      </tr>
+      <tr>
+        <td>
+          <code>res.json()</code>, <code>res.text()</code>,
+          <code>res.blob()</code>
+        </td>
+        <td>Read body (each returns a Promise, can be read once)</td>
+      </tr>
+      <tr>
+        <td><code>res.headers</code></td>
+        <td>Response headers</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>fetch</code> <u>does not reject</u> on
+      404/500; it rejects only on network failure, so always check
+      <code>res.ok</code>. You must call <code>res.json()</code> (and await it)
+      to get the data. For POST you must <code>JSON.stringify</code> the body
+      <u>and</u> set the <code>Content-Type</code> header. The body stream can
+      be consumed only once. There is no built-in timeout (use
+      <code>AbortController</code>).
+    </div>
+
+    <!-- ============ 13. AXIOS ============ -->
+    <h2>13. AXIOS</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Axios</b> is a popular third-party, Promise-based HTTP client for
+      browsers and Node.js. Install with <code>npm install axios</code>.
+    </p>
+    <pre><code>import axios from "axios";
+
+// GET: data is already parsed JSON in res.data
+async function getUsers() {
+  try {
+    const res = await axios.get("https://jsonplaceholder.typicode.com/users");
+    console.log(res.status, res.data);
+  } catch (err) {
+    if (err.response) console.error("Server error:", err.response.status);   // 4xx/5xx
+    else if (err.request) console.error("No response (network)");
+    else console.error(err.message);
+  }
+}
+
+// POST: object auto-stringified, Content-Type auto-set
+axios.post("/api/users", { name: "Asha" });
+axios.put("/api/users/1", { name: "Ravi" });
+axios.delete("/api/users/1");
+
+// Query params and headers
+axios.get("/api/search", {
+  params: { q: "node", page: 2 },                   // → /api/search?q=node&amp;page=2
+  headers: { Authorization: "Bearer TOKEN" },
+  timeout: 5000
+});
+
+// Reusable instance + interceptors
+const api = axios.create({ baseURL: "https://api.example.com", timeout: 5000 });
+api.interceptors.request.use(cfg =&gt; { cfg.headers.Authorization = "Bearer T"; return cfg; });
+api.interceptors.response.use(r =&gt; r, err =&gt; Promise.reject(err));
+
+// Parallel requests
+const [a, b] = await Promise.all([axios.get("/a"), axios.get("/b")]);</code></pre>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Fetch</th>
+        <th>Axios</th>
+      </tr>
+      <tr>
+        <td>Installation</td>
+        <td>Built-in</td>
+        <td><code>npm install axios</code></td>
+      </tr>
+      <tr>
+        <td>JSON parsing</td>
+        <td>Manual <code>res.json()</code></td>
+        <td>Automatic (<code>res.data</code>)</td>
+      </tr>
+      <tr>
+        <td>Request body</td>
+        <td>Manual <code>JSON.stringify</code> + header</td>
+        <td>Automatic for objects</td>
+      </tr>
+      <tr>
+        <td>HTTP error (404/500)</td>
+        <td>Does NOT reject</td>
+        <td><b>Rejects</b> automatically</td>
+      </tr>
+      <tr>
+        <td>Timeout</td>
+        <td>Via AbortController</td>
+        <td>Built-in <code>timeout</code> option</td>
+      </tr>
+      <tr>
+        <td>Interceptors</td>
+        <td>No</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Cancel request</td>
+        <td>AbortController</td>
+        <td>AbortController (older: CancelToken)</td>
+      </tr>
+      <tr>
+        <td>Response data location</td>
+        <td>Result of <code>res.json()</code></td>
+        <td><code>res.data</code></td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> The Axios response object contains
+      <code>data, status, statusText, headers, config, request</code>. The
+      actual payload is always in <code>res.data</code>.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Axios <b>rejects</b> for non-2xx status
+      (opposite of fetch). Use <code>res.data</code>, not
+      <code>res.json()</code>. Axios is an external library (not part of
+      JavaScript itself). In the error object, <code>err.response</code> exists
+      only if the server replied.
+    </div>
+
+    <!-- ============ 14. JSON ============ -->
+    <h2>14. JSON: Parse and Stringify</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>JSON (JavaScript Object Notation)</b> is a lightweight,
+      language-independent <b>text format</b> for data exchange. It is a string,
+      not a JS object.
+    </p>
+    <h3>Rules of JSON syntax</h3>
+    <ul>
+      <li>
+        Keys <b>must</b> be in <b>double quotes</b>; strings use double quotes
+        only.
+      </li>
+      <li>
+        Allowed values: string, number, boolean, <code>null</code>, object,
+        array.
+      </li>
+      <li>
+        <b>Not allowed:</b> <code>undefined</code>, functions, comments,
+        trailing commas, single quotes, <code>NaN</code>/<code>Infinity</code>,
+        <code>Date</code> objects (they become strings).
+      </li>
+    </ul>
+    <pre><code>const jsonText = '{"name":"Asha","age":22,"skills":["JS","Node"],"active":true}';
+
+// JSON.parse: string → JS value
+const obj = JSON.parse(jsonText);
+obj.name;                       // "Asha"
+
+// JSON.stringify: JS value → string
+const text = JSON.stringify(obj);                 // compact
+JSON.stringify(obj, null, 2);                     // pretty print (2 spaces)
+JSON.stringify(obj, ["name"]);                    // only selected keys → {"name":"Asha"}
+JSON.stringify(obj, (k, v) =&gt; k === "age" ? undefined : v);  // replacer function
+
+// Reviver in parse (e.g. restore dates)
+JSON.parse('{"d":"2024-01-01"}', (k, v) =&gt; k === "d" ? new Date(v) : v);
+
+// Invalid JSON throws SyntaxError
+try { JSON.parse("{'a':1}"); } catch (e) { console.log(e.name); }   // SyntaxError
+
+// What gets lost in stringify
+JSON.stringify({ a: undefined, b: () =&gt; 1, c: NaN, d: new Date(0) });
+// → {"c":null,"d":"1970-01-01T00:00:00.000Z"}  (a and b dropped, NaN → null)
+
+// Deep clone trick (loses functions/undefined/Dates)
+const deep = JSON.parse(JSON.stringify(obj));
+
+// Persisting to localStorage (stores strings only)
+localStorage.setItem("user", JSON.stringify(obj));
+const back = JSON.parse(localStorage.getItem("user"));</code></pre>
+    <table>
+      <tr>
+        <th>JS Object</th>
+        <th>JSON</th>
+      </tr>
+      <tr>
+        <td>Data structure in memory</td>
+        <td>Text string</td>
+      </tr>
+      <tr>
+        <td>Keys can be unquoted</td>
+        <td>Keys must be double-quoted</td>
+      </tr>
+      <tr>
+        <td>Can hold functions, <code>undefined</code>, Dates, Symbols</td>
+        <td>Cannot</td>
+      </tr>
+      <tr>
+        <td>Comments allowed in code</td>
+        <td>No comments</td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+   JS object ──JSON.stringify()──► JSON string ──(network / storage)──►
+   JS object ◄──JSON.parse()────── JSON string ◄───────────────────────
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>JSON.parse</code> of a non-string or
+      malformed string throws <code>SyntaxError</code>, so wrap it in
+      <code>try/catch</code>. <code>JSON.parse(undefined)</code> also fails.
+      Stringify silently drops functions and <code>undefined</code> properties.
+      Circular references make <code>stringify</code> throw TypeError.
+      <code>JSON.parse(JSON.stringify(x))</code> is a lossy deep copy; prefer
+      <code>structuredClone</code>. Memorize: <b>parse = string → object</b>,
+      <b>stringify = object → string</b>.
+    </div>
+
+    <h2>Unit II: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          Array methods: mutating vs non-mutating, default <code>sort</code> as
+          strings, reference copying vs spread.
+        </li>
+        <li>
+          Object: dot vs bracket, <code>Object.keys/values/entries</code>,
+          shallow vs deep copy.
+        </li>
+        <li>
+          Destructuring: array = by position, object = by name, defaults,
+          rename, rest, nested.
+        </li>
+        <li>
+          ES6: let/const, arrow, template literals, spread/rest, classes,
+          modules, Map/Set.
+        </li>
+        <li>
+          DOM: select (<code>querySelector</code>), modify
+          (<code>textContent</code>, <code>classList</code>), create/remove,
+          events, bubbling, delegation.
+        </li>
+        <li>
+          Error handling: <code>try/catch/finally</code>, <code>throw</code>,
+          error types, custom errors.
+        </li>
+        <li>
+          Async evolution: Callback (hell) → Promise
+          (<code>then/catch/all/race</code>) → async/await
+          (<code>try/catch</code>).
+        </li>
+        <li>API: HTTP methods ↔ CRUD, status codes, REST is stateless.</li>
+        <li>
+          Fetch vs Axios: manual <code>res.json()</code> and
+          <code>res.ok</code> vs automatic <code>res.data</code> and rejection
+          on error.
+        </li>
+        <li>
+          JSON: <code>parse</code> (string→object),
+          <code>stringify</code> (object→string), what JSON cannot store.
+        </li>
+      </ul>
+    </div>
+
+    <a href="MERN3.html" class="btn">Click for unit 3</a>
+  </body>
+</html>

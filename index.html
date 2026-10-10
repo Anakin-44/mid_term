@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCA Exam Preparation Dashboard</title>
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-hover: #4338ca;
+        --bg-color: #f8fafc;
+        --card-bg: #ffffff;
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Oxygen,
+          Ubuntu,
+          Cantarell,
+          sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Sidebar Navigation */
+      sidebar {
+        width: 320px;
+        background-color: var(--card-bg);
+        border-right: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      .sidebar-header {
+        padding: 20px;
+        background: var(--primary);
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .sidebar-header h2 {
+        font-size: 1.25rem;
+        margin-bottom: 4px;
+      }
+
+      .sidebar-header p {
+        font-size: 0.85rem;
+        opacity: 0.85;
+      }
+
+      .course-group {
+        border-bottom: 1px solid var(--border-color);
+        padding: 12px 16px;
+      }
+
+      .course-title {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .unit-links {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .unit-link {
+        text-decoration: none;
+        background: transparent;
+        border: 1px solid transparent;
+        text-align: left;
+        padding: 8px 12px;
+        font-size: 0.875rem;
+        color: var(--text-main);
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        display: block;
+      }
+
+      .unit-link:hover {
+        background-color: #f1f5f9;
+        color: var(--primary);
+      }
+
+      /* Main Content Area */
+      main {
+        flex: 1;
+        padding: 40px;
+        overflow-y: auto;
+        background-color: var(--bg-color);
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .content-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 32px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        max-width: 900px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .badge {
+        display: inline-block;
+        background-color: #e0e7ff;
+        color: var(--primary);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+
+      .content-card h2 {
+        font-size: 1.5rem;
+        color: var(--text-main);
+        margin-bottom: 16px;
+      }
+
+      .section-box {
+        margin-top: 20px;
+        padding: 20px;
+        background: #f8fafc;
+        border-left: 4px solid var(--primary);
+        border-radius: 0 8px 8px 0;
+      }
+
+      .section-box h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+        color: var(--text-main);
+      }
+
+      .section-box p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      .notes-placeholder {
+        margin-top: 24px;
+        border: 2px dashed var(--border-color);
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      @media (max-width: 900px) {
+        body {
+          flex-direction: column;
+          height: auto;
+          min-height: 100vh;
+          overflow: auto;
+        }
+        sidebar {
+          width: 100%;
+          height: auto;
+          overflow-y: visible;
+          border-right: none;
+          border-bottom: 1px solid var(--border-color);
+        }
+        .sidebar-header {
+          position: static;
+        }
+        main {
+          padding: 20px 16px;
+          overflow-y: visible;
+        }
+        .content-card {
+          padding: 20px;
+        }
+      }
+      @media (max-width: 480px) {
+        main {
+          padding: 12px 10px;
+          gap: 18px;
+        }
+        .content-card {
+          padding: 16px;
+        }
+        .content-card h2 {
+          font-size: 1.25rem;
+        }
+        .section-box {
+          padding: 14px;
+        }
+        .sidebar-header {
+          padding: 16px;
+        }
+        .unit-link {
+          padding: 10px 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar with Anchor Links -->
+    <sidebar>
+      <div class="sidebar-header">
+        <h2>NOOVs Exam Hub</h2>
+        <p>Click any unit to jump to notes</p>
+      </div>
+
+      <!-- MCA301 -->
+      <div class="course-group">
+        <div class="course-title">MCA301: MERN Full Stack</div>
+        <div class="unit-links">
+          <a href="MERN1.html" class="unit-link"
+            >Unit I: JS Basics & Event Loop</a
+          >
+          <a href="MERN2.html" class="unit-link"
+            >Unit II: Advanced JS & Async</a
+          >
+          <a href="MERN3.html" class="unit-link">Unit III: Node.js & Modules</a>
+          <a href="MERN4.html" class="unit-link">Unit IV: Express.js Routing</a>
+          <a href="MERN5.html" class="unit-link">Unit V: MongoDB & CRUD</a>
+          <a href="MERN6.html" class="unit-link">Unit VI: Mongoose ODM</a>
+        </div>
+      </div>
+
+      <!-- MCA302 -->
+      <div class="course-group">
+        <div class="course-title">MCA302: Cyber Security</div>
+        <div class="unit-links">
+          <a href="cryp1.html" class="unit-link"
+            >Unit I: Intro to Cryptography</a
+          >
+          <a href="cryp2.html " class="unit-link"
+            >Unit II: Modern Symmetric Ciphers</a
+          >
+          <a href="cryp3.html" class="unit-link"
+            >Unit III: Math for Cryptography</a
+          >
+          <a href="cryp4.html" class="unit-link"
+            >Unit IV: Asymmetric Cryptography</a
+          >
+          <a href="cryp5.html" class="unit-link"
+            >Unit V: Message Auth & Signatures</a
+          >
+          <a href="cryp6.html" class="unit-link"
+            >Unit VI: Network & System Security</a
+          >
+        </div>
+      </div>
+
+      <!-- MCA316 -->
+      <div class="course-group">
+        <div class="course-title">MCA316: GUI using .Net</div>
+        <div class="unit-links">
+          <a href="gui1.html" class="unit-link"
+            >Unit 1: .NET Architecture & CLR</a
+          >
+          <a href="gui2.html" class="unit-link"
+            >Unit 2: C# Programming Basics</a
+          >
+          <a href="gui3.html" class="unit-link"
+            >Unit 3: OOPs & Exception Handling</a
+          >
+          <a href="gui4.html" class="unit-link"
+            >Unit 4: GUI Controls & Events</a
+          >
+          <a href="gui5.html" class="unit-link"
+            >Unit 5: Containers & Dialog Boxes</a
+          >
+          <a href="gui6.html" class="unit-link"
+            >Unit 6: Data Controls & ADO.NET</a
+          >
+        </div>
+      </div>
+
+      <!-- MCA321 -->
+      <div class="course-group">
+        <div class="course-title">MCA321: Advanced Data Mining</div>
+        <div class="unit-links">
+          <a href="#mca321-u1" class="unit-link"
+            >Unit I: Mining & Preprocessing</a
+          >
+          <a href="#mca321-u2" class="unit-link"
+            >Unit II: Data Warehouses & OLAP</a
+          >
+          <a href="#mca321-u3" class="unit-link"
+            >Unit III: Concept Description</a
+          >
+          <a href="#mca321-u4" class="unit-link">Unit IV: Association Rules</a>
+          <a href="#mca321-u5" class="unit-link"
+            >Unit V: Classification & Prediction</a
+          >
+          <a href="#mca321-u6" class="unit-link"
+            >Unit VI: Clustering & Complex Data</a
+          >
+        </div>
+      </div>
+    </sidebar>
+
+    <!-- Main Content Display -->
+    <main>
+      <!-- MCA301 Cards -->
+      <div id="mca301-u1" class="content-card">
+        <span class="badge">MCA301: MERN Full Stack Development- Backend</span>
+        <h2>Unit I: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Introduction to JavaScript, Features, Scopes, Variables- Var, Let
+            and Const, Data Type, Conditional Statements, Operators, Loops,
+            Comments, Function, Anonymous Function, Map, Filter, Reduce, Event
+            Loop[cite: 1].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca301-u2" class="content-card">
+        <span class="badge">MCA301: MERN Full Stack Development- Backend</span>
+        <h2>Unit II: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Array, Object, Array and Object destructuring, ES6, Dom
+            Manipulation, Error Handling, Asynchronous JavaScript- Promises,
+            Callbacks, Async Await. Introduction to API - Fetch and AXIOS,
+            JSON-Parse, Stringify[cite: 2].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca301-u3" class="content-card">
+        <span class="badge">MCA301: MERN Full Stack Development- Backend</span>
+        <h2>Unit III: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Introduction to React, Introduction to NodeJS, what is node.js.
+            Introduction to NPM, Node Process Model, Setup node.js, Debugging
+            node.js app, Modules in NodeJS, understanding exports and require,
+            Creating modules[cite: 2].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca301-u4" class="content-card">
+        <span class="badge">MCA301: MERN Full Stack Development- Backend</span>
+        <h2>Unit IV: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Express JS, Introduction to Express JS, Installation of Express JS,
+            Creating server using express JS, Web Browser Building, Express
+            Router, Express Listen Method, Request matching, Route parameter.
+            Handler function, Request object and Response object, get, post,
+            put, delete Methods, Packages and middleware, Body-parser, cors and
+            credential[cite: 2].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca301-u5" class="content-card">
+        <span class="badge">MCA301: MERN Full Stack Development- Backend</span>
+        <h2>Unit V: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Introduction to MongoDB, Installing MongoDB, The current SQL/NoSQL
+            landscape, Document oriented vs. other types of storage, MongoDB
+            databases, MongoDB Collections, MongoDB Documents, CRUD Operations
+            in MongoDB, MongoDB Methods- insert(), update(), save(), find(),
+            delete(), Working with equality, Query operators, Building complex
+            queries, Updating documents, Deleting documents[cite: 2].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca301-u6" class="content-card">
+        <span class="badge">MCA301: MERN Full Stack Development- Backend</span>
+        <h2>Unit VI: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Introduction to Mongoose, installing Mongoose, Connecting to MongoDB
+            from Mongoose, Core concepts of Mongoose, understanding Mongoose
+            schemas and datatypes, Working with Models, Using modifiers in
+            schema, Using virtual fields, and Optimizing query performance by
+            enabling indexes[cite: 3].
+          </p>
+        </div>
+      </div>
+
+      <!-- MCA302 Cards -->
+      <div id="mca302-u1" class="content-card">
+        <span class="badge">MCA302: Cryptography and Cyber Security</span>
+        <h2>Unit I: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Introduction to Cryptography and Network Security: Security Goals,
+            Attacks, Services and Mechanisms, Techniques, Traditional Symmetric
+            Key Cipher[cite: 4].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca302-u2" class="content-card">
+        <span class="badge">MCA302: Cryptography and Cyber Security</span>
+        <h2>Unit II: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Modern Symmetric Key Ciphers: Feistel Cipher, S-DES, DES, Double
+            DES, Triple DES, AES, Block Cipher. Modes of Operation: ECB, CBC,
+            CFB, OFB and CTR, KDC[cite: 4].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca302-u3" class="content-card">
+        <span class="badge">MCA302: Cryptography and Cyber Security</span>
+        <h2>Unit III: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Introduction to Mathematics for Cryptography: Modular Arithmetic,
+            The Euclidean Algorithm, Extended Euclid, Fermat's and Euler's
+            Theorem, Chinese Remainder Theorem[cite: 4].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca302-u4" class="content-card">
+        <span class="badge">MCA302: Cryptography and Cyber Security</span>
+        <h2>Unit IV: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Asymmetric Key Cryptography: RSA Algorithm, ECC, Key Management-
+            Public Key Distribution, Sharing of secret key using Asymmetric Key
+            Cryptosystem[cite: 4].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca302-u5" class="content-card">
+        <span class="badge">MCA302: Cryptography and Cyber Security</span>
+        <h2>Unit V: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Message Authentication: MAC, SHA-512 and MD5. Digital Signature: DSS
+            Key Management: Symmetric Key Distribution, Kerberos[cite: 4].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca302-u6" class="content-card">
+        <span class="badge">MCA302: Cryptography and Cyber Security</span>
+        <h2>Unit VI: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Network Security: IPSec, SSL and TLS, PGP AND S/MIME, SET, System
+            Security: Malicious Software, Firewalls and Intruders[cite: 4].
+          </p>
+        </div>
+      </div>
+
+      <!-- MCA316 Cards -->
+      <div id="mca316-u1" class="content-card">
+        <span class="badge">MCA316: GUI using .Net Framework</span>
+        <h2>Unit 1: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            The .Net framework: Introduction of .Net, The Origin of .Net
+            Technology (OLE, COM, .NET technologies), Architecture of .Net
+            Framework, CLR, CTS, CLS, MSIL, Just-In-Time Compilation, Framework
+            Base Classes[cite: 6].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca316-u2" class="content-card">
+        <span class="badge">MCA316: GUI using .Net Framework</span>
+        <h2>Unit 2: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Introduction of Programming Language C#: Characteristics,
+            Differences between C# and C++, Differences between C# and Java,
+            Main method specification, Namespace, Variables (implicit and
+            explicit), Data-types, Boxing and Un-boxing[cite: 6].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca316-u3" class="content-card">
+        <span class="badge">MCA316: GUI using .Net Framework</span>
+        <h2>Unit 3: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Controlling execution: IF, switch, Operators, Looping, Arrays,
+            Inheritance, Method Overloading/Overriding, Polymorphism, Operator
+            Overloading, Abstract Class, Interface, Delegates, Partial Classes,
+            Exception Handling[cite: 6].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca316-u4" class="content-card">
+        <span class="badge">MCA316: GUI using .Net Framework</span>
+        <h2>Unit 4: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            GUI Controls & Event Handling: Text Box, Rich Text Box, Label, Radio
+            Button, Check Box, List Box, Combo Box, Date Time Picker, Calendar,
+            Tool Tip. Navigation Controls: Context Menu Strip, Tool Strip,
+            Status Strip[cite: 6].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca316-u5" class="content-card">
+        <span class="badge">MCA316: GUI using .Net Framework</span>
+        <h2>Unit 5: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Containers & Event Handling: Flow Layout Panel, Group Box, Panel,
+            Split Container, Tab Control, Table Layout Panel. Dialog Boxes:
+            Message Dialog Boxes, Color Dialog, Folder Browser Dialog, Font
+            Dialog, Open/Save File Dialog[cite: 6].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca316-u6" class="content-card">
+        <span class="badge">MCA316: GUI using .Net Framework</span>
+        <h2>Unit 6: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Data Controls: Data Source, Data Set, Data Grid View. ADO.Net:
+            Connected and Disconnected Architecture, Database CRUD operations,
+            Creating Setup of .Net Application using Set up Wizard[cite: 7].
+          </p>
+        </div>
+      </div>
+
+      <!-- MCA321 Cards -->
+      <div id="mca321-u1" class="content-card">
+        <span class="badge">MCA321: Advanced Data Mining Techniques</span>
+        <h2>Unit I: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Fundamentals of data mining, Data Mining Functionalities, Major
+            issues. Data Pre-processing: Data Cleaning, Data Integration and
+            Transformation, Data Reduction, Discretization[cite: 8].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca321-u2" class="content-card">
+        <span class="badge">MCA321: Advanced Data Mining Techniques</span>
+        <h2>Unit II: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Data Warehouse and OLAP Technology, Multidimensional Data Model,
+            Architecture, Implementation, Data Mining Primitives, Data Mining
+            Query Languages[cite: 8].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca321-u3" class="content-card">
+        <span class="badge">MCA321: Advanced Data Mining Techniques</span>
+        <h2>Unit III: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Concepts Description: Characterization and Comparison,
+            Summarization-Based Characterization, Analytical Characterization,
+            Attribute Relevance, Mining Class Comparisons[cite: 8].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca321-u4" class="content-card">
+        <span class="badge">MCA321: Advanced Data Mining Techniques</span>
+        <h2>Unit IV: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Mining Association Rules: Single-Dimensional Boolean Association
+            Rules, Multilevel Association Rules, Multidimensional Association
+            Rules, Correlation Analysis[cite: 8].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca321-u5" class="content-card">
+        <span class="badge">MCA321: Advanced Data Mining Techniques</span>
+        <h2>Unit V: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Classification and Prediction: Decision Tree Induction, Bayesian
+            Classification, Back-propagation, Association Rule-based
+            Classification, Prediction, Classifier Accuracy[cite: 8].
+          </p>
+        </div>
+      </div>
+
+      <div id="mca321-u6" class="content-card">
+        <span class="badge">MCA321: Advanced Data Mining Techniques</span>
+        <h2>Unit VI: Detailed Study Guide</h2>
+        <div class="section-box">
+          <h3>Syllabus Topics Covered:</h3>
+          <p>
+            Cluster Analysis: Types of Data, Partitioning Methods, Density-Based
+            Methods, Outlier Analysis. Mining Complex Data: Spatial Databases,
+            Multimedia, Time-Series, Text Databases, Web[cite: 8].
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

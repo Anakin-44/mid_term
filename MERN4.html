@@ -1,0 +1,1866 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCA301 Unit IV - Express JS</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      /* CSS */
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        color: inherit;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA301: MERN Full Stack Development – Backend<br /><small
+        style="font-size: 60%"
+        >Module 4 (Unit IV): Express JS</small
+      >
+    </h1>
+
+    <div class="key">
+      <b class="t">Unit IV Map:</b> Express JS → Introduction → Installation →
+      Creating Server → Web Browser Building (serving pages) → Express Router →
+      Listen Method → Request Matching → Route Parameter → Handler Function →
+      Request &amp; Response Objects → GET/POST/PUT/DELETE → Packages &amp;
+      Middleware → Body-parser → CORS &amp; Credentials.
+    </div>
+
+    <!-- ============ 1 ============ -->
+    <h2>1. Express JS</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Express.js</b> is a minimal, unopinionated, fast
+      <b>web application framework for Node.js</b> (the "E" in MERN). It sits on
+      top of Node's core <code>http</code> module and adds routing, middleware
+      and helper methods for building web apps and REST APIs. It is open-source,
+      created by TJ Holowaychuk and now maintained under the OpenJS Foundation.
+    </p>
+    <h3>Technical Breakdown</h3>
+    <ul>
+      <li>
+        <b>Framework vs library:</b> Express is a framework for the server
+        layer; it defines how requests flow (routing + middleware), while you
+        choose the database, templating and structure.
+      </li>
+      <li>
+        <b>Role in MERN:</b> React sends HTTP requests, Express receives them,
+        runs logic, talks to MongoDB (via Mongoose) and returns JSON.
+      </li>
+      <li><b>Unopinionated:</b> no enforced folder structure or ORM.</li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ React (browser) ──HTTP──► Express (routes + middleware) ──► Mongoose ──► MongoDB
+        ▲                           │
+        └────────── JSON ◄──────────┘
+</pre
+      >
+    </div>
+    <p>
+      <b>Real-world example:</b> A login endpoint
+      <code>POST /api/login</code> validates input in middleware, checks the
+      user in MongoDB, and returns a JWT as JSON.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Express is <u>not</u> a language or a runtime.
+      It is a <b>package</b> installed through NPM that runs <u>on</u> Node.js.
+      Do not confuse it with React (frontend) or Node.js (runtime).
+    </div>
+
+    <!-- ============ 2 ============ -->
+    <h2>2. Introduction to Express JS</h2>
+    <h3>Key Features</h3>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Explanation</th>
+      </tr>
+      <tr>
+        <td>Routing</td>
+        <td>Map HTTP method + URL to a handler function</td>
+      </tr>
+      <tr>
+        <td>Middleware</td>
+        <td>Functions that run in a pipeline before the final response</td>
+      </tr>
+      <tr>
+        <td>Template engines</td>
+        <td>Render HTML dynamically (EJS, Pug, Handlebars)</td>
+      </tr>
+      <tr>
+        <td>Static file serving</td>
+        <td><code>express.static()</code> serves CSS, JS, images</td>
+      </tr>
+      <tr>
+        <td>Error handling</td>
+        <td>Dedicated error-handling middleware</td>
+      </tr>
+      <tr>
+        <td>Helper methods</td>
+        <td>
+          <code>res.json()</code>, <code>res.redirect()</code>,
+          <code>req.params</code> etc.
+        </td>
+      </tr>
+      <tr>
+        <td>Huge ecosystem</td>
+        <td>cors, morgan, helmet, passport, multer, etc.</td>
+      </tr>
+    </table>
+    <h3>Raw Node.js vs Express</h3>
+    <pre><code>// ---- Raw Node http: manual URL/method checks, manual headers, manual body parsing
+const http = require("http");
+http.createServer((req, res) =&gt; {
+  if (req.method === "GET" &amp;&amp; req.url === "/users") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify([{ id: 1 }]));
+  } else {
+    res.writeHead(404); res.end("Not found");
+  }
+}).listen(3000);
+
+// ---- Express: same thing, much cleaner
+const express = require("express");
+const app = express();
+app.get("/users", (req, res) =&gt; res.json([{ id: 1 }]));
+app.listen(3000);</code></pre>
+    <div class="diagram">
+      <pre>
+ Request ─► Middleware 1 ─► Middleware 2 ─► Route Handler ─► Response
+              (logger)       (auth/parse)     (business logic)
+ Express app = a pipeline of functions (the "middleware stack")
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> Everything in Express is either
+      <b>middleware</b> or a <b>route handler</b>. A route handler is simply the
+      last middleware in the chain.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Express does <b>not</b> replace Node's
+      <code>http</code>; it wraps it. <code>express()</code> returns an
+      <code>app</code> function that can be passed to
+      <code>http.createServer(app)</code>.
+    </div>
+
+    <!-- ============ 3 ============ -->
+    <h2>3. Installation of Express JS</h2>
+    <h3>Prerequisites</h3>
+    <p>
+      Node.js (LTS) and NPM installed. Verify with <code>node -v</code> and
+      <code>npm -v</code>.
+    </p>
+    <h3>Steps</h3>
+    <pre><code># 1. Create project folder
+mkdir myapp
+cd myapp
+
+# 2. Initialize package.json
+npm init -y
+
+# 3. Install Express (saved in "dependencies")
+npm install express
+
+# 4. Dev tools: auto-restart server on file change
+npm install -D nodemon
+
+# 5. Verify
+npm list express</code></pre>
+    <pre><code>// package.json (important parts)
+{
+  "name": "myapp",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": { "express": "^5.1.0" },
+  "devDependencies": { "nodemon": "^3.1.0" }
+}</code></pre>
+    <div class="diagram">
+      <pre>
+ myapp/
+ ├── node_modules/      (installed packages; do NOT commit)
+ ├── package.json
+ ├── package-lock.json
+ ├── .env               (secrets; add to .gitignore)
+ └── index.js           (entry point)
+</pre
+      >
+    </div>
+    <p>
+      <b>Scaffolding alternative:</b>
+      <code>npx express-generator myapp</code> creates a ready-made project
+      structure.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Run <code>npm init</code> <u>before</u>
+      <code>npm install</code> so that dependencies get recorded in
+      <code>package.json</code>. Install Express locally (not <code>-g</code>).
+      Do not name your own file <code>express.js</code>, because
+      <code>require("express")</code> may then load your file instead of the
+      package. Express 5 is the current major version on npm; Express 4 code
+      mostly works but a few routing and error-handling behaviours differ (noted
+      in later sections).
+    </div>
+
+    <!-- ============ 4 ============ -->
+    <h2>4. Creating Server using Express JS</h2>
+    <h3>Step-by-step</h3>
+    <ol>
+      <li>Import Express.</li>
+      <li>Create an application object with <code>express()</code>.</li>
+      <li>Register middleware and routes.</li>
+      <li>Start listening on a port with <code>app.listen()</code>.</li>
+    </ol>
+    <pre><code>// index.js  (CommonJS)
+const express = require("express");
+const app = express();                 // 1. create app
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json());               // 2. middleware: parse JSON bodies
+
+app.get("/", (req, res) =&gt; {           // 3. route
+  res.send("Hello from Express!");
+});
+
+app.get("/api/status", (req, res) =&gt; {
+  res.json({ ok: true, time: new Date() });
+});
+
+app.use((req, res) =&gt; {                // 4. fallback: 404 (runs if nothing matched)
+  res.status(404).json({ error: "Route not found" });
+});
+
+app.listen(PORT, () =&gt; {               // 5. start server
+  console.log(`Server running at http://localhost:${PORT}`);
+});
+
+// Run:  node index.js    or    npm run dev
+// Test: open http://localhost:3000 or use Postman / curl</code></pre>
+    <pre><code>// ES Module version (package.json: "type": "module")
+import express from "express";
+const app = express();
+app.get("/", (req, res) =&gt; res.send("ESM server"));
+app.listen(3000);</code></pre>
+    <div class="diagram">
+      <pre>
+ Browser: GET /api/status
+      │
+      ▼
+ app.use(express.json())  ──► app.get("/api/status") ──► res.json({...})
+      │ (no match?) ──────► 404 fallback middleware
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Order matters: the 404 fallback must come
+      <u>after</u> all routes. A request that never gets a response (<code
+        >res.send/json/end</code
+      >
+      not called and <code>next()</code> not called) hangs forever. Port already
+      in use gives <code>EADDRINUSE</code>.
+    </div>
+
+    <!-- ============ 5 ============ -->
+    <h2>5. Web Browser Building (Serving Pages to the Browser)</h2>
+    <p>
+      The syllabus phrase "Web Browser Building" is interpreted here as
+      <b>making the Express server deliver web pages and assets to a browser</b
+      >: static files, HTML files, dynamic template-rendered views and JSON to a
+      front-end.
+    </p>
+    <h3>Technique 1: Static files with <code>express.static</code></h3>
+    <pre><code>const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
+// public/index.html  → http://localhost:3000/
+// public/style.css   → http://localhost:3000/style.css
+// public/app.js      → http://localhost:3000/app.js
+
+// With a URL prefix (virtual path)
+app.use("/assets", express.static(path.join(__dirname, "public")));
+// public/logo.png → http://localhost:3000/assets/logo.png</code></pre>
+    <h3>Technique 2: Sending an HTML file</h3>
+    <pre><code>app.get("/about", (req, res) =&gt; {
+  res.sendFile(path.join(__dirname, "views", "about.html"));   // absolute path required
+});</code></pre>
+    <h3>Technique 3: Template engine (server-side rendering)</h3>
+    <pre><code>// npm install ejs
+app.set("view engine", "ejs");                    // default engine
+app.set("views", path.join(__dirname, "views"));  // folder of templates
+
+app.get("/profile", (req, res) =&gt; {
+  res.render("profile", { name: "Asha", skills: ["JS", "Node"] });
+});
+
+// views/profile.ejs
+// &lt;h1&gt;Hello &lt;%= name %&gt;&lt;/h1&gt;
+// &lt;ul&gt;&lt;% skills.forEach(s =&gt; { %&gt;&lt;li&gt;&lt;%= s %&gt;&lt;/li&gt;&lt;% }) %&gt;&lt;/ul&gt;</code></pre>
+    <h3>Technique 4: Serve a built React app (MERN deployment)</h3>
+    <pre><code>// After "npm run build" in React, the folder is "dist" (Vite) or "build" (CRA)
+app.use(express.static(path.join(__dirname, "client", "dist")));
+
+app.use("/api", apiRouter);                       // API routes first
+
+// SPA fallback: send index.html for any other path so React Router works
+app.get("/{*splat}", (req, res) =&gt; {              // Express 5 syntax (Express 4: app.get("*", ...))
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});</code></pre>
+    <table>
+      <tr>
+        <th>Approach</th>
+        <th>Rendered where</th>
+        <th>Use case</th>
+      </tr>
+      <tr>
+        <td>Static files</td>
+        <td>Browser</td>
+        <td>HTML/CSS/JS, images</td>
+      </tr>
+      <tr>
+        <td>Template engine (EJS/Pug)</td>
+        <td>Server</td>
+        <td>Server-rendered pages</td>
+      </tr>
+      <tr>
+        <td>JSON API + React</td>
+        <td>Browser (React)</td>
+        <td>MERN apps (most common)</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>res.sendFile</code> needs an
+      <b>absolute path</b> (use <code>path.join(__dirname, ...)</code>).
+      Relative paths in <code>express.static</code> depend on the folder you
+      launched <code>node</code> from. The static folder name itself is
+      <u>not</u> part of the URL. Place the SPA catch-all route <u>after</u> API
+      routes or it will swallow them.
+    </div>
+
+    <!-- ============ 6 ============ -->
+    <h2>6. Express Router</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <code>express.Router()</code> creates a modular, mountable,
+      mini-application that holds its own routes and middleware. It keeps big
+      apps organized by splitting routes into files by resource (users,
+      products, orders).
+    </p>
+    <pre><code>// routes/users.js
+const express = require("express");
+const router = express.Router();
+
+router.use((req, res, next) =&gt; {            // middleware only for this router
+  console.log("Users router:", req.method, req.url);
+  next();
+});
+
+router.get("/", (req, res) =&gt; res.json([{ id: 1, name: "Asha" }]));      // GET /api/users
+router.get("/:id", (req, res) =&gt; res.json({ id: req.params.id }));       // GET /api/users/5
+router.post("/", (req, res) =&gt; res.status(201).json(req.body));          // POST /api/users
+
+// Chaining multiple methods on the same path
+router.route("/:id/profile")
+  .get((req, res) =&gt; res.send("get profile"))
+  .put((req, res) =&gt; res.send("update profile"))
+  .delete((req, res) =&gt; res.send("delete profile"));
+
+module.exports = router;
+
+// index.js
+const userRoutes = require("./routes/users");
+const productRoutes = require("./routes/products");
+app.use("/api/users", userRoutes);         // mount with a prefix
+app.use("/api/products", productRoutes);</code></pre>
+    <div class="diagram">
+      <pre>
+ index.js (app)
+   ├── app.use("/api/users",    usersRouter)    ── "/" , "/:id"
+   └── app.use("/api/products", productsRouter) ── "/" , "/:id"
+
+ Final URL = mount prefix + router path
+ "/api/users" + "/:id"  =  /api/users/:id
+</pre
+      >
+    </div>
+    <h3>Recommended Project Structure (MVC-style)</h3>
+    <pre><code>backend/
+├── index.js / server.js
+├── routes/       userRoutes.js
+├── controllers/  userController.js   (handler logic)
+├── models/       User.js             (Mongoose schemas)
+├── middleware/   auth.js
+└── config/       db.js
+
+// controllers/userController.js
+exports.getUsers = async (req, res) =&gt; { res.json([]); };
+// routes/userRoutes.js
+router.get("/", require("../controllers/userController").getUsers);</code></pre>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Inside a router, paths are
+      <b>relative to the mount point</b>; write <code>router.get("/")</code>,
+      not <code>router.get("/api/users")</code>. Forgetting
+      <code>module.exports = router</code> causes "Router.use() requires a
+      middleware function". A router is middleware, so it is mounted with
+      <code>app.use()</code>, not <code>app.get()</code>. To access parent
+      params, create it with <code>express.Router({ mergeParams: true })</code>.
+    </div>
+
+    <!-- ============ 7 ============ -->
+    <h2>7. Express Listen Method</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <code>app.listen()</code> binds the app to a host and port and starts
+      accepting connections. Internally it is a convenience wrapper:
+      <code>http.createServer(app).listen(...)</code>. It returns the underlying
+      <code>http.Server</code> object.
+    </p>
+    <h3>Syntax Variants</h3>
+    <pre><code>app.listen(3000);                                      // port only
+app.listen(3000, () =&gt; console.log("Started"));        // port + callback
+app.listen(3000, "127.0.0.1", () =&gt; {});               // port + host
+app.listen(process.env.PORT || 3000);                  // cloud hosts assign PORT
+
+// Handle errors such as port in use (Express 5 passes the error to the callback)
+const server = app.listen(3000, (err) =&gt; {
+  if (err) return console.error("Failed to start:", err);
+  console.log("Listening on", server.address().port);
+});
+
+// Equivalent manual form
+const http = require("http");
+http.createServer(app).listen(3000);
+
+// HTTPS version
+const https = require("https"), fs = require("fs");
+https.createServer({ key: fs.readFileSync("key.pem"), cert: fs.readFileSync("cert.pem") }, app).listen(443);
+
+// Graceful shutdown
+process.on("SIGTERM", () =&gt; {
+  server.close(() =&gt; { console.log("Server closed"); process.exit(0); });
+});</code></pre>
+    <table>
+      <tr>
+        <th>Argument</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td>port</td>
+        <td>Number to listen on (0 = random free port)</td>
+      </tr>
+      <tr>
+        <td>host</td>
+        <td>
+          Interface; default all interfaces. <code>"localhost"</code> restricts
+          to local machine
+        </td>
+      </tr>
+      <tr>
+        <td>callback</td>
+        <td>Runs once the server is ready</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Registering routes <u>after</u>
+      <code>listen()</code> still works (routes are checked at request time),
+      but it is poor style. Hard-coding a port breaks on Heroku/Render/AWS, so
+      read <code>process.env.PORT</code>. <code>EADDRINUSE</code> means the port
+      is taken. The callback runs on <b>startup</b>, not on each request. Common
+      ports: 3000/5000/8080 (never use 80/443 without privileges).
+    </div>
+
+    <!-- ============ 8 ============ -->
+    <h2>8. Request Matching</h2>
+    <h3>Core Concept</h3>
+    <p>
+      When a request arrives, Express walks through the registered middleware
+      and routes <b>in the exact order they were defined</b> and runs those
+      whose <b>HTTP method</b> and <b>path pattern</b> match. A response ends
+      the chain; <code>next()</code> continues it.
+    </p>
+    <h3>Matching Rules</h3>
+    <table>
+      <tr>
+        <th>Registration</th>
+        <th>Matches</th>
+      </tr>
+      <tr>
+        <td><code>app.get("/users", h)</code></td>
+        <td>
+          Only method GET and path exactly <code>/users</code> (trailing slash
+          and case are ignored by default)
+        </td>
+      </tr>
+      <tr>
+        <td><code>app.use("/api", h)</code></td>
+        <td>
+          Any method; path <b>starts with</b> <code>/api</code> (e.g.
+          <code>/api</code>, <code>/api/x/y</code>); strips prefix from
+          <code>req.url</code>
+        </td>
+      </tr>
+      <tr>
+        <td><code>app.all("/secret", h)</code></td>
+        <td>Any HTTP method on <code>/secret</code></td>
+      </tr>
+      <tr>
+        <td><code>app.get("/users/:id", h)</code></td>
+        <td>One segment after <code>/users/</code></td>
+      </tr>
+      <tr>
+        <td><code>app.get(["/a", "/b"], h)</code></td>
+        <td>Array of paths</td>
+      </tr>
+      <tr>
+        <td><code>app.get(/^\/ab/, h)</code></td>
+        <td>Regular expression</td>
+      </tr>
+      <tr>
+        <td><code>app.get("/files/{*path}", h)</code></td>
+        <td>Wildcard (Express 5; Express 4 used <code>/files/*</code>)</td>
+      </tr>
+      <tr>
+        <td><code>app.get("/ab{c}d", h)</code></td>
+        <td>Optional part (Express 5; Express 4 used <code>/ab?cd</code>)</td>
+      </tr>
+    </table>
+    <pre><code>app.use((req, res, next) =&gt; {                 // runs for EVERY request first
+  console.log("1. logger", req.method, req.url);
+  next();                                      // pass control to the next match
+});
+
+app.get("/users/new", (req, res) =&gt; res.send("form"));       // specific FIRST
+app.get("/users/:id", (req, res) =&gt; res.send("user " + req.params.id));
+
+// Multiple handlers on one route
+app.get("/dashboard", checkAuth, loadData, (req, res) =&gt; res.send("ok"));
+
+// "next('route')" skips remaining handlers of THIS route only
+// "next(err)" jumps straight to the error-handling middleware
+
+app.use((req, res) =&gt; res.status(404).send("Not found"));    // nothing matched
+app.use((err, req, res, next) =&gt; {                           // 4 args = error handler
+  console.error(err);
+  res.status(500).json({ error: "Server error" });
+});</code></pre>
+    <div class="diagram">
+      <pre>
+ GET /users/new
+   │
+   ├─ 1. app.use(logger)            match → next()
+   ├─ 2. app.get("/users/new")      MATCH → res.send("form")  ■ STOP
+   └─ 3. app.get("/users/:id")      never reached
+ If the order of 2 and 3 were swapped, ":id" would capture "new".
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> <b>First match wins</b> (once a response is
+      sent). Define <b>specific routes before generic/parameterized ones</b>,
+      and the 404 handler last.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>app.use</code> matches by
+      <u>prefix</u> and any method; <code>app.get</code> matches the
+      <u>full</u> path and only GET. A wrong order (<code>/users/:id</code>
+      before <code>/users/new</code>) causes the wrong handler to run. Calling
+      both <code>next()</code> and <code>res.send()</code>, or sending twice,
+      gives "Cannot set headers after they are sent to the client". Express 5
+      removed the old <code>*</code> and <code>?</code> path syntax; use
+      <code>{*name}</code> and <code>{...}</code>.
+    </div>
+
+    <!-- ============ 9 ============ -->
+    <h2>9. Route Parameter</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>route parameter</b> is a named dynamic segment of the URL path
+      written with a colon (<code>:name</code>). Its captured value is stored in
+      <code>req.params</code> as a <b>string</b>. It is used to identify a
+      specific resource (<code>/users/42</code>).
+    </p>
+    <pre><code>// Single parameter
+app.get("/users/:id", (req, res) =&gt; {
+  res.json({ id: req.params.id });          // GET /users/42  → { id: "42" }
+});
+
+// Multiple parameters
+app.get("/users/:userId/posts/:postId", (req, res) =&gt; {
+  const { userId, postId } = req.params;    // /users/5/posts/9
+  res.send(`User ${userId}, Post ${postId}`);
+});
+
+// Type conversion (params are ALWAYS strings)
+app.get("/items/:id", (req, res) =&gt; {
+  const id = Number(req.params.id);
+  if (Number.isNaN(id)) return res.status(400).json({ error: "id must be a number" });
+  res.json({ id });
+});
+
+// Regex constraint (Express 4 style: /:id(\\d+)); Express 5 → validate manually or use router.param
+// Optional parameter (Express 5): /:lang{/:page}
+app.get("/blog{/:page}", (req, res) =&gt; res.send(req.params.page ?? "home"));
+
+// router.param: run logic whenever :id appears (e.g., load document once)
+router.param("id", (req, res, next, id) =&gt; {
+  if (!/^[0-9a-fA-F]{24}$/.test(id)) return res.status(400).send("Invalid ObjectId");
+  next();
+});
+
+// Typical MongoDB usage
+app.get("/api/products/:id", async (req, res) =&gt; {
+  const product = await Product.findById(req.params.id);
+  if (!product) return res.status(404).json({ error: "Not found" });
+  res.json(product);
+});</code></pre>
+    <h3>Route Params vs Query String vs Body</h3>
+    <table>
+      <tr>
+        <th>Source</th>
+        <th>Example URL / request</th>
+        <th>Access</th>
+        <th>Typical use</th>
+      </tr>
+      <tr>
+        <td>Route parameter</td>
+        <td><code>/users/42</code></td>
+        <td><code>req.params.id</code></td>
+        <td>Identify one resource</td>
+      </tr>
+      <tr>
+        <td>Query string</td>
+        <td><code>/users?role=admin&amp;page=2</code></td>
+        <td><code>req.query.role</code></td>
+        <td>Filter, sort, paginate, search</td>
+      </tr>
+      <tr>
+        <td>Request body</td>
+        <td>POST with JSON</td>
+        <td><code>req.body</code></td>
+        <td>Create/update data</td>
+      </tr>
+      <tr>
+        <td>Header</td>
+        <td><code>Authorization: Bearer ...</code></td>
+        <td><code>req.headers</code> / <code>req.get()</code></td>
+        <td>Auth, content type</td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ Route:  /users/:userId/posts/:postId
+ URL  :  /users/5/posts/9?sort=desc
+                 │        │     └─► req.query  = { sort: "desc" }
+                 │        └───────► req.params = { userId:"5", postId:"9" }
+ (query string is NOT part of the route pattern)
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>req.params.id</code> is a
+      <b>string</b> ("42"), so <code>req.params.id === 42</code> is false. Do
+      not put the query string in the route definition. Static routes like
+      <code>/users/new</code> must be declared <u>before</u>
+      <code>/users/:id</code>. Route params are case-preserved but their names
+      are case-sensitive.
+    </div>
+
+    <!-- ============ 10 ============ -->
+    <h2>10. Handler Function</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>handler function</b> (route handler / callback) is the function
+      Express runs when a request matches a route. Its standard signature is
+      <code>(req, res, next)</code>. It reads the request, performs logic, and
+      must either <b>send a response</b> or <b>call <code>next()</code></b
+      >.
+    </p>
+    <pre><code>// Basic
+app.get("/hello", (req, res) =&gt; res.send("Hello"));
+
+// Named function (reusable / testable)
+function getHello(req, res) { res.send("Hello"); }
+app.get("/hello2", getHello);
+
+// Multiple handlers (a chain)
+const log  = (req, res, next) =&gt; { console.log("log"); next(); };
+const auth = (req, res, next) =&gt; req.headers.token ? next() : res.status(401).send("Login required");
+app.get("/private", log, auth, (req, res) =&gt; res.send("secret data"));
+
+// Array of handlers
+app.get("/multi", [log, auth], (req, res) =&gt; res.send("ok"));
+
+// Async handler (Express 5 forwards rejected promises to the error handler automatically)
+app.get("/users", async (req, res) =&gt; {
+  const users = await User.find();
+  res.json(users);
+});
+
+// Express 4: wrap async code in try/catch and call next(err)
+app.get("/users4", async (req, res, next) =&gt; {
+  try { res.json(await User.find()); }
+  catch (err) { next(err); }
+});
+
+// Error-handling middleware: FOUR parameters
+app.use((err, req, res, next) =&gt; {
+  res.status(err.status || 500).json({ message: err.message });
+});</code></pre>
+    <table>
+      <tr>
+        <th>Parameter</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>req</code></td>
+        <td>Incoming request (params, query, body, headers)</td>
+      </tr>
+      <tr>
+        <td><code>res</code></td>
+        <td>Outgoing response (send, json, status)</td>
+      </tr>
+      <tr>
+        <td><code>next</code></td>
+        <td>
+          Pass control to the next handler; <code>next(err)</code> triggers the
+          error handler
+        </td>
+      </tr>
+      <tr>
+        <td><code>err</code> (only in error handlers)</td>
+        <td>The error being handled</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> Every handler must end the request-response
+      cycle (respond) <b>or</b> hand over with <code>next()</code>. Doing
+      neither leaves the client hanging.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> An error handler is recognised <u>only</u> by
+      having exactly <b>4 parameters</b>, even if you do not use
+      <code>next</code>. <code>return res.send(...)</code> prevents code below
+      from running (avoids double responses). In Express 4, async errors without
+      <code>try/catch</code> crash the app or hang the request.
+    </div>
+
+    <!-- ============ 11 ============ -->
+    <h2>11. Request Object and Response Object</h2>
+    <h3>Request Object (<code>req</code>)</h3>
+    <p>
+      An enhanced version of Node's <code>http.IncomingMessage</code>,
+      representing the HTTP request.
+    </p>
+    <table>
+      <tr>
+        <th>Property / Method</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td><code>req.params</code></td>
+        <td>Route parameters</td>
+        <td><code>/users/:id</code> → <code>{id:"7"}</code></td>
+      </tr>
+      <tr>
+        <td><code>req.query</code></td>
+        <td>Parsed query string</td>
+        <td><code>?page=2</code> → <code>{page:"2"}</code></td>
+      </tr>
+      <tr>
+        <td><code>req.body</code></td>
+        <td>
+          Parsed body (needs <code>express.json()</code> etc.);
+          <code>undefined</code> without a parser
+        </td>
+        <td><code>{name:"Asha"}</code></td>
+      </tr>
+      <tr>
+        <td><code>req.headers</code> / <code>req.get("x")</code></td>
+        <td>Request headers</td>
+        <td><code>req.get("Content-Type")</code></td>
+      </tr>
+      <tr>
+        <td><code>req.method</code></td>
+        <td>HTTP method</td>
+        <td><code>"POST"</code></td>
+      </tr>
+      <tr>
+        <td>
+          <code>req.url</code> / <code>req.originalUrl</code> /
+          <code>req.path</code>
+        </td>
+        <td>
+          URL parts (<code>originalUrl</code> is never altered by mounting)
+        </td>
+        <td><code>"/api/users?x=1"</code></td>
+      </tr>
+      <tr>
+        <td><code>req.baseUrl</code></td>
+        <td>Mount path of the router</td>
+        <td><code>"/api/users"</code></td>
+      </tr>
+      <tr>
+        <td>
+          <code>req.ip</code>, <code>req.hostname</code>,
+          <code>req.protocol</code>
+        </td>
+        <td>Client IP, host, http/https</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>req.cookies</code></td>
+        <td>Needs <code>cookie-parser</code></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>req.file</code> / <code>req.files</code></td>
+        <td>Added by <code>multer</code> (uploads)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>req.is("json")</code></td>
+        <td>Check content type</td>
+        <td></td>
+      </tr>
+    </table>
+    <h3>Response Object (<code>res</code>)</h3>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>res.send(data)</code></td>
+        <td>Send string, Buffer, object or array (auto Content-Type)</td>
+      </tr>
+      <tr>
+        <td><code>res.json(obj)</code></td>
+        <td>Send JSON with <code>Content-Type: application/json</code></td>
+      </tr>
+      <tr>
+        <td><code>res.status(code)</code></td>
+        <td>Set the HTTP status (chainable)</td>
+      </tr>
+      <tr>
+        <td><code>res.sendStatus(code)</code></td>
+        <td>Set status and send its text (<code>404</code> → "Not Found")</td>
+      </tr>
+      <tr>
+        <td><code>res.redirect([code,] url)</code></td>
+        <td>Redirect (default 302)</td>
+      </tr>
+      <tr>
+        <td><code>res.render(view, data)</code></td>
+        <td>Render a template</td>
+      </tr>
+      <tr>
+        <td>
+          <code>res.sendFile(absPath)</code> / <code>res.download()</code>
+        </td>
+        <td>Send a file / force download</td>
+      </tr>
+      <tr>
+        <td><code>res.set(name, value)</code> / <code>res.header()</code></td>
+        <td>Set a response header</td>
+      </tr>
+      <tr>
+        <td>
+          <code>res.cookie(name, val, opts)</code> /
+          <code>res.clearCookie()</code>
+        </td>
+        <td>Set / delete cookies</td>
+      </tr>
+      <tr>
+        <td><code>res.end()</code></td>
+        <td>End without data</td>
+      </tr>
+      <tr>
+        <td><code>res.locals</code></td>
+        <td>Per-request variables shared with later middleware and views</td>
+      </tr>
+    </table>
+    <pre><code>app.post("/api/users/:id", (req, res) =&gt; {
+  console.log(req.method);          // POST
+  console.log(req.params.id);       // "5"
+  console.log(req.query.notify);    // "true"  (from ?notify=true)
+  console.log(req.body);            // { name: "Asha" }  (JSON body)
+  console.log(req.get("Authorization"));
+
+  res.status(201)                           // Created
+     .set("X-Powered-By-Me", "demo")
+     .cookie("seen", "1", { httpOnly: true, maxAge: 60000 })
+     .json({ message: "Created", id: req.params.id });
+});
+
+app.get("/old", (req, res) =&gt; res.redirect(301, "/new"));
+app.get("/report", (req, res) =&gt; res.download("./files/report.pdf"));
+app.get("/gone", (req, res) =&gt; res.sendStatus(410));</code></pre>
+    <div class="diagram">
+      <pre>
+ REQUEST (req)                           RESPONSE (res)
+ ┌───────────────────────────┐           ┌───────────────────────────┐
+ │ method  POST              │           │ status   201              │
+ │ url     /api/users/5?x=1  │   ───►    │ headers  Content-Type...  │
+ │ headers Content-Type...   │  handler  │ body     {"message":...}  │
+ │ body    {"name":"Asha"}   │           └───────────────────────────┘
+ └───────────────────────────┘
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b>
+      <ul>
+        <li>
+          <code>res.send()</code>, <code>res.json()</code>,
+          <code>res.redirect()</code>, <code>res.end()</code> <b>end</b> the
+          response; sending twice throws
+          <i>"Cannot set headers after they are sent"</i>.
+        </li>
+        <li>
+          <code>res.status(404)</code> alone does <u>not</u> send anything; you
+          must chain <code>.send()</code>/<code>.json()</code>.
+        </li>
+        <li>
+          <code>req.body</code> is <code>undefined</code> unless a body parser
+          is registered <u>before</u> the route.
+        </li>
+        <li>
+          All values in <code>params</code> and <code>query</code> are strings.
+        </li>
+        <li>
+          <code>res.json()</code> vs <code>res.send(obj)</code>: both give JSON
+          for objects, but <code>json()</code> is explicit and also converts
+          <code>null</code>/<code>undefined</code> correctly.
+        </li>
+      </ul>
+    </div>
+
+    <!-- ============ 12 ============ -->
+    <h2>12. HTTP Methods: get, post, put, delete</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Express provides <code>app.METHOD(path, handler)</code> for every HTTP
+      verb. The four core verbs map to <b>CRUD</b> operations in a REST API.
+    </p>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>CRUD</th>
+        <th>Typical route</th>
+        <th>Body?</th>
+        <th>Success code</th>
+        <th>Idempotent?</th>
+        <th>Safe?</th>
+      </tr>
+      <tr>
+        <td><code>app.get</code></td>
+        <td>Read</td>
+        <td><code>/users</code>, <code>/users/:id</code></td>
+        <td>No</td>
+        <td>200</td>
+        <td>Yes</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td><code>app.post</code></td>
+        <td>Create</td>
+        <td><code>/users</code></td>
+        <td>Yes</td>
+        <td>201</td>
+        <td>No</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><code>app.put</code></td>
+        <td>Replace / update</td>
+        <td><code>/users/:id</code></td>
+        <td>Yes (full)</td>
+        <td>200</td>
+        <td>Yes</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><code>app.patch</code></td>
+        <td>Partial update</td>
+        <td><code>/users/:id</code></td>
+        <td>Yes (partial)</td>
+        <td>200</td>
+        <td>Usually</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><code>app.delete</code></td>
+        <td>Delete</td>
+        <td><code>/users/:id</code></td>
+        <td>Rarely</td>
+        <td>200 / 204</td>
+        <td>Yes</td>
+        <td>No</td>
+      </tr>
+    </table>
+    <h3>Complete CRUD REST API (in-memory)</h3>
+    <pre><code>const express = require("express");
+const app = express();
+app.use(express.json());                       // needed for POST / PUT bodies
+
+let users = [{ id: 1, name: "Asha" }, { id: 2, name: "Ravi" }];
+let nextId = 3;
+
+// READ all (supports ?name= filter)
+app.get("/api/users", (req, res) =&gt; {
+  const { name } = req.query;
+  res.json(name ? users.filter(u =&gt; u.name.includes(name)) : users);
+});
+
+// READ one
+app.get("/api/users/:id", (req, res) =&gt; {
+  const user = users.find(u =&gt; u.id === Number(req.params.id));
+  if (!user) return res.status(404).json({ error: "User not found" });
+  res.json(user);
+});
+
+// CREATE
+app.post("/api/users", (req, res) =&gt; {
+  const { name } = req.body;
+  if (!name) return res.status(400).json({ error: "name is required" });
+  const user = { id: nextId++, name };
+  users.push(user);
+  res.status(201).json(user);                  // 201 Created
+});
+
+// UPDATE (replace)
+app.put("/api/users/:id", (req, res) =&gt; {
+  const i = users.findIndex(u =&gt; u.id === Number(req.params.id));
+  if (i === -1) return res.status(404).json({ error: "User not found" });
+  users[i] = { id: users[i].id, name: req.body.name };
+  res.json(users[i]);
+});
+
+// DELETE
+app.delete("/api/users/:id", (req, res) =&gt; {
+  const before = users.length;
+  users = users.filter(u =&gt; u.id !== Number(req.params.id));
+  if (users.length === before) return res.status(404).json({ error: "User not found" });
+  res.sendStatus(204);                         // 204 No Content
+});
+
+app.listen(3000);</code></pre>
+    <h3>Testing with curl / fetch</h3>
+    <pre><code>curl http://localhost:3000/api/users
+curl -X POST   -H "Content-Type: application/json" -d '{"name":"Meera"}' http://localhost:3000/api/users
+curl -X PUT    -H "Content-Type: application/json" -d '{"name":"Neha"}'  http://localhost:3000/api/users/1
+curl -X DELETE http://localhost:3000/api/users/2
+
+// Browser (React) side
+fetch("/api/users", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ name: "Meera" }) });</code></pre>
+    <div class="diagram">
+      <pre>
+ CRUD      HTTP       URL                 Mongoose equivalent
+ Create    POST       /api/users          User.create(body)
+ Read      GET        /api/users[/:id]    User.find() / findById(id)
+ Update    PUT/PATCH  /api/users/:id      User.findByIdAndUpdate(id, body)
+ Delete    DELETE     /api/users/:id      User.findByIdAndDelete(id)
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Browsers can send only GET/POST from plain
+      HTML forms; PUT/DELETE need <code>fetch/axios</code> (or
+      <code>method-override</code>). <b>PUT</b> replaces the whole resource
+      (idempotent: same call repeated = same result); <b>POST</b> is not
+      idempotent (repeating creates duplicates). <b>PATCH</b> changes only some
+      fields. GET must never modify data. Without <code>express.json()</code>,
+      <code>req.body</code> is <code>undefined</code>.
+      <code>app.all()</code> handles every method; <code>app.use()</code> is not
+      the same as <code>app.all()</code> (prefix match vs exact path).
+    </div>
+
+    <!-- ============ 13 ============ -->
+    <h2>13. Packages and Middleware</h2>
+    <h3>Core Concept: Middleware</h3>
+    <p>
+      <b>Middleware</b> is a function with access to <code>req</code>,
+      <code>res</code> and <code>next</code> that executes during the
+      request–response cycle. It can: run code, modify
+      <code>req</code>/<code>res</code>, end the cycle, or call
+      <code>next()</code> to continue.
+    </p>
+    <div class="diagram">
+      <pre>
+ Request ─► [logger] ─► [cors] ─► [express.json] ─► [auth] ─► [route] ─► Response
+              next()      next()       next()          next()
+                                                          │ error
+                                                          ▼
+                                                 [error-handling middleware]
+</pre
+      >
+    </div>
+    <h3>Types of Middleware</h3>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Registered with</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>Application-level</td>
+        <td><code>app.use()</code>, <code>app.METHOD()</code></td>
+        <td>Logger for all routes</td>
+      </tr>
+      <tr>
+        <td>Router-level</td>
+        <td><code>router.use()</code></td>
+        <td>Auth for <code>/admin</code> router only</td>
+      </tr>
+      <tr>
+        <td>Built-in</td>
+        <td>
+          <code>express.json()</code>, <code>express.urlencoded()</code>,
+          <code>express.static()</code>
+        </td>
+        <td>Shipped with Express</td>
+      </tr>
+      <tr>
+        <td>Third-party</td>
+        <td>NPM packages</td>
+        <td><code>cors, morgan, helmet, cookie-parser</code></td>
+      </tr>
+      <tr>
+        <td>Error-handling</td>
+        <td><code>app.use((err,req,res,next)=&gt;{})</code></td>
+        <td>Central error responder</td>
+      </tr>
+    </table>
+    <h3>Writing Custom Middleware</h3>
+    <pre><code>// 1. Logger
+const logger = (req, res, next) =&gt; {
+  console.log(`${new Date().toISOString()} ${req.method} ${req.originalUrl}`);
+  next();                                   // MUST call next (or respond)
+};
+app.use(logger);
+
+// 2. Authentication (can stop the chain)
+const auth = (req, res, next) =&gt; {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "No token" });
+  req.user = { id: 1 };                     // attach data for later handlers
+  next();
+};
+app.get("/profile", auth, (req, res) =&gt; res.json(req.user));
+app.use("/admin", auth);                    // only for /admin/*
+
+// 3. Middleware factory (configurable)
+const requireRole = (role) =&gt; (req, res, next) =&gt;
+  req.user?.role === role ? next() : res.status(403).json({ error: "Forbidden" });
+app.delete("/api/users/:id", auth, requireRole("admin"), (req, res) =&gt; res.sendStatus(204));
+
+// 4. Timing, response modification
+app.use((req, res, next) =&gt; {
+  const start = Date.now();
+  res.on("finish", () =&gt; console.log(`took ${Date.now() - start}ms`));
+  next();
+});
+
+// 5. 404 + error handlers (always LAST)
+app.use((req, res) =&gt; res.status(404).json({ error: "Not found" }));
+app.use((err, req, res, next) =&gt; res.status(500).json({ error: err.message }));</code></pre>
+    <h3>Popular Packages (installed via NPM)</h3>
+    <table>
+      <tr>
+        <th>Package</th>
+        <th>Purpose</th>
+        <th>Usage</th>
+      </tr>
+      <tr>
+        <td><code>cors</code></td>
+        <td>Cross-Origin Resource Sharing</td>
+        <td><code>app.use(cors())</code></td>
+      </tr>
+      <tr>
+        <td><code>morgan</code></td>
+        <td>HTTP request logging</td>
+        <td><code>app.use(morgan("dev"))</code></td>
+      </tr>
+      <tr>
+        <td><code>helmet</code></td>
+        <td>Security headers</td>
+        <td><code>app.use(helmet())</code></td>
+      </tr>
+      <tr>
+        <td><code>dotenv</code></td>
+        <td>Load <code>.env</code> into <code>process.env</code></td>
+        <td><code>require("dotenv").config()</code></td>
+      </tr>
+      <tr>
+        <td><code>cookie-parser</code></td>
+        <td>Parse cookies to <code>req.cookies</code></td>
+        <td><code>app.use(cookieParser())</code></td>
+      </tr>
+      <tr>
+        <td><code>express-rate-limit</code></td>
+        <td>Limit requests per IP</td>
+        <td><code>rateLimit({windowMs, max})</code></td>
+      </tr>
+      <tr>
+        <td><code>multer</code></td>
+        <td>File uploads (multipart)</td>
+        <td><code>upload.single("photo")</code></td>
+      </tr>
+      <tr>
+        <td><code>jsonwebtoken</code>, <code>bcrypt</code></td>
+        <td>JWT auth / password hashing</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>compression</code></td>
+        <td>Gzip responses</td>
+        <td><code>app.use(compression())</code></td>
+      </tr>
+      <tr>
+        <td><code>express-validator</code> / <code>joi</code></td>
+        <td>Input validation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>nodemon</code> (dev)</td>
+        <td>Auto restart</td>
+        <td><code>npm run dev</code></td>
+      </tr>
+    </table>
+    <pre><code>// npm install cors morgan helmet dotenv cookie-parser
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors"), morgan = require("morgan"), helmet = require("helmet");
+
+const app = express();
+app.use(helmet());                  // security first
+app.use(cors());
+app.use(morgan("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> Middleware executes in the
+      <b>order of registration</b>. A typical safe order: security (helmet) →
+      CORS → logging → body parsers → routes → 404 → error handler.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Forgetting <code>next()</code> hangs the
+      request. Calling <code>next()</code> <u>after</u> sending a response runs
+      later handlers and causes "headers already sent". Register body parsers
+      <u>before</u> routes that read <code>req.body</code>. Error middleware
+      must be registered <u>last</u> and needs 4 params.
+      <code>app.use(fn)</code> without a path applies to <b>all</b> routes and
+      methods. Remember: <code>dependencies</code> for runtime packages,
+      <code>devDependencies</code> for nodemon.
+    </div>
+
+    <!-- ============ 14 ============ -->
+    <h2>14. Body-parser</h2>
+    <h3>Core Concept</h3>
+    <p>
+      By default Express does <b>not</b> read the request body;
+      <code>req.body</code> is <code>undefined</code>. A
+      <b>body parser</b> middleware reads the incoming data stream, parses it
+      according to <code>Content-Type</code>, and attaches the result to
+      <code>req.body</code>.
+    </p>
+    <h3>Body Formats and Parsers</h3>
+    <table>
+      <tr>
+        <th>Content-Type</th>
+        <th>Sent by</th>
+        <th>Parser</th>
+      </tr>
+      <tr>
+        <td><code>application/json</code></td>
+        <td>fetch/axios/Postman JSON</td>
+        <td><code>express.json()</code></td>
+      </tr>
+      <tr>
+        <td><code>application/x-www-form-urlencoded</code></td>
+        <td>Classic HTML forms</td>
+        <td><code>express.urlencoded({ extended: true })</code></td>
+      </tr>
+      <tr>
+        <td><code>text/plain</code></td>
+        <td>Raw text</td>
+        <td><code>express.text()</code></td>
+      </tr>
+      <tr>
+        <td>Binary / octet-stream</td>
+        <td>Raw data</td>
+        <td><code>express.raw()</code></td>
+      </tr>
+      <tr>
+        <td><code>multipart/form-data</code></td>
+        <td>File uploads</td>
+        <td><b>Not handled by body-parser</b>; use <code>multer</code></td>
+      </tr>
+    </table>
+    <h3>Using the built-in parsers (recommended)</h3>
+    <pre><code>const express = require("express");
+const app = express();
+
+app.use(express.json({ limit: "10kb" }));                  // JSON → req.body (size limit)
+app.use(express.urlencoded({ extended: true }));           // form data → req.body
+
+app.post("/signup", (req, res) =&gt; {
+  const { email, password } = req.body;                    // destructure
+  res.status(201).json({ received: email });
+});
+// JSON request:  {"email":"a@x.com","password":"123"}
+// Form request:  email=a%40x.com&amp;password=123</code></pre>
+    <h3>Using the standalone <code>body-parser</code> package</h3>
+    <pre><code>// npm install body-parser
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// Since Express 4.16 these are the same functions as express.json / express.urlencoded</code></pre>
+    <h3>Parser for one route only</h3>
+    <pre><code>app.post("/webhook", express.raw({ type: "application/json" }), (req, res) =&gt; {
+  // req.body is a Buffer (needed for signature verification)
+  res.sendStatus(200);
+});</code></pre>
+    <table>
+      <tr>
+        <th><code>extended: false</code></th>
+        <th><code>extended: true</code></th>
+      </tr>
+      <tr>
+        <td>Uses Node <code>querystring</code> library</td>
+        <td>Uses <code>qs</code> library</td>
+      </tr>
+      <tr>
+        <td>Flat key-value pairs only</td>
+        <td>
+          Supports nested objects/arrays (<code>user[name]=A</code> →
+          <code>{user:{name:"A"}}</code>)
+        </td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ Raw HTTP body (text stream)  ──► body parser (checks Content-Type) ──► req.body (JS object)
+ '{"name":"Asha"}'  ───────────────── express.json() ──────────────►  { name: "Asha" }
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>req.body</code> being
+      <code>undefined</code> is almost always a missing
+      <code>express.json()</code>, wrong order (parser after the route), or a
+      missing <code>Content-Type: application/json</code> header on the request.
+      The standalone <b>body-parser</b> is no longer needed for basic use since
+      Express 4.16; but the exam may still ask for it. Neither parser handles
+      <b>file uploads</b> (use multer). In Express 5, <code>req.body</code> is
+      <code>undefined</code> (not <code>{}</code>) when no parser ran. Invalid
+      JSON triggers a 400 error handled by your error middleware. Always set a
+      <code>limit</code> to avoid huge-payload abuse.
+    </div>
+
+    <!-- ============ 15 ============ -->
+    <h2>15. CORS and Credentials</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>CORS (Cross-Origin Resource Sharing)</b> is a browser-enforced security
+      mechanism that controls whether a web page from one <b>origin</b> may read
+      responses from a different origin. An <b>origin</b> =
+      <b>protocol + domain + port</b>. The <b>Same-Origin Policy</b> blocks
+      cross-origin reads by default; the server relaxes it with CORS response
+      headers.
+    </p>
+    <table>
+      <tr>
+        <th>Page origin</th>
+        <th>Request to</th>
+        <th>Same origin?</th>
+      </tr>
+      <tr>
+        <td><code>http://localhost:5173</code></td>
+        <td><code>http://localhost:5173/api</code></td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td><code>http://localhost:5173</code> (React)</td>
+        <td><code>http://localhost:5000/api</code> (Express)</td>
+        <td><b>No</b> (different port) → needs CORS</td>
+      </tr>
+      <tr>
+        <td><code>https://app.com</code></td>
+        <td><code>http://app.com</code></td>
+        <td>No (protocol)</td>
+      </tr>
+      <tr>
+        <td><code>https://app.com</code></td>
+        <td><code>https://api.app.com</code></td>
+        <td>No (subdomain)</td>
+      </tr>
+    </table>
+    <h3>Key CORS Headers</h3>
+    <table>
+      <tr>
+        <th>Header</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>Access-Control-Allow-Origin</code></td>
+        <td>Which origin is allowed (<code>*</code> or a specific origin)</td>
+      </tr>
+      <tr>
+        <td><code>Access-Control-Allow-Methods</code></td>
+        <td>Allowed HTTP methods</td>
+      </tr>
+      <tr>
+        <td><code>Access-Control-Allow-Headers</code></td>
+        <td>Allowed request headers (e.g., <code>Authorization</code>)</td>
+      </tr>
+      <tr>
+        <td><code>Access-Control-Allow-Credentials</code></td>
+        <td><code>true</code> to allow cookies/auth</td>
+      </tr>
+      <tr>
+        <td><code>Access-Control-Max-Age</code></td>
+        <td>How long the preflight result is cached</td>
+      </tr>
+    </table>
+    <h3>Preflight Request</h3>
+    <p>
+      For "non-simple" requests (methods like PUT/DELETE, JSON content-type,
+      custom headers like <code>Authorization</code>) the browser first sends an
+      automatic <b><code>OPTIONS</code></b> request to ask permission. Only if
+      the server's reply allows it does the real request go out.
+    </p>
+    <div class="diagram">
+      <pre>
+ Browser (http://localhost:5173)                      Express (http://localhost:5000)
+   │  OPTIONS /api/users                                 │
+   │  Origin: http://localhost:5173                      │
+   │  Access-Control-Request-Method: PUT                 │
+   │ ──────────────────────────────────────────────────► │  PREFLIGHT
+   │  204  Access-Control-Allow-Origin: http://localhost:5173
+   │       Access-Control-Allow-Methods: GET,POST,PUT,DELETE
+   │ ◄────────────────────────────────────────────────── │
+   │  PUT /api/users/1  (actual request)                 │
+   │ ──────────────────────────────────────────────────► │
+   │  200 + Access-Control-Allow-Origin ...              │
+   │ ◄────────────────────────────────────────────────── │
+</pre
+      >
+    </div>
+    <h3>Using the <code>cors</code> package</h3>
+    <pre><code>// npm install cors
+const cors = require("cors");
+
+// 1. Allow every origin (fine for public APIs / quick dev)
+app.use(cors());                        // Access-Control-Allow-Origin: *
+
+// 2. Allow one specific origin
+app.use(cors({ origin: "http://localhost:5173" }));
+
+// 3. Production-grade: whitelist + credentials + methods
+const whitelist = ["http://localhost:5173", "https://myapp.com"];
+app.use(cors({
+  origin: (origin, callback) =&gt; {
+    if (!origin || whitelist.includes(origin)) callback(null, true);   // !origin = Postman/curl/server
+    else callback(new Error("Not allowed by CORS"));
+  },
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,                    // allow cookies / auth headers
+  maxAge: 86400
+}));
+
+// CORS for a single route only
+app.get("/public-data", cors(), (req, res) =&gt; res.json({ ok: true }));
+
+// Manual (without package)
+app.use((req, res, next) =&gt; {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") return res.sendStatus(204);      // answer preflight
+  next();
+});</code></pre>
+    <h3>Credentials (cookies, authorization, client certificates)</h3>
+    <p>
+      By default browsers do <b>not</b> send or accept cookies on cross-origin
+      requests. To allow them, <b>both</b> sides must opt in.
+    </p>
+    <pre><code>// ---- SERVER (Express)
+const cookieParser = require("cookie-parser");
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));   // exact origin, NOT "*"
+app.use(cookieParser());
+
+app.post("/login", (req, res) =&gt; {
+  res.cookie("token", "jwt-value", {
+    httpOnly: true,            // JS cannot read it (mitigates XSS)
+    secure: true,              // HTTPS only (use true in production)
+    sameSite: "none",          // needed for cross-site cookies (requires secure:true)
+    maxAge: 24 * 60 * 60 * 1000
+  });
+  res.json({ message: "Logged in" });
+});
+app.get("/me", (req, res) =&gt; res.json({ token: req.cookies.token }));
+
+// ---- CLIENT: fetch
+fetch("http://localhost:5000/login", {
+  method: "POST",
+  credentials: "include",               // send/receive cookies cross-origin
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email: "a@x.com", password: "123" })
+});
+
+// ---- CLIENT: axios
+axios.post("http://localhost:5000/login", data, { withCredentials: true });
+// or globally:  axios.defaults.withCredentials = true;</code></pre>
+    <table>
+      <tr>
+        <th>Client</th>
+        <th>Option</th>
+      </tr>
+      <tr>
+        <td><code>fetch</code></td>
+        <td>
+          <code>credentials: "include"</code> (or
+          <code>"same-origin"</code> default, <code>"omit"</code>)
+        </td>
+      </tr>
+      <tr>
+        <td><code>axios</code></td>
+        <td><code>withCredentials: true</code></td>
+      </tr>
+      <tr>
+        <td>Server</td>
+        <td>
+          <code>Access-Control-Allow-Credentials: true</code> (<code
+            >credentials: true</code
+          >
+          in <code>cors</code>)
+        </td>
+      </tr>
+    </table>
+    <h3>Common Error and Fix</h3>
+    <pre><code>Access to fetch at 'http://localhost:5000/api' from origin 'http://localhost:5173'
+has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present.
+→ Fix: add app.use(cors({ origin: "http://localhost:5173" })) BEFORE the routes.
+
+"...The value of the 'Access-Control-Allow-Origin' header must not be the wildcard '*'
+ when the request's credentials mode is 'include'."
+→ Fix: set a specific origin, not "*", when credentials: true.</code></pre>
+    <p>
+      <b>Dev alternative:</b> use the Vite/CRA <b>proxy</b> so the browser sees
+      the same origin (<code
+        >server.proxy: { "/api": "http://localhost:5000" }</code
+      >) and no CORS is needed.
+    </p>
+    <div class="key">
+      <b class="t">Key Concept:</b> CORS is enforced by the <b>browser</b>,
+      configured by the <b>server</b>. Postman, curl and server-to-server calls
+      ignore CORS entirely.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b>
+      <ul>
+        <li>
+          CORS does <u>not</u> protect your server from requests; it only
+          controls whether the <i>browser</i> lets JavaScript read the response.
+          Attackers can still call the API directly.
+        </li>
+        <li>
+          With <code>credentials: true</code> the origin
+          <b>cannot be <code>*</code></b
+          >, and the client must also send
+          <code>credentials: "include"</code>/<code>withCredentials: true</code
+          >.
+        </li>
+        <li>
+          Place <code>app.use(cors())</code> <u>before</u> your routes;
+          otherwise headers are missing.
+        </li>
+        <li>
+          The preflight is an <code>OPTIONS</code> request; the cors package
+          answers it automatically.
+        </li>
+        <li>
+          CORS errors can also appear when the server crashes or returns an
+          error without CORS headers, so check server logs first.
+        </li>
+        <li>
+          Cross-site cookies need <code>SameSite=None; Secure</code>;
+          <code>localhost</code> ports count as same <i>site</i> but different
+          <i>origin</i>.
+        </li>
+      </ul>
+    </div>
+
+    <h2>Unit IV: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          <b>Express:</b> minimal Node.js web framework; wraps
+          <code>http</code>; routing + middleware; install with
+          <code>npm install express</code>.
+        </li>
+        <li>
+          <b>Server:</b>
+          <code>const app = express(); app.listen(PORT, cb)</code>; read
+          <code>process.env.PORT</code>.
+        </li>
+        <li>
+          <b>Serving browsers:</b> <code>express.static</code>,
+          <code>res.sendFile</code> (absolute path), <code>res.render</code>,
+          SPA fallback after API routes.
+        </li>
+        <li>
+          <b>Router:</b> <code>express.Router()</code>, mounted with
+          <code>app.use(prefix, router)</code>, paths relative to the mount
+          point, <code>module.exports = router</code>.
+        </li>
+        <li>
+          <b>Matching:</b> in order of definition, first match wins;
+          <code>use</code> = prefix, any method; <code>get</code> = exact path +
+          GET.
+        </li>
+        <li>
+          <b>Route params:</b> <code>:id</code> →
+          <code>req.params</code> (always strings); query →
+          <code>req.query</code>; body → <code>req.body</code>.
+        </li>
+        <li>
+          <b>Handler:</b> <code>(req, res, next)</code>; respond or
+          <code>next()</code>; error handler has 4 params.
+        </li>
+        <li>
+          <b>req / res:</b> know the main properties and the response methods
+          (<code>send, json, status, redirect, sendFile, cookie</code>).
+        </li>
+        <li>
+          <b>Methods:</b> GET read, POST create (201), PUT replace, PATCH
+          partial, DELETE remove (204); idempotency.
+        </li>
+        <li>
+          <b>Middleware:</b> app-level, router-level, built-in, third-party,
+          error-handling; order matters; always call <code>next()</code>.
+        </li>
+        <li>
+          <b>Body-parser:</b> <code>express.json()</code>,
+          <code>express.urlencoded()</code>; multer for files;
+          <code>req.body</code> undefined without parser.
+        </li>
+        <li>
+          <b>CORS:</b> origin = protocol + domain + port; preflight
+          <code>OPTIONS</code>; <code>cors()</code> package; credentials need
+          <code>credentials: true</code> + specific origin + client
+          <code>include</code>/<code>withCredentials</code>.
+        </li>
+      </ul>
+    </div>
+
+    <a href="MERN5.html" class="btn">Click for unit 5</a>
+  </body>
+</html>
