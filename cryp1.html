@@ -210,6 +210,18 @@
           font-size: 15px;
         }
       }
+      /* ---- Diagrams: keep exact spacing, scroll sideways instead of wrapping/squishing ---- */
+      .diagram {
+        -webkit-overflow-scrolling: touch;
+      }
+      .diagram pre {
+        white-space: pre;
+        overflow-wrap: normal;
+        word-break: normal;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        tab-size: 4;
+      }
     </style>
   </head>
   <body>
