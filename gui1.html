@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      MCA316 Unit I - .NET Platform Fundamentals &amp; Runtime Architecture
+    </title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      /* ---- Diagrams: keep exact spacing, scroll sideways instead of wrapping/squishing ---- */
+      .diagram {
+        -webkit-overflow-scrolling: touch;
+      }
+      .diagram pre {
+        white-space: pre;
+        overflow-wrap: normal;
+        word-break: normal;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        tab-size: 4;
+      }
+
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA316: GUI Using .NET Framework<br /><small style="font-size: 60%"
+        >Module 1 (Unit I): .NET Platform Fundamentals &amp; Runtime
+        Architecture</small
+      >
+    </h1>
+    <div class="key">
+      <b class="t">Unit I Map:</b> Introduction to .NET → Origin (OLE → COM →
+      .NET) → Architecture → CLR → CTS → CLS → MSIL → JIT → BCL/FCL → End-to-end
+      execution.
+    </div>
+
+    <h2>1. Introduction to .NET</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>.NET</b> is a Microsoft software platform used to build and run
+      applications. It gives developers a <b>runtime</b>, a large
+      <b>class library</b>, and a <b>language-interoperability model</b>.
+    </p>
+    <h3>Technical Breakdown</h3>
+    <ul>
+      <li><b>Runtime:</b> executes programs safely (CLR in .NET Framework).</li>
+      <li><b>Library:</b> reusable code (BCL/FCL).</li>
+      <li>
+        <b>Interoperability:</b> many languages work together through CTS and
+        CLS.
+      </li>
+      <li>
+        <b>Services:</b> Garbage Collection, exception handling, type safety,
+        security.
+      </li>
+      <li>
+        <b>Used for:</b> desktop apps (Windows Forms, WPF), web (ASP.NET), APIs,
+        cloud, mobile.
+      </li>
+    </ul>
+    <p>
+      <b>Why .NET exists:</b> before it, Windows development used COM, OLE and
+      Win32 APIs: powerful but complex, with manual memory management, "DLL
+      Hell" version conflicts and poor cross-language integration. .NET unified
+      all this into one managed environment.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> .NET Framework is the platform; C# is just one
+      language that targets it. VB.NET and F# compile for the same runtime.
+    </div>
+
+    <h2>2. Origin of .NET: OLE → COM → .NET</h2>
+    <h3>2.1 OLE (Object Linking and Embedding)</h3>
+    <p>
+      OLE lets one application embed or link content from another, for example
+      an Excel chart inside a Word document.
+    </p>
+    <ul>
+      <li><b>Embedding:</b> a copy of the object lives inside the document.</li>
+      <li>
+        <b>Linking:</b> the document holds a reference; updating the source file
+        updates the document.
+      </li>
+      <li>
+        <b>Limitation:</b> aimed at document embedding, not general component
+        development; complex to implement.
+      </li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ Word Document
+   |-- Embed (copy of object) --&gt; [ Embedded Excel Chart ]
+   |
+   `-- Link (reference only) ---&gt; [ Excel file stays separate ]
+</pre
+      >
+    </div>
+
+    <h3>2.2 COM (Component Object Model)</h3>
+    <p>
+      COM is a <b>binary standard</b> for reusable components that work across
+      languages (write in C++, use from Visual Basic without recompiling).
+    </p>
+    <ul>
+      <li><b>Interfaces:</b> contracts a component exposes.</li>
+      <li>
+        <b>IUnknown:</b> the base interface with <code>QueryInterface</code>,
+        <code>AddRef</code>, <code>Release</code>.
+      </li>
+      <li>
+        <b>Reference counting:</b> manual-but-systematic memory management.
+      </li>
+    </ul>
+    <div class="trap">
+      <b class="t">Exam Trap (Problems in COM):</b> complex interface
+      programming, Windows Registry dependency, <b>DLL Hell</b> (versioning
+      conflicts), manual reference-counting errors causing leaks/crashes, and
+      ActiveX security concerns. These problems motivated .NET.
+    </div>
+
+    <h3>2.3 .NET Technologies</h3>
+    <p>
+      A managed platform with a runtime (CLR), IL execution, a standard type
+      system (CTS), language rules (CLS), rich libraries (BCL/FCL) and safer
+      deployment via assemblies and metadata.
+    </p>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>OLE</th>
+        <th>COM</th>
+        <th>.NET</th>
+      </tr>
+      <tr>
+        <td>Main purpose</td>
+        <td>Embed/link objects between apps</td>
+        <td>Build reusable binary components</td>
+        <td>Unified platform to build and run apps</td>
+      </tr>
+      <tr>
+        <td>Language interop</td>
+        <td>Limited</td>
+        <td>Strong (binary interfaces)</td>
+        <td>Very strong (CTS + CLS + IL)</td>
+      </tr>
+      <tr>
+        <td>Memory management</td>
+        <td>Mostly app-controlled</td>
+        <td>Manual reference counting</td>
+        <td>Automatic GC (managed)</td>
+      </tr>
+      <tr>
+        <td>Deployment</td>
+        <td>File-based objects</td>
+        <td>Often registry-based</td>
+        <td>Assemblies + metadata, better versioning</td>
+      </tr>
+    </table>
+
+    <h2>3. Architecture of .NET Framework</h2>
+    <h3>Core Concept</h3>
+    <p>
+      Languages (C#, VB.NET, ...) are compiled by <b>language compilers</b> into
+      <b>IL/MSIL</b>, packaged with <b>metadata</b> in an <b>assembly</b>. The
+      <b>CLR</b> loads and executes that IL using the class library (BCL/FCL)
+      and, finally, the OS and hardware.
+    </p>
+    <div class="diagram">
+      <pre>
+ +----------------------------------------------+
+ |  Applications (Console, Web, Desktop)        |
+ +----------------------+-----------------------+
+                        v
+ +----------------------------------------------+
+ |  .NET Languages (C#, VB.NET, F# ...)         |
+ |  Compilers (csc.exe, vbc.exe) -&gt; IL+Metadata |
+ +----------------------+-----------------------+
+                        v
+ +----------------------------------------------+
+ |  Assemblies (.exe / .dll)                    |
+ |  IL + Metadata + Manifest + Resources        |
+ +----------------------+-----------------------+
+                        v
+ +----------------------------------------------+
+ |  CLR: JIT | GC | Type safety | Exceptions    |
+ |       Security | Threading                   |
+ +----------------------+-----------------------+
+                        v
+ +----------------------------------------------+
+ |  Base Class Library (BCL / FCL)              |
+ +----------------------+-----------------------+
+                        v
+ +----------------------------------------------+
+ |  Operating System (Windows) + Hardware       |
+ +----------------------------------------------+
+</pre
+      >
+    </div>
+    <div class="key">
+      <b class="t">Key Concept:</b> Your code is <u>not</u> compiled straight to
+      machine code. It first becomes IL; the CLR makes it run. Different
+      languages interoperate because they share IL and the CTS/CLS.
+    </div>
+
+    <h2>4. Common Language Runtime (CLR)</h2>
+    <h3>Core Concept</h3>
+    <p>
+      The <b>CLR</b> is the execution engine of .NET Framework. It loads
+      assemblies, verifies code, compiles IL to native code, manages memory,
+      handles exceptions, and supports security and threading. Code running
+      under it is called <b>managed code</b>.
+    </p>
+    <table>
+      <tr>
+        <th>CLR service</th>
+        <th>What it does</th>
+      </tr>
+      <tr>
+        <td>Managed execution</td>
+        <td>Type safety, stability, standard services</td>
+      </tr>
+      <tr>
+        <td>Garbage Collection</td>
+        <td>
+          Objects live on the managed heap; unreferenced objects are reclaimed
+          automatically
+        </td>
+      </tr>
+      <tr>
+        <td>Type safety and verification</td>
+        <td>Prevents illegal memory access; can reject unsafe IL</td>
+      </tr>
+      <tr>
+        <td>Exception handling</td>
+        <td>try/catch/finally, same behaviour in all .NET languages</td>
+      </tr>
+      <tr>
+        <td>Security</td>
+        <td>Code Access Security (CAS), permission checks (historical)</td>
+      </tr>
+      <tr>
+        <td>Thread management</td>
+        <td>Thread pool, tasks, locks/monitors</td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ Source Code (C#/VB)
+      | compile
+      v
+ IL (MSIL) + Metadata  -&gt; stored in Assembly (.exe/.dll)
+      | CLR loads assembly
+      v
+ Verification + Security checks
+      v
+ JIT compiles IL method-by-method
+      v
+ Native Machine Code --&gt; CPU executes --&gt; OS + Hardware
+</pre
+      >
+    </div>
+
+    <h2>5. Common Type System (CTS)</h2>
+    <h3>Core Concept</h3>
+    <p>
+      The <b>CTS</b> defines how types are declared, used and managed so that
+      all .NET languages share one consistent type system. A type written in C#
+      can be used directly in VB.NET. Everything ultimately derives from
+      <code>System.Object</code>.
+    </p>
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>Stored</th>
+        <th>Examples</th>
+      </tr>
+      <tr>
+        <td>Value types</td>
+        <td>Directly (often on stack); faster for small data</td>
+        <td><code>int, double, bool, char, struct, enum</code></td>
+      </tr>
+      <tr>
+        <td>Reference types</td>
+        <td>Reference to heap object; can be <code>null</code></td>
+        <td>
+          <code>class, string, object, arrays, delegates, interfaces</code>
+        </td>
+      </tr>
+    </table>
+    <p>
+      <b>Boxing/Unboxing:</b> boxing converts a value type to
+      <code>object</code>; unboxing extracts it back. Covered fully in Unit II.
+    </p>
+
+    <h2>6. Common Language Specification (CLS)</h2>
+    <p>
+      The <b>CLS</b> is a <u>subset of the CTS</u>: a set of rules every .NET
+      language can follow to guarantee interoperability. If a public library
+      uses only CLS-compliant features, any .NET language can consume it.
+    </p>
+    <pre><code>[assembly: CLSCompliant(true)]
+
+public class Demo
+{
+    public uint Bad() { return 1; }   // warning: uint is not CLS-compliant
+    public int  Good() { return 1; }  // fine
+}</code></pre>
+    <table>
+      <tr>
+        <th>Point</th>
+        <th>CTS</th>
+        <th>CLS</th>
+      </tr>
+      <tr>
+        <td>Meaning</td>
+        <td>Full .NET type system</td>
+        <td>Interoperability rule set</td>
+      </tr>
+      <tr>
+        <td>Scope</td>
+        <td>Very broad</td>
+        <td>Smaller subset of CTS</td>
+      </tr>
+      <tr>
+        <td>Goal</td>
+        <td>Standardize types for the runtime</td>
+        <td>Make libraries usable across languages</td>
+      </tr>
+      <tr>
+        <td>Who uses it</td>
+        <td>CLR + all .NET languages</td>
+        <td>Library/API designers</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> In public APIs avoid <code>uint</code> (not
+      all languages support unsigned types) and avoid names that differ only by
+      case (<code>Print()</code> vs <code>print()</code>), because some
+      languages are case-insensitive.
+    </div>
+
+    <h2>7. Microsoft Intermediate Language (MSIL / IL / CIL)</h2>
+    <p>
+      <b>MSIL</b> is the CPU-independent, stack-based instruction set that .NET
+      compilers emit instead of machine code. Along with metadata (type
+      information, references), a manifest and resources, it is packaged into an
+      <b>assembly</b> (<code>.exe</code> / <code>.dll</code>).
+    </p>
+    <table>
+      <tr>
+        <th>Why IL is used</th>
+        <th>Explanation</th>
+      </tr>
+      <tr>
+        <td>Portability</td>
+        <td>Runs on different CPUs once JIT-compiled</td>
+      </tr>
+      <tr>
+        <td>Language interoperability</td>
+        <td>C#, VB.NET, F# all compile to IL</td>
+      </tr>
+      <tr>
+        <td>Verification / security</td>
+        <td>CLR can verify IL before running it</td>
+      </tr>
+      <tr>
+        <td>Runtime optimization</td>
+        <td>JIT can optimize for the actual CPU/conditions</td>
+      </tr>
+    </table>
+
+    <h2>8. Just-In-Time (JIT) Compilation</h2>
+    <h3>Core Concept</h3>
+    <p>
+      The <b>JIT compiler</b> converts IL into native machine code at
+      <u>run time</u>, typically <b>method by method</b>, the first time each
+      method is called.
+    </p>
+    <div class="diagram">
+      <pre>
+ 1. CLR loads assembly
+ 2. Finds entry point (Main)
+ 3. IL of needed method --&gt; JIT compiler
+ 4. JIT --&gt; native machine code
+ 5. CPU executes native code
+ 6. Compiled code is CACHED (later calls skip compilation)
+</pre
+      >
+    </div>
+    <ul>
+      <li>
+        <b>Benefit:</b> optimized for the actual CPU; only methods that run get
+        compiled.
+      </li>
+      <li>
+        <b>Trade-off:</b> small one-time delay on the first call of each method.
+      </li>
+    </ul>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> JIT is lazy. It does <u>not</u> compile the
+      whole program at start-up; a method is compiled only when first invoked.
+    </div>
+
+    <h2>9. Framework / Base Class Library (BCL / FCL)</h2>
+    <p>
+      A large set of prebuilt, reusable classes so you do not write everything
+      from scratch. <b>BCL</b> is the core set of fundamental classes;
+      <b>FCL</b> is the broader collection (BCL plus extra frameworks). In
+      practice the two terms are used almost interchangeably.
+    </p>
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>Purpose</th>
+        <th>Example use</th>
+      </tr>
+      <tr>
+        <td>Collections</td>
+        <td>Store and organize data</td>
+        <td>Student list, attendance map</td>
+      </tr>
+      <tr>
+        <td>I/O</td>
+        <td>Work with files</td>
+        <td>Save marksheet to file</td>
+      </tr>
+      <tr>
+        <td>Networking</td>
+        <td>Communicate over a network</td>
+        <td>Call an API</td>
+      </tr>
+      <tr>
+        <td>Security</td>
+        <td>Protect data</td>
+        <td>Hash a password</td>
+      </tr>
+      <tr>
+        <td>XML/JSON</td>
+        <td>Data exchange</td>
+        <td>Read a config file</td>
+      </tr>
+      <tr>
+        <td>Threading</td>
+        <td>Parallel work</td>
+        <td>Background processing</td>
+      </tr>
+      <tr>
+        <td>UI libraries</td>
+        <td>Build interfaces</td>
+        <td>Windows Forms, WPF, ASP.NET</td>
+      </tr>
+    </table>
+
+    <h2>10. End-to-End Execution in .NET</h2>
+    <div class="diagram">
+      <pre>
+ Developer
+    v
+ .NET Language (C#/VB)
+    | compile
+    v
+ IL (MSIL) + Metadata  = Assembly (.exe/.dll)
+    | load + verify
+    v
+ CLR (type safety, CLS rules, GC, security, threads)
+    | JIT compile
+    v
+ Native Machine Code (CPU instruction set)
+    | execute
+    v
+ OS + Hardware
+</pre
+      >
+    </div>
+    <ol>
+      <li>Write code in a .NET language.</li>
+      <li>Compiler produces IL + metadata packaged as an assembly.</li>
+      <li>
+        CLR loads the assembly and verifies it (types correct, code safe).
+      </li>
+      <li>JIT compiles IL to native code, only when a method is needed.</li>
+      <li>CLR runs it, providing GC, exceptions, security and threading.</li>
+    </ol>
+
+    <h2>11. Tracing a Real Program Through the Pipeline</h2>
+    <pre><code>using System;
+
+class Program
+{
+    static void Main()
+    {
+        int a = 5, b = 7;
+        Console.WriteLine(a + b);   // prints 12
+    }
+}</code></pre>
+    <table>
+      <tr>
+        <th>Step</th>
+        <th>What happens</th>
+      </tr>
+      <tr>
+        <td>1. Compile</td>
+        <td>
+          <code>csc.exe</code> turns <code>Program.cs</code> into MSIL +
+          metadata, not x86/x64 code
+        </td>
+      </tr>
+      <tr>
+        <td>2. Assembly</td>
+        <td>
+          Packaged into <code>Program.exe</code> with a manifest (name, version,
+          references such as mscorlib)
+        </td>
+      </tr>
+      <tr>
+        <td>3. Load</td>
+        <td>
+          Windows hands control to the CLR because the exe header says it needs
+          .NET
+        </td>
+      </tr>
+      <tr>
+        <td>4. Verify</td>
+        <td>
+          CLR checks IL is type-safe (<code>a + b</code> both <code>int</code>)
+        </td>
+      </tr>
+      <tr>
+        <td>5. JIT</td>
+        <td>
+          Just before <code>Main()</code> runs, only its IL becomes native code
+        </td>
+      </tr>
+      <tr>
+        <td>6. Execute</td>
+        <td>CPU runs native code; <code>12</code> is printed</td>
+      </tr>
+      <tr>
+        <td>7. GC</td>
+        <td>
+          Nothing to collect here (value types on stack). A
+          <code>new Student()</code> would live on the managed heap until
+          unreachable
+        </td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> The first call of any method is slower than
+      later calls because it pays the one-time JIT cost.
+    </div>
+
+    <h2>12. Solved Problem: CTS Type-Compatibility</h2>
+    <pre><code>int x = 10;
+long y = x;            // (a) int -&gt; long
+long big = 5000000000;
+int small = big;       // (b) long -&gt; int
+object o = 42;         // (c) int -&gt; object (boxing)
+int n = (int)o;        // (d) object -&gt; int (unboxing)</code></pre>
+    <table>
+      <tr>
+        <th>Line</th>
+        <th>Allowed?</th>
+        <th>Reason</th>
+      </tr>
+      <tr>
+        <td>(a)</td>
+        <td>Yes, implicit</td>
+        <td>Widening: long can hold every int value</td>
+      </tr>
+      <tr>
+        <td>(b)</td>
+        <td>No, needs cast</td>
+        <td>
+          <code>(int)big</code> required; possible data loss must be
+          acknowledged
+        </td>
+      </tr>
+      <tr>
+        <td>(c)</td>
+        <td>Yes, implicit boxing</td>
+        <td>Everything derives from <code>System.Object</code></td>
+      </tr>
+      <tr>
+        <td>(d)</td>
+        <td>Explicit cast</td>
+        <td>
+          Unboxing; throws <code>InvalidCastException</code> if the object does
+          not hold an int
+        </td>
+      </tr>
+    </table>
+
+    <h2>Unit I: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          OLE vs COM vs .NET comparison table; problems of COM (DLL Hell).
+        </li>
+        <li>Draw and label the .NET architecture diagram.</li>
+        <li>CLR services: GC, type safety, exceptions, security, threading.</li>
+        <li>CTS (full type system) vs CLS (subset for interoperability).</li>
+        <li>Compile → MSIL → JIT → native code, step by step.</li>
+        <li>JIT is lazy, method by method, cached after first call.</li>
+        <li>BCL vs FCL; assembly = IL + metadata + manifest + resources.</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 24px">
+      <a href="gui2.html" class="btn">Click for unit 2 &rarr;</a>
+    </div>
+  </body>
+</html>

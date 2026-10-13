@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      MCA316 Unit IV - Class Foundations, OOP &amp; Exception Handling
+    </title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      /* ---- Diagrams: keep exact spacing, scroll sideways instead of wrapping/squishing ---- */
+      .diagram {
+        -webkit-overflow-scrolling: touch;
+      }
+      .diagram pre {
+        white-space: pre;
+        overflow-wrap: normal;
+        word-break: normal;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        tab-size: 4;
+      }
+
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA316: GUI Using .NET Framework<br /><small style="font-size: 60%"
+        >Module 4 (Unit IV): Class Foundations, OOP &amp; Exception
+        Handling</small
+      >
+    </h1>
+    <div class="key">
+      <b class="t">Unit IV Map:</b> Class basics → Access modifiers → Fields →
+      Properties → Constructors → Static vs instance → this → readonly/const →
+      Inheritance → Overloading vs overriding → Polymorphism → Operator
+      overloading → Abstract class vs interface → Nested class → Delegates →
+      Partial classes → Errors → Exception handling.
+    </div>
+
+    <h2>1. Class Basics</h2>
+    <p>
+      A <b>class</b> is a blueprint for objects. It groups data (<b>fields</b>)
+      and behaviour (<b>methods/properties</b>) and supports encapsulation and
+      abstraction. An <b>object</b> is an instance of a class.
+    </p>
+    <pre><code>class Student
+{
+    // fields, properties, constructors, methods
+}
+Student s = new Student();   // object creation</code></pre>
+
+    <h2>2. Access Modifiers</h2>
+    <table>
+      <tr>
+        <th>Modifier</th>
+        <th>Accessible from</th>
+      </tr>
+      <tr>
+        <td><code>public</code></td>
+        <td>Anywhere (same and other projects)</td>
+      </tr>
+      <tr>
+        <td><code>private</code></td>
+        <td>Only inside the same class (default for members)</td>
+      </tr>
+      <tr>
+        <td><code>protected</code></td>
+        <td>Same class and derived classes</td>
+      </tr>
+      <tr>
+        <td><code>internal</code></td>
+        <td>Anywhere within the same assembly/project</td>
+      </tr>
+      <tr>
+        <td><code>protected internal</code></td>
+        <td>
+          Same assembly <b>OR</b> derived classes (even in other assemblies)
+        </td>
+      </tr>
+      <tr>
+        <td><code>private protected</code></td>
+        <td>
+          Same class or derived classes, but
+          <b>only within the same assembly</b>
+        </td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Class members default to <code>private</code>;
+      top-level classes default to <code>internal</code>.
+      <code>protected internal</code> is OR, <code>private protected</code> is
+      AND.
+    </div>
+
+    <h2>3. Fields</h2>
+    <p>
+      A <b>field</b> is a variable declared in a class that stores object state.
+    </p>
+    <table>
+      <tr>
+        <th>Kind</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td>Instance field</td>
+        <td>Unique per object</td>
+      </tr>
+      <tr>
+        <td>Static field</td>
+        <td>Shared by all objects</td>
+      </tr>
+      <tr>
+        <td>readonly field</td>
+        <td>Set once (declaration or constructor)</td>
+      </tr>
+      <tr>
+        <td>const field</td>
+        <td>Compile-time constant</td>
+      </tr>
+    </table>
+    <pre><code>class Employee
+{
+    private int id;                       // instance
+    private static int count;             // static (shared)
+    public readonly string Company;       // readonly
+    public const int MaxAge = 60;         // const
+
+    public Employee(string company)
+    {
+        Company = company;                // allowed in constructor
+        count++;
+    }
+}</code></pre>
+
+    <h2>4. Properties (get / set)</h2>
+    <p>
+      A <b>property</b> gives controlled access to a private field, supporting
+      <b>encapsulation</b>: validation, read-only/write-only access, and
+      changing internals without breaking callers.
+    </p>
+    <pre><code>private int age;
+public int Age                       // read-write
+{
+    get { return age; }
+    set { age = value; }             // 'value' is the assigned value
+}
+
+private int roll;
+public int Roll { get { return roll; } }          // read-only
+
+private string password;
+public string Password { set { password = value; } }   // write-only (rare)
+
+public string Name { get; set; }     // auto-implemented property</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> <code>value</code> is the implicit parameter
+      of the <code>set</code> accessor. Auto-properties let the compiler create
+      the hidden backing field.
+    </div>
+
+    <h2>5. Constructors</h2>
+    <p>
+      A <b>constructor</b> runs automatically when an object is created. Rules:
+      same name as the class, <u>no return type</u> (not even
+      <code>void</code>), and it can be overloaded.
+    </p>
+    <pre><code>class Demo { public Demo() { Console.WriteLine("Default"); } }       // default
+
+class Student
+{
+    public string Name;
+    public Student(string name) { Name = name; }                     // parameterized
+}
+
+class Box
+{
+    int w, h;
+    public Box() { w = 1; h = 1; }                                   // overloading
+    public Box(int w, int h) { this.w = w; this.h = h; }
+}
+
+class Point
+{
+    public int X, Y;
+    public Point(Point p) { X = p.X; Y = p.Y; }                      // copy (manual)
+}
+
+class Test
+{
+    public static int Count;
+    static Test() { Count = 100; }       // static: once per class, no modifier/params
+}
+
+class Single { private Single() { } }    // private (e.g. Singleton)</code></pre>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> C# has no built-in copy constructor; write one
+      manually. A static constructor cannot take parameters or access modifiers,
+      and runs only once.
+    </div>
+
+    <h2>6. Static vs Instance Members</h2>
+    <pre><code>class A
+{
+    public int x = 10;           // instance
+    public static int y = 10;    // static
+}
+A obj1 = new A();  A obj2 = new A();
+obj1.x = 50;                     // obj2.x is still 10
+Console.WriteLine(A.y);          // accessed via class name</code></pre>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Instance</th>
+        <th>Static</th>
+      </tr>
+      <tr>
+        <td>Belongs to</td>
+        <td>Object</td>
+        <td>Class</td>
+      </tr>
+      <tr>
+        <td>Memory</td>
+        <td>One copy per object</td>
+        <td>One copy shared by all</td>
+      </tr>
+      <tr>
+        <td>Access</td>
+        <td>By object</td>
+        <td>By class name</td>
+      </tr>
+      <tr>
+        <td>Example</td>
+        <td><code>student.Name</code></td>
+        <td><code>Student.Count</code></td>
+      </tr>
+    </table>
+
+    <h2>7. this Keyword</h2>
+    <p><code>this</code> refers to the current object.</p>
+    <pre><code>class Student
+{
+    int id;
+    public Student(int id) { this.id = id; }     // field = parameter
+}
+
+class Demo
+{
+    int x, y;
+    public Demo() : this(1, 2) { }                // constructor chaining
+    public Demo(int x, int y) { this.x = x; this.y = y; }
+}</code></pre>
+
+    <h2>8. readonly and const</h2>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>const</th>
+        <th>readonly</th>
+      </tr>
+      <tr>
+        <td>Evaluated</td>
+        <td>Compile time</td>
+        <td>Run time</td>
+      </tr>
+      <tr>
+        <td>Assigned</td>
+        <td>Only at declaration</td>
+        <td>Declaration or constructor</td>
+      </tr>
+      <tr>
+        <td>Allowed types</td>
+        <td>Primitives + string</td>
+        <td>Any type</td>
+      </tr>
+      <tr>
+        <td>Memory</td>
+        <td>Inlined by compiler</td>
+        <td>Stored like a normal field</td>
+      </tr>
+    </table>
+    <pre><code>public const double PI = 3.14159;
+public readonly string CollegeName;
+public Student(string college) { CollegeName = college; }   // once</code></pre>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>const</code> is implicitly
+      <code>static</code>; <code>readonly</code> is per-instance unless declared
+      <code>static readonly</code>.
+    </div>
+
+    <h2>9. Inheritance</h2>
+    <p>
+      A <b>derived (child)</b> class acquires members of a
+      <b>base (parent)</b> class: code reuse and hierarchy. Syntax:
+      <code>class Child : Parent</code>.
+    </p>
+    <pre><code>class Person
+{
+    public string Name { get; set; }
+    public void ShowName() =&gt; Console.WriteLine("Name: " + Name);
+}
+class Student : Person
+{
+    public int Roll { get; set; }
+    public void ShowRoll() =&gt; Console.WriteLine("Roll: " + Roll);
+}
+Student s = new Student { Name = "Amit", Roll = 101 };
+s.ShowName();  s.ShowRoll();      // Name: Amit   Roll: 101</code></pre>
+    <div class="diagram">
+      <pre>
+ Single          Multilevel        Hierarchical
+   A (Person)       A                 A (Animal)
+   |                |                 / \
+   B : A            B : A           B   C
+   (Student)        |             (Dog) (Cat)
+                    C : B
+</pre
+      >
+    </div>
+    <pre><code>// Multilevel
+class A { public void M1() =&gt; Console.WriteLine("A"); }
+class B : A { public void M2() =&gt; Console.WriteLine("B"); }
+class C : B { public void M3() =&gt; Console.WriteLine("C"); }
+
+// Hierarchical
+class Animal { public void Eat() =&gt; Console.WriteLine("Eating"); }
+class Dog : Animal { public void Bark() =&gt; Console.WriteLine("Bark"); }
+class Cat : Animal { public void Meow() =&gt; Console.WriteLine("Meow"); }</code></pre>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> C# does <u>not</u> support multiple
+      inheritance of classes (avoids ambiguity). Achieve it with
+      <b>interfaces</b>.
+    </div>
+
+    <h2>10. Method Overloading vs Method Overriding</h2>
+    <h3>Overloading (compile-time polymorphism)</h3>
+    <p>
+      Same method name, same class, <b>different parameter lists</b> (count,
+      type or order). Changing only the return type is <u>not</u> valid.
+    </p>
+    <pre><code>class Calc
+{
+    public int Add(int a, int b) =&gt; a + b;
+    public int Add(int a, int b, int c) =&gt; a + b + c;       // different count
+    public double Add(double a, double b) =&gt; a + b;         // different type
+    public int Add(int a, double b) =&gt; a + (int)b;          // different order/type
+}</code></pre>
+    <h3>Overriding (run-time polymorphism)</h3>
+    <p>
+      A derived class redefines a base method. The base method must be
+      <code>virtual</code>, <code>abstract</code> or already
+      <code>override</code>; the derived one uses <code>override</code>; the
+      signature must match exactly.
+    </p>
+    <pre><code>class Animal { public virtual void Sound() { Console.WriteLine("Animal sound"); } }
+class Dog : Animal { public override void Sound() { Console.WriteLine("Dog barks"); } }
+
+Animal a = new Dog();
+a.Sound();                     // Dog barks (decided at runtime)</code></pre>
+    <h3>Sealed override</h3>
+    <pre><code>class A { public virtual void Show() =&gt; Console.WriteLine("A"); }
+class B : A { public sealed override void Show() =&gt; Console.WriteLine("B"); }
+// class C : B { public override void Show() { } }   // NOT allowed (sealed)</code></pre>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Overloading</th>
+        <th>Overriding</th>
+      </tr>
+      <tr>
+        <td>Same method name</td>
+        <td>Yes</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Parameters</td>
+        <td>Different</td>
+        <td>Same</td>
+      </tr>
+      <tr>
+        <td>Resolved at</td>
+        <td>Compile time</td>
+        <td>Run time</td>
+      </tr>
+      <tr>
+        <td>Keywords</td>
+        <td>None</td>
+        <td><code>virtual</code>, <code>override</code></td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Without <code>virtual</code> in the base class
+      you cannot <code>override</code>. The declared type of the variable does
+      not decide which override runs; the <u>actual object</u> does.
+    </div>
+
+    <h2>11. Polymorphism</h2>
+    <p><b>Polymorphism</b> means "one name, many forms".</p>
+    <ul>
+      <li>
+        <b>Compile-time (static):</b> method overloading and operator
+        overloading.
+      </li>
+      <li>
+        <b>Run-time (dynamic):</b> method overriding
+        (<code>virtual/override</code>) and interface dispatch.
+      </li>
+      <li>
+        <b>Benefits:</b> flexibility, easy extension (new derived classes
+        without touching old code), natural real-world modelling.
+      </li>
+    </ul>
+
+    <h2>12. Operator Overloading</h2>
+    <p>
+      Defines how operators (<code>+ - * ==</code>) behave for user-defined
+      types. Must be <code>public static</code>; at least one operand must be
+      the containing type; some come in pairs (<code>==</code> with
+      <code>!=</code>, <code>&lt;</code> with <code>&gt;</code>,
+      <code>&lt;=</code> with <code>&gt;=</code>).
+    </p>
+    <pre><code>class Complex
+{
+    public int Real { get; }
+    public int Imag { get; }
+    public Complex(int r, int i) { Real = r; Imag = i; }
+
+    public static Complex operator +(Complex a, Complex b)
+    {
+        return new Complex(a.Real + b.Real, a.Imag + b.Imag);
+    }
+    public override string ToString() =&gt; $"{Real} + {Imag}i";
+}
+Complex c3 = new Complex(2, 3) + new Complex(4, 5);
+Console.WriteLine(c3);          // 6 + 8i</code></pre>
+
+    <h2>13. Abstract Class vs Interface</h2>
+    <div class="diagram">
+      <pre>
+ Abstract class                          Interface
+ +---------------------------+     +-----------+   +-----------+
+ | abstract class Shape      |     | interface |   | interface |
+ |  abstract double Area();  |     |   IA      |   |   IB      |
+ |  void DisplayColor() {..} |     |  void A() |   |  void B() |
+ +-------------+-------------+     +-----+-----+   +-----+-----+
+               |                         \             /
+ +-------------v-------------+       +----v-----------v----+
+ | class Circle : Shape      |       | class Demo : IA, IB  |
+ +---------------------------+       +----------------------+
+ fields + constructors allowed         pure contract, multiple allowed
+ single inheritance only
+</pre
+      >
+    </div>
+    <pre><code>abstract class Shape
+{
+    public string Color { get; set; }
+    public abstract double Area();            // no body
+    public void DisplayColor() { Console.WriteLine("Color: " + Color); }   // concrete
+}
+class Circle : Shape
+{
+    public double Radius { get; set; }
+    public override double Area() { return 3.14159 * Radius * Radius; }
+}
+Shape s = new Circle { Color = "Red", Radius = 5 };
+s.DisplayColor();                    // Color: Red
+Console.WriteLine(s.Area());         // 78.53975
+
+interface IPayment { void Pay(double amount); }
+class UpiPayment : IPayment
+{
+    public void Pay(double amount) { Console.WriteLine("Paid via UPI: " + amount); }
+}
+
+interface IA { void A(); }
+interface IB { void B(); }
+class Demo : IA, IB                  // multiple interface implementation
+{
+    public void A() =&gt; Console.WriteLine("A");
+    public void B() =&gt; Console.WriteLine("B");
+}</code></pre>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Abstract class</th>
+        <th>Interface</th>
+      </tr>
+      <tr>
+        <td>Members</td>
+        <td>Abstract + concrete, fields, constructors</td>
+        <td>Contract of members (traditionally no fields/constructors)</td>
+      </tr>
+      <tr>
+        <td>Inheritance</td>
+        <td>Only one base class</td>
+        <td>A class can implement many</td>
+      </tr>
+      <tr>
+        <td>Instantiate</td>
+        <td>No</td>
+        <td>No</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> You cannot create an object of an abstract
+      class or interface (<code>new Shape()</code> is an error), and a derived
+      non-abstract class <u>must</u> implement every abstract member.
+    </div>
+
+    <h2>14. Inner / Nested Class</h2>
+    <p>
+      A class declared inside another class: groups related types, hides a
+      helper class (<code>private</code> nested) and improves encapsulation.
+    </p>
+    <pre><code>class Bank
+{
+    private string bankName = "ABC Bank";
+    public void Show() { Account acc = new Account(); acc.Display(); }
+
+    private class Account
+    {
+        public void Display() { Console.WriteLine("This is a bank account."); }
+    }
+}</code></pre>
+
+    <h2>15. Delegates</h2>
+    <p>
+      A <b>delegate</b> is a <u>type-safe reference to a method</u> (a safe
+      function pointer). It can point to static or instance methods and supports
+      <b>multicast</b>. Delegates are the foundation of <b>events</b>.
+    </p>
+    <pre><code>delegate int Operation(int a, int b);
+class Calc
+{
+    public static int Add(int x, int y) =&gt; x + y;
+    public static int Sub(int x, int y) =&gt; x - y;
+}
+Operation op = Calc.Add;
+Console.WriteLine(op(10, 5));      // 15
+op = Calc.Sub;
+Console.WriteLine(op(10, 5));      // 5
+
+// Multicast
+delegate void Notify();
+static void Msg1() =&gt; Console.WriteLine("Msg1");
+static void Msg2() =&gt; Console.WriteLine("Msg2");
+Notify n = Msg1;
+n += Msg2;
+n();                               // Msg1, Msg2</code></pre>
+    <p>
+      <b>Built-in delegate types:</b> <code>Action&lt;&gt;</code> (no return
+      value), <code>Func&lt;&gt;</code> (returns a value),
+      <code>Predicate&lt;&gt;</code> (returns <code>bool</code>).
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> The method signature (parameters and return
+      type) must match the delegate's declaration exactly.
+    </div>
+
+    <h2>16. Partial Classes</h2>
+    <p>
+      A class split across multiple files with the <code>partial</code> keyword;
+      the compiler merges them. Common in large teams and heavily used by
+      Windows Forms designer code (<code>Form1.Designer.cs</code>).
+    </p>
+    <pre><code>// Student1.cs
+public partial class Student { public int Id { get; set; } }
+// Student2.cs
+public partial class Student { public string Name { get; set; } }
+
+Student s = new Student { Id = 1, Name = "Amit" };</code></pre>
+
+    <h2>17. Errors and Their Types</h2>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>When</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>Compile-time (syntax)</td>
+        <td>Found by compiler</td>
+        <td>Missing semicolon</td>
+      </tr>
+      <tr>
+        <td>Run-time (exception)</td>
+        <td>During execution</td>
+        <td>Divide by zero, null reference</td>
+      </tr>
+      <tr>
+        <td>Logical</td>
+        <td>Runs but wrong output</td>
+        <td>Using <code>+</code> instead of <code>*</code> in area</td>
+      </tr>
+    </table>
+
+    <h2>18. Exception Handling</h2>
+    <h3>Core Concept</h3>
+    <p>
+      An <b>exception</b> is an abnormal event at run time that stops normal
+      flow. Handling it uses <code>try</code>, <code>catch</code>,
+      <code>finally</code> and <code>throw</code>.
+    </p>
+    <div class="diagram">
+      <pre>
+ try { risky code }
+        |
+ Exception thrown?
+   Yes |                 | No
+       v                 v
+ matching catch      catch skipped
+       \                 /
+        v               v
+        finally { ALWAYS runs }
+              |
+              v
+     Program continues normally
+</pre
+      >
+    </div>
+    <pre><code>try
+{
+    int a = 10, b = 0;
+    Console.WriteLine(a / b);
+}
+catch (DivideByZeroException ex)
+{
+    Console.WriteLine("Cannot divide by zero");
+}
+finally
+{
+    Console.WriteLine("Program finished safely");
+}
+// Output: Cannot divide by zero / Program finished safely</code></pre>
+    <h3>Multiple catch blocks</h3>
+    <pre><code>try { int[] a = {1, 2}; Console.WriteLine(a[5]); }
+catch (IndexOutOfRangeException) { Console.WriteLine("Index out of range"); }
+catch (Exception) { Console.WriteLine("General error"); }   // general LAST</code></pre>
+    <h3>Custom (user-defined) exception</h3>
+    <pre><code>class AgeException : Exception
+{
+    public AgeException(string msg) : base(msg) { }
+}
+static void CheckAge(int age)
+{
+    if (age &lt; 18) throw new AgeException("Age must be 18+");
+}
+try { CheckAge(16); }
+catch (AgeException ex) { Console.WriteLine(ex.Message); }   // Age must be 18+</code></pre>
+    <p>
+      <b>Common built-in exceptions:</b> <code>DivideByZeroException</code>,
+      <code>NullReferenceException</code>, <code>FormatException</code>,
+      <code>IndexOutOfRangeException</code>, <code>FileNotFoundException</code>.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Put the specific catch before
+      <code>catch (Exception)</code>; the other order is a compile error.
+      <code>finally</code> runs whether or not an exception occurs.
+    </div>
+
+    <h2>19. How the CLR Picks the Method (vtable)</h2>
+    <p>
+      For <code>a.Sound()</code> with <code>Animal a</code>, the compiler only
+      knows the <b>declared</b> type, so it checks that
+      <code>Animal.Sound()</code> exists. Because the method is
+      <code>virtual</code>, it leaves a <b>virtual method table (vtable)</b>
+      lookup in the compiled code. At run time the CLR looks at the
+      <b>actual object</b> and calls its most-derived override. That is why
+      overloading is compile-time and overriding is run-time.
+    </p>
+
+    <h2>20. Solved Problems</h2>
+    <h3>Problem 1: Which Sound() runs?</h3>
+    <pre><code>class Animal { public virtual void Sound() =&gt; Console.WriteLine("Some generic sound"); }
+class Dog : Animal { public override void Sound() =&gt; Console.WriteLine("Bark"); }
+class Puppy : Dog { public override void Sound() =&gt; Console.WriteLine("Yip"); }
+
+Animal a1 = new Animal();
+Animal a2 = new Dog();
+Animal a3 = new Puppy();
+Dog d = new Puppy();
+a1.Sound(); a2.Sound(); a3.Sound(); d.Sound();</code></pre>
+    <table>
+      <tr>
+        <th>Call</th>
+        <th>Output</th>
+        <th>Reason</th>
+      </tr>
+      <tr>
+        <td><code>a1.Sound()</code></td>
+        <td>Some generic sound</td>
+        <td>Actual object is Animal</td>
+      </tr>
+      <tr>
+        <td><code>a2.Sound()</code></td>
+        <td>Bark</td>
+        <td>Actual object is Dog</td>
+      </tr>
+      <tr>
+        <td><code>a3.Sound()</code></td>
+        <td>Yip</td>
+        <td>Most-derived override (Puppy)</td>
+      </tr>
+      <tr>
+        <td><code>d.Sound()</code></td>
+        <td>Yip</td>
+        <td>Declared Dog, actual Puppy</td>
+      </tr>
+    </table>
+
+    <h3>Problem 2: Exception propagation</h3>
+    <pre><code>static void B()
+{
+    Console.WriteLine("B: before throw");
+    throw new InvalidOperationException("Something broke in B");
+}
+static void A()
+{
+    Console.WriteLine("A: calling B");
+    B();
+    Console.WriteLine("A: after calling B");      // never reached
+}
+static void Main()
+{
+    try
+    {
+        Console.WriteLine("Main: calling A");
+        A();
+        Console.WriteLine("Main: after calling A");   // never reached
+    }
+    catch (InvalidOperationException ex)
+    {
+        Console.WriteLine("Main: caught -&gt; " + ex.Message);
+    }
+    finally { Console.WriteLine("Main: finally always runs"); }
+}</code></pre>
+    <div class="diagram">
+      <pre>
+ Output:
+ Main: calling A
+ A: calling B
+ B: before throw
+ Main: caught -&gt; Something broke in B
+ Main: finally always runs
+</pre
+      >
+    </div>
+    <p>
+      B has no handler, so the exception <b>unwinds</b> out of B, then A
+      (skipping their remaining lines) until Main's matching
+      <code>catch</code> handles it.
+    </p>
+
+    <h3>Problem 3: Interface + polymorphism</h3>
+    <pre><code>interface IPayment { void Pay(double amount); }
+class CardPayment : IPayment { public void Pay(double amount) =&gt; Console.WriteLine($"Card payment of {amount:C}"); }
+class UpiPayment  : IPayment { public void Pay(double amount) =&gt; Console.WriteLine($"UPI payment of {amount:C}"); }
+
+List&lt;IPayment&gt; payments = new List&lt;IPayment&gt; { new CardPayment(), new UpiPayment() };
+double total = 0;
+foreach (IPayment p in payments) { p.Pay(250.50); total += 250.50; }
+Console.WriteLine($"Total processed: {total:C}");</code></pre>
+    <p>
+      The list holds two different classes but treats them uniformly through
+      <code>IPayment</code>; each <code>Pay()</code> resolves at run time to the
+      right implementation. Total = 501.00.
+    </p>
+
+    <h2>Unit IV: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          Six access modifiers; defaults; <code>protected internal</code> vs
+          <code>private protected</code>.
+        </li>
+        <li>
+          Properties (get/set/value), auto-properties; constructor types and
+          rules.
+        </li>
+        <li>
+          Static vs instance; <code>this</code>; <code>const</code> vs
+          <code>readonly</code>.
+        </li>
+        <li>Inheritance types diagram; no multiple class inheritance.</li>
+        <li>
+          Overloading (compile time) vs overriding (run time, virtual/override,
+          vtable).
+        </li>
+        <li>
+          Abstract class vs interface; delegates (multicast,
+          Action/Func/Predicate).
+        </li>
+        <li>
+          Partial and nested classes; custom exception; try-catch-finally trace.
+        </li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 24px">
+      <a href="gui3.html" class="btn">&larr; Unit 3</a>
+      <a href="gui5.html" class="btn">Click for unit 5 &rarr;</a>
+    </div>
+  </body>
+</html>

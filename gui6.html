@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      MCA316 Unit VI - Data Controls, ADO.NET, CRUD &amp; Deployment
+    </title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      /* ---- Diagrams: keep exact spacing, scroll sideways instead of wrapping/squishing ---- */
+      .diagram {
+        -webkit-overflow-scrolling: touch;
+      }
+      .diagram pre {
+        white-space: pre;
+        overflow-wrap: normal;
+        word-break: normal;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        tab-size: 4;
+      }
+
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA316: GUI Using .NET Framework<br /><small style="font-size: 60%"
+        >Module 6 (Unit VI): Data Controls, ADO.NET, CRUD &amp;
+        Deployment</small
+      >
+    </h1>
+    <div class="key">
+      <b class="t">Unit VI Map:</b> Data controls → DataSource and binding →
+      DataSet → DataGridView → ADO.NET (connected / disconnected) → CRUD → Login
+      using database → Setup/installer → using blocks.
+    </div>
+
+    <h2>1. Data Controls (WinForms)</h2>
+    <p>
+      <b>Data controls</b> display, edit, insert and delete data coming from a
+      database or other data source.
+    </p>
+    <table>
+      <tr>
+        <th>Control</th>
+        <th>Role</th>
+      </tr>
+      <tr>
+        <td><code>DataGridView</code></td>
+        <td>Shows table data in rows/columns; the most common data control</td>
+      </tr>
+      <tr>
+        <td><code>TextBox, ComboBox, Label</code></td>
+        <td>Show single-record fields</td>
+      </tr>
+      <tr>
+        <td><code>BindingNavigator</code></td>
+        <td>Navigation buttons (Next / Previous / Add / Delete)</td>
+      </tr>
+      <tr>
+        <td><code>ListBox</code></td>
+        <td>Lists items (e.g. student names)</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Why used:</b> less manual code to display records, built-in
+      data binding, faster UI plus database integration.
+    </div>
+
+    <h2>2. DataSource and Data Binding</h2>
+    <p>
+      A <b>DataSource</b> is anything that supplies data to controls: a database
+      table (SQL Server, MySQL), a <code>DataTable</code>/<code>DataSet</code>,
+      a <code>List&lt;Student&gt;</code>/array, or XML/JSON (via a DataTable).
+      <b>Data binding</b> connects a control to a data source.
+    </p>
+    <pre><code>dataGridView1.DataSource = dt;                            // whole table
+textBox1.DataBindings.Add("Text", dt, "Name");            // one column into a TextBox</code></pre>
+
+    <h2>3. DataSet (ADO.NET)</h2>
+    <p>
+      A <b>DataSet</b> is an <u>in-memory database</u>: an offline container
+      holding multiple tables and relationships without staying connected.
+    </p>
+    <div class="diagram">
+      <pre>
+ DataSet
+  |-- DataTable (Students)
+  |     |-- DataColumn (Id, Name, Course, Marks)
+  |     `-- DataRow    (one record each)
+  |-- DataTable (Courses)
+  |-- DataRelation  (links Students.Course -&gt; Courses)
+  `-- Constraints   (primary key / foreign key rules)
+</pre
+      >
+    </div>
+
+    <h2>4. DataGridView: Displaying Records</h2>
+    <p>
+      Fetch data into a <code>DataTable</code> using a
+      <code>SqlDataAdapter</code>, then bind it to the grid's
+      <code>DataSource</code>.
+    </p>
+    <pre><code>using System.Data;
+using System.Data.SqlClient;
+
+private void Form1_Load(object sender, EventArgs e)
+{
+    string cs = "Data Source=.;Initial Catalog=CollegeDB;Integrated Security=True";
+    using (SqlConnection con = new SqlConnection(cs))
+    {
+        SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Name, Course, Marks FROM Students", con);
+        DataTable dt = new DataTable();
+        da.Fill(dt);
+
+        dataGridView1.DataSource = dt;     // one line binds the whole table
+        dataGridView1.ReadOnly = true;
+        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+    }
+}</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> The grid automatically creates one column
+      per DataTable column and one row per DataRow. No manual loop needed.
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>da.Fill()</code> opens and closes the
+      connection automatically if it was closed.
+    </div>
+
+    <h2>5. ADO.NET: Connected and Disconnected Architecture</h2>
+    <p>
+      <b>ADO.NET</b> is Microsoft's data-access technology in .NET for
+      connecting to databases (SQL Server, MySQL), running queries and managing
+      data.
+    </p>
+    <h3>5.1 Connected architecture (live connection)</h3>
+    <p>
+      The app stays connected while reading, inserting, updating or deleting.
+    </p>
+    <ul>
+      <li><b>SqlConnection:</b> opens a connection to the database.</li>
+      <li><b>SqlCommand:</b> executes a SQL query or stored procedure.</li>
+      <li><b>SqlDataReader:</b> forward-only, read-only, very fast reads.</li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ App calls SqlConnection.Open()
+        v
+ SqlCommand executes the SQL query
+        v
+ SqlDataReader reads rows (forward-only, read-only)
+        v
+ Connection stays OPEN the whole time
+        v
+ con.Close()
+</pre
+      >
+    </div>
+    <pre><code>using (SqlConnection con = new SqlConnection(cs))
+{
+    con.Open();
+    SqlCommand cmd = new SqlCommand("SELECT Id, Name FROM Students", con);
+    SqlDataReader dr = cmd.ExecuteReader();
+    while (dr.Read())
+        Console.WriteLine($"{dr["Id"]} {dr["Name"]}");
+    con.Close();
+}</code></pre>
+    <ul>
+      <li>
+        <b>Advantages:</b> fast reading, low memory (no local copy), good for
+        real-time operations.
+      </li>
+      <li>
+        <b>Disadvantages:</b> connection stays open (more server load), no
+        offline work, poor for many simultaneous users.
+      </li>
+    </ul>
+
+    <h3>5.2 Disconnected architecture (offline data)</h3>
+    <p>
+      Data is fetched once into memory
+      (<code>DataSet</code>/<code>DataTable</code>); the connection closes
+      quickly and the app works on the local copy.
+    </p>
+    <ul>
+      <li>
+        <b>SqlDataAdapter:</b> bridge between the database and the DataSet.
+      </li>
+      <li><b>DataSet / DataTable:</b> in-memory storage.</li>
+      <li>
+        <b>SqlCommandBuilder:</b> (optional) auto-generates insert/update/delete
+        commands.
+      </li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ App opens connection
+        v
+ SqlDataAdapter.Fill(DataSet) copies data into memory
+        v
+ Connection CLOSES immediately
+        v
+ App works OFFLINE on DataSet / DataTable
+        v
+ (optional) Adapter.Update() sends changes back to DB
+</pre
+      >
+    </div>
+    <pre><code>using (SqlConnection con = new SqlConnection(cs))
+{
+    SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Name FROM Students", con);
+    DataTable dt = new DataTable();
+    da.Fill(dt);                           // connection opens/closes automatically
+
+    foreach (DataRow row in dt.Rows)
+        Console.WriteLine($"{row["Id"]} {row["Name"]}");
+}</code></pre>
+    <ul>
+      <li>
+        <b>Advantages:</b> connection open briefly (scalable), offline use,
+        suits multi-user apps.
+      </li>
+      <li>
+        <b>Disadvantages:</b> more memory, data may become outdated, conflict
+        handling needed.
+      </li>
+    </ul>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Connected</th>
+        <th>Disconnected</th>
+      </tr>
+      <tr>
+        <td>Connection</td>
+        <td>Open continuously</td>
+        <td>Opens briefly, then closes</td>
+      </tr>
+      <tr>
+        <td>Main object</td>
+        <td><code>SqlDataReader</code></td>
+        <td><code>DataSet / DataTable</code></td>
+      </tr>
+      <tr>
+        <td>Speed</td>
+        <td>Very fast for reading</td>
+        <td>Slightly slower</td>
+      </tr>
+      <tr>
+        <td>Memory</td>
+        <td>Low</td>
+        <td>Higher</td>
+      </tr>
+      <tr>
+        <td>Offline use</td>
+        <td>No</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Best for</td>
+        <td>Real-time, small read tasks</td>
+        <td>Large apps, multi-user, caching, grid binding</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>SqlDataReader</code> is
+      <u>forward-only and read-only</u>; you cannot go back or edit through it.
+      For editing and navigating freely use DataSet/DataTable.
+    </div>
+
+    <h2>6. CRUD Operations</h2>
+    <p>
+      <b>CRUD</b> = Create, Read, Update, Delete. Read was covered above; the
+      others use <code>SqlCommand</code> with <b>parameterized queries</b> to
+      prevent <b>SQL injection</b>.
+    </p>
+    <div class="diagram">
+      <pre>
+        CREATE (INSERT)
+             |
+ DELETE ---- Database ---- READ (SELECT)
+ (DELETE)    Table
+             |
+        UPDATE (UPDATE)
+</pre
+      >
+    </div>
+
+    <h3>6.1 Insert (Create)</h3>
+    <pre><code>private void btnAdd_Click(object sender, EventArgs e)
+{
+    string cs = "Data Source=.;Initial Catalog=CollegeDB;Integrated Security=True";
+    using (SqlConnection con = new SqlConnection(cs))
+    {
+        string query = "INSERT INTO Students (Name, Course, Marks) VALUES (@Name, @Course, @Marks)";
+        SqlCommand cmd = new SqlCommand(query, con);
+        cmd.Parameters.AddWithValue("@Name", textBoxName.Text.Trim());
+        cmd.Parameters.AddWithValue("@Course", textBoxCourse.Text.Trim());
+        cmd.Parameters.AddWithValue("@Marks", Convert.ToInt32(textBoxMarks.Text));
+
+        con.Open();
+        int rows = cmd.ExecuteNonQuery();
+        con.Close();
+        MessageBox.Show(rows &gt; 0 ? "Record inserted successfully." : "Insert failed.");
+    }
+}</code></pre>
+
+    <h3>6.2 Update</h3>
+    <pre><code>string query = "UPDATE Students SET Name=@Name, Course=@Course, Marks=@Marks WHERE Id=@Id";
+SqlCommand cmd = new SqlCommand(query, con);
+cmd.Parameters.AddWithValue("@Name", textBoxName.Text.Trim());
+cmd.Parameters.AddWithValue("@Course", textBoxCourse.Text.Trim());
+cmd.Parameters.AddWithValue("@Marks", Convert.ToInt32(textBoxMarks.Text));
+cmd.Parameters.AddWithValue("@Id", Convert.ToInt32(textBoxId.Text));
+
+con.Open();
+int rows = cmd.ExecuteNonQuery();
+con.Close();
+MessageBox.Show(rows &gt; 0 ? "Record updated successfully." : "No matching record found.");</code></pre>
+
+    <h3>6.3 Delete</h3>
+    <pre><code>string query = "DELETE FROM Students WHERE Id=@Id";
+SqlCommand cmd = new SqlCommand(query, con);
+cmd.Parameters.AddWithValue("@Id", Convert.ToInt32(textBoxId.Text));
+
+con.Open();
+int rows = cmd.ExecuteNonQuery();
+con.Close();
+MessageBox.Show(rows &gt; 0 ? "Record deleted successfully." : "No matching record found.");</code></pre>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Use for</th>
+        <th>Returns</th>
+      </tr>
+      <tr>
+        <td><code>ExecuteNonQuery()</code></td>
+        <td>INSERT / UPDATE / DELETE</td>
+        <td>Number of affected rows</td>
+      </tr>
+      <tr>
+        <td><code>ExecuteReader()</code></td>
+        <td>SELECT with many rows</td>
+        <td><code>SqlDataReader</code></td>
+      </tr>
+      <tr>
+        <td><code>ExecuteScalar()</code></td>
+        <td>Single value (e.g. <code>COUNT(*)</code>)</td>
+        <td>First column of first row (<code>object</code>)</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Never build SQL by joining strings (<code
+        >"... WHERE Name='" + text + "'"</code
+      >). It allows SQL injection; always use <code>@parameters</code>. A
+      missing <code>WHERE</code> in UPDATE/DELETE affects <u>every</u> row.
+    </div>
+
+    <h2>7. Login Form Using a Database</h2>
+    <p>
+      Check the entered username and password against a <code>Users</code> table
+      (columns <code>Username</code>, <code>Password</code>).
+    </p>
+    <pre><code>private void btnLogin_Click(object sender, EventArgs e)
+{
+    string cs = "Data Source=.;Initial Catalog=CollegeDB;Integrated Security=True";
+    using (SqlConnection con = new SqlConnection(cs))
+    {
+        string query = "SELECT COUNT(*) FROM Users WHERE Username=@Username AND Password=@Password";
+        SqlCommand cmd = new SqlCommand(query, con);
+        cmd.Parameters.AddWithValue("@Username", textBoxUser.Text.Trim());
+        cmd.Parameters.AddWithValue("@Password", textBoxPass.Text.Trim());
+
+        con.Open();
+        int count = (int)cmd.ExecuteScalar();      // single value
+        con.Close();
+
+        if (count &gt; 0)
+        {
+            MessageBox.Show("Login successful!");
+            // open the main form here
+        }
+        else MessageBox.Show("Invalid username or password.");
+    }
+}</code></pre>
+    <ul>
+      <li>
+        <b>ExecuteScalar()</b> returns just the first column of the first row,
+        so it is more efficient than <code>ExecuteReader()</code> for a count
+        check.
+      </li>
+      <li>
+        Set <code>textBoxPass.UseSystemPasswordChar = true</code> to hide
+        typing.
+      </li>
+    </ul>
+    <div class="trap">
+      <b class="t">Exam Trap (security):</b> Real applications must store
+      <b>hashed, salted</b> passwords, never plain text. The example is
+      simplified for teaching.
+    </div>
+
+    <h2>8. Creating a Setup / Installer</h2>
+    <p>
+      Package a finished WinForms app into an installer so users can install it
+      without Visual Studio. In modern Visual Studio this uses the
+      <b>Microsoft Visual Studio Installer Projects</b> extension (the classic
+      "Setup Wizard").
+    </p>
+    <ol>
+      <li>
+        Install the <i>Microsoft Visual Studio Installer Projects</i> extension
+        (Extensions → Manage Extensions) and restart.
+      </li>
+      <li>
+        Add a new project: File → New → Project → <b>Setup Wizard</b> / Setup
+        Project.
+      </li>
+      <li>
+        Follow the wizard: "Create a setup for a Windows application", then add
+        the <b>Primary Output</b> of your project.
+      </li>
+      <li>
+        Add extra files (database file, readme, icons) in the
+        <b>File System Editor</b>.
+      </li>
+      <li>
+        Set properties: Manufacturer, ProductName, Version; add Start Menu /
+        Desktop shortcut.
+      </li>
+      <li>
+        Build the setup project (Build → Build Setup1) to produce a
+        <code>.msi</code> and <code>setup.exe</code>.
+      </li>
+      <li>
+        Distribute them; running installs the app, creates shortcuts and
+        registers it in "Add or Remove Programs".
+      </li>
+    </ol>
+    <div class="key">
+      <b class="t">Key Concept:</b> Output = <code>.msi</code> (Windows
+      Installer package) plus <code>setup.exe</code> (bootstrapper). Users
+      follow the Next → Next → Install → Finish flow.
+    </div>
+
+    <h2>9. Why using Blocks Matter</h2>
+    <pre><code>// RISKY: if ExecuteNonQuery() throws, con.Close() is never reached
+SqlConnection con = new SqlConnection(cs);
+con.Open();
+cmd.ExecuteNonQuery();
+con.Close();                           // leak if the line above threw
+
+// SAFE: using guarantees Dispose() (and Close()) even on exceptions
+using (SqlConnection con2 = new SqlConnection(cs))
+{
+    con2.Open();
+    cmd.ExecuteNonQuery();
+}</code></pre>
+    <p>
+      <code>using</code> is shorthand for <code>try/finally</code>: the compiler
+      calls <code>Dispose()</code> inside <code>finally</code>. Leaked
+      connections exhaust the pool and the server's connection limit.
+    </p>
+
+    <h2>10. Solved Problems</h2>
+    <h3>Problem 1: Trace SqlDataReader.Read()</h3>
+    <table>
+      <tr>
+        <th>Call to <code>dr.Read()</code></th>
+        <th>Returns</th>
+        <th><code>dr["Id"], dr["Name"]</code> now point to</th>
+      </tr>
+      <tr>
+        <td>1st</td>
+        <td>true</td>
+        <td>Row 1 (1, "Amit")</td>
+      </tr>
+      <tr>
+        <td>2nd</td>
+        <td>true</td>
+        <td>Row 2 (2, "Sita")</td>
+      </tr>
+      <tr>
+        <td>3rd</td>
+        <td>true</td>
+        <td>Row 3 (3, "Ravi")</td>
+      </tr>
+      <tr>
+        <td>4th</td>
+        <td>false</td>
+        <td>No more rows; the <code>while</code> loop exits</td>
+      </tr>
+    </table>
+    <p>
+      Each <code>Read()</code> advances a cursor by one row; only one row is in
+      memory at a time, and you can never move back.
+    </p>
+
+    <h3>Problem 2: Duplicate-key insert handled safely</h3>
+    <pre><code>try
+{
+    con.Open();
+    cmd.ExecuteNonQuery();
+    MessageBox.Show("Record inserted successfully.");
+}
+catch (SqlException ex) when (ex.Number == 2627 || ex.Number == 2601)
+{
+    // 2627 / 2601 = SQL Server UNIQUE / PRIMARY KEY violation
+    MessageBox.Show("A student with this email already exists.");
+}
+catch (SqlException ex)
+{
+    MessageBox.Show("Database error: " + ex.Message);
+}</code></pre>
+    <ul>
+      <li><b>First run:</b> email is new; insert succeeds.</li>
+      <li>
+        <b>Second run (same email):</b> the UNIQUE constraint makes SQL Server
+        throw <code>SqlException</code> with Number 2627.
+      </li>
+      <li>
+        The <b>exception filter</b> (<code>when</code>) gives a friendly,
+        specific message; the general catch handles other DB errors.
+      </li>
+    </ul>
+
+    <h2>Unit VI: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          DataSource, data binding, DataSet (DataTable, DataRow, DataColumn,
+          DataRelation).
+        </li>
+        <li>
+          Bind a <code>DataTable</code> to
+          <code>DataGridView.DataSource</code> using
+          <code>SqlDataAdapter.Fill</code>.
+        </li>
+        <li>
+          Connected (Connection, Command, DataReader) vs disconnected
+          (DataAdapter, DataSet) with a comparison table.
+        </li>
+        <li>
+          Four CRUD operations with parameterized <code>SqlCommand</code>.
+        </li>
+        <li>
+          <code>ExecuteNonQuery</code> vs <code>ExecuteReader</code> vs
+          <code>ExecuteScalar</code>; login using <code>COUNT(*)</code>.
+        </li>
+        <li>Why <code>using</code> blocks matter; plain-text password risk.</li>
+        <li>Steps to create a setup (.msi) with Setup Wizard.</li>
+      </ul>
+    </div>
+
+    <div class="end">
+      End of MCA316 notes. Revise the checklists, practise the traces, and good
+      luck!
+    </div>
+
+    <div style="margin-top: 24px">
+      <a href="gui5.html" class="btn">&larr; Unit 5</a>
+    </div>
+  </body>
+</html>

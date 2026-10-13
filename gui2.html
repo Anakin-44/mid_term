@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCA316 Unit II - C# Fundamentals &amp; Program Basics</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      /* ---- Diagrams: keep exact spacing, scroll sideways instead of wrapping/squishing ---- */
+      .diagram {
+        -webkit-overflow-scrolling: touch;
+      }
+      .diagram pre {
+        white-space: pre;
+        overflow-wrap: normal;
+        word-break: normal;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        tab-size: 4;
+      }
+
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA316: GUI Using .NET Framework<br /><small style="font-size: 60%"
+        >Module 2 (Unit II): C# Fundamentals &amp; Program Basics</small
+      >
+    </h1>
+    <div class="key">
+      <b class="t">Unit II Map:</b> Introduction to C# → Characteristics → C# vs
+      C++ → C# vs Java → Program structure → Main() → Namespace → Variables
+      (implicit/explicit) → Data types → Boxing and Unboxing.
+    </div>
+
+    <h2>1. Introduction to C#</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>C# (C-Sharp)</b> is a modern, object-oriented, type-safe language
+      developed by Microsoft for the .NET platform. It is readable like
+      high-level languages, structured like the C/C++ family, and managed by the
+      CLR. C# code compiles to IL and runs under the CLR with automatic memory
+      management.
+    </p>
+    <p>
+      <b>Used for:</b> desktop apps, web apps, APIs, cloud services, games
+      (Unity), enterprise software.
+    </p>
+
+    <h2>2. Characteristics of C#</h2>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Explanation</th>
+      </tr>
+      <tr>
+        <td>Object-oriented</td>
+        <td>
+          Classes, objects, inheritance, polymorphism, encapsulation,
+          abstraction
+        </td>
+      </tr>
+      <tr>
+        <td>Type-safe</td>
+        <td>Strict type rules reduce runtime errors</td>
+      </tr>
+      <tr>
+        <td>Managed language</td>
+        <td>Runs under the CLR; automatic Garbage Collection</td>
+      </tr>
+      <tr>
+        <td>Rich standard library</td>
+        <td>BCL for I/O, collections, networking, UI</td>
+      </tr>
+      <tr>
+        <td>Component-oriented</td>
+        <td>Properties, events, delegates, attributes</td>
+      </tr>
+      <tr>
+        <td>Modern features</td>
+        <td>Generics, LINQ, async/await, lambdas, pattern matching</td>
+      </tr>
+      <tr>
+        <td>Interoperability</td>
+        <td>Can use COM components and native code</td>
+      </tr>
+      <tr>
+        <td>Security and reliability</td>
+        <td>CLR verification and exception handling</td>
+      </tr>
+    </table>
+
+    <h2>3. C# vs C++ vs Java</h2>
+    <h3>C# vs C++</h3>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>C#</th>
+        <th>C++</th>
+      </tr>
+      <tr>
+        <td>Execution</td>
+        <td>Managed (CLR)</td>
+        <td>Native machine code</td>
+      </tr>
+      <tr>
+        <td>Memory</td>
+        <td>Automatic GC</td>
+        <td>Manual (<code>new/delete</code>) + RAII</td>
+      </tr>
+      <tr>
+        <td>Pointers</td>
+        <td>Limited (unsafe mode only)</td>
+        <td>Full pointer support</td>
+      </tr>
+      <tr>
+        <td>Multiple inheritance</td>
+        <td>Not for classes (interfaces allowed)</td>
+        <td>Supported</td>
+      </tr>
+      <tr>
+        <td>Header files</td>
+        <td>No</td>
+        <td>Yes (<code>.h</code>)</td>
+      </tr>
+      <tr>
+        <td>Runtime safety</td>
+        <td>Higher (type safety, bounds checks)</td>
+        <td>Lower (memory corruption possible)</td>
+      </tr>
+    </table>
+    <h3>C# vs Java</h3>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>C#</th>
+        <th>Java</th>
+      </tr>
+      <tr>
+        <td>Runtime</td>
+        <td>CLR (.NET)</td>
+        <td>JVM</td>
+      </tr>
+      <tr>
+        <td>Ecosystem</td>
+        <td>ASP.NET, WPF, WinForms, Unity</td>
+        <td>Spring, JavaFX, Android</td>
+      </tr>
+      <tr>
+        <td>Properties and events</td>
+        <td>Built-in (properties, events, delegates)</td>
+        <td>No direct equivalent (get/set methods)</td>
+      </tr>
+      <tr>
+        <td>Operator overloading</td>
+        <td>Yes (limited)</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>Value types</td>
+        <td>Has <code>struct</code></td>
+        <td>Mostly reference types</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> C# is safer and faster to develop for .NET;
+      C++ gives low-level control and maximum performance. C# and Java are
+      syntactically similar, but C# integrates properties, events, delegates and
+      LINQ more deeply.
+    </div>
+
+    <h2>4. C# Program Structure</h2>
+    <div class="diagram">
+      <pre>
+ using System;                  (using directives: import namespaces)
+        |
+        v
+ namespace MyApp { }            (logical container, avoids name clashes)
+        |
+        v
+ class Program { }              (blueprint containing members)
+        |
+        v
+ static void Main(string[] args) { }   (entry point: execution starts here)
+        |
+        v
+ Console.WriteLine("Hello, C#");      (statements run in order)
+</pre
+      >
+    </div>
+    <pre><code>using System;
+
+namespace MyApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, C#");   // Output: Hello, C#
+        }
+    }
+}</code></pre>
+
+    <h3>4.1 Main() Method Specification</h3>
+    <p>
+      <code>Main()</code> is the entry point of a console application. Valid
+      signatures:
+    </p>
+    <pre><code>static void Main()
+static void Main(string[] args)
+static int  Main()
+static int  Main(string[] args)</code></pre>
+    <ul>
+      <li>
+        <b>string[] args:</b> command-line arguments. Running
+        <code>MyApp.exe input.txt</code> gives
+        <code>args[0] = "input.txt"</code>.
+      </li>
+      <li>
+        <b>Return type:</b> <code>void</code> returns no exit code;
+        <code>int</code> returns one (0 = success, non-zero = error).
+      </li>
+    </ul>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>Main</code> must be spelled with a
+      capital M and must be <code>static</code>. It is the entry point, not a
+      keyword.
+    </div>
+
+    <h3>4.2 Namespace</h3>
+    <p>
+      A <b>namespace</b> is a logical container that organizes classes and
+      avoids name conflicts (e.g. <code>System</code>,
+      <code>System.Collections.Generic</code>, or your own).
+    </p>
+    <pre><code>namespace University.FOCA
+{
+    class Student { }
+}</code></pre>
+
+    <h2>5. Variables: Implicit and Explicit</h2>
+    <h3>5.1 Explicitly typed</h3>
+    <pre><code>int age = 25;
+double marks = 89.5;
+string name = "Deepak";</code></pre>
+    <h3>5.2 Implicitly typed (var)</h3>
+    <pre><code>var x = 10;       // inferred as int
+var y = 12.5;     // inferred as double
+var s = "Hello";  // inferred as string</code></pre>
+    <ul>
+      <li>
+        <code>var</code> is still <b>strongly typed</b>; type is fixed at
+        compile time.
+      </li>
+      <li>
+        Must be <b>initialized at declaration</b> (<code>var a;</code> is an
+        error).
+      </li>
+      <li>
+        Type cannot change later (<code>n = 10; n = "Ten";</code> is an error).
+      </li>
+    </ul>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>var</code> does <u>not</u> mean "loosely
+      typed" like JavaScript. It is decided by the compiler, not at runtime.
+    </div>
+
+    <h2>6. Data Types in C#</h2>
+    <h3>6.1 Value types</h3>
+    <p>
+      Stored by value, generally faster, cannot be <code>null</code> (unless
+      nullable). Categories: integral (<code>byte, short, int, long</code>),
+      floating (<code>float, double, decimal</code>), <code>char</code>,
+      <code>bool</code>, <code>struct</code>, <code>enum</code>.
+    </p>
+    <h3>6.2 Reference types</h3>
+    <p>
+      Stored as a reference, can be <code>null</code>: <code>string</code>,
+      <code>object</code>, arrays, classes, interfaces, delegates.
+    </p>
+    <pre><code>int a = 5;  bool ok = true;            // value types
+string city = "Bareilly";
+int[] arr = {1, 2, 3};                 // reference types</code></pre>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Size</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>int</td>
+        <td>Value</td>
+        <td>4 bytes</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <td>double</td>
+        <td>Value</td>
+        <td>8 bytes</td>
+        <td>10.5</td>
+      </tr>
+      <tr>
+        <td>decimal</td>
+        <td>Value</td>
+        <td>16 bytes</td>
+        <td>money values</td>
+      </tr>
+      <tr>
+        <td>char</td>
+        <td>Value</td>
+        <td>2 bytes</td>
+        <td><code>'A'</code></td>
+      </tr>
+      <tr>
+        <td>bool</td>
+        <td>Value</td>
+        <td>1 byte</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td>string</td>
+        <td>Reference</td>
+        <td>varies</td>
+        <td>"Hi"</td>
+      </tr>
+      <tr>
+        <td>object</td>
+        <td>Reference</td>
+        <td>varies</td>
+        <td>any type</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>char</code> is 2 bytes in C# (Unicode),
+      unlike 1 byte in C/C++. <code>string</code> is a reference type even
+      though it behaves like a value.
+    </div>
+
+    <h2>7. Boxing and Unboxing</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Boxing</b> converts a value type into an <code>object</code> (reference
+      type) by wrapping it on the heap. <b>Unboxing</b> extracts the value back
+      and needs an <u>explicit cast</u> plus a type check.
+    </p>
+    <div class="diagram">
+      <pre>
+      STACK                                  HEAP
+ +----------------+      Boxing         +----------------+
+ | int num = 10   | ------------------&gt; | Boxed object   |
+ +----------------+  (copy value)       |     [ 10 ]     |
+ | object obj     | ------------------&gt; +----------------+
+ | (reference)    |   points to
+ +----------------+
+        ^        Unboxing: int n = (int)obj;
+        '------- explicit cast copies value back to stack
+</pre
+      >
+    </div>
+    <pre><code>int num = 10;
+object obj = num;      // Boxing: num copied to heap, obj points to it
+
+object o = 10;
+int n = (int)o;        // Unboxing: explicit cast required
+
+object bad = "10";
+int m = (int)bad;      // InvalidCastException: object does not hold an int</code></pre>
+    <div class="key">
+      <b class="t">Best practice:</b> Avoid needless boxing. Use generics
+      (<code>List&lt;int&gt;</code>) instead of non-generic
+      <code>ArrayList</code>.
+    </div>
+
+    <h3>Hidden cost of boxing in a loop</h3>
+    <pre><code>ArrayList list = new ArrayList();
+for (int i = 0; i &lt; 100000; i++)
+    list.Add(i);              // each i is BOXED: 100,000 heap allocations
+
+long sum = 0;
+foreach (object o in list)
+    sum += (int)o;            // each item UNBOXED with a type check
+
+// Generic version: no boxing, no unboxing
+List&lt;int&gt; fast = new List&lt;int&gt;();
+for (int i = 0; i &lt; 100000; i++) fast.Add(i);</code></pre>
+
+    <h2>8. Solved Problems</h2>
+    <h3>Problem 1: Predict the output (var inference)</h3>
+    <pre><code>var a = 10;
+var b = 3;
+Console.WriteLine(a / b);     // Line 1
+var c = 10.0;
+Console.WriteLine(c / b);     // Line 2
+var d = "5";
+// Console.WriteLine(d + b);  // Line 3
+// a = "ten";                 // Line 4</code></pre>
+    <table>
+      <tr>
+        <th>Line</th>
+        <th>Result</th>
+        <th>Why</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td><code>3</code></td>
+        <td>Both are <code>int</code>: integer division truncates</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><code>3.3333333333333335</code></td>
+        <td>
+          <code>c</code> is <code>double</code>; <code>b</code> is promoted
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><code>"53"</code></td>
+        <td><code>d</code> is a string, so <code>+</code> concatenates</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Compile-time error</td>
+        <td><code>a</code> is permanently <code>int</code></td>
+      </tr>
+    </table>
+
+    <h3>Problem 2: Trace the boxing memory journey</h3>
+    <pre><code>int score = 95;                // Step A
+object boxedScore = score;     // Step B
+score = 100;                   // Step C
+int copy = (int)boxedScore;    // Step D
+Console.WriteLine(copy);       // Step E  -&gt; 95</code></pre>
+    <ul>
+      <li><b>A:</b> <code>score = 95</code> lives on the stack.</li>
+      <li>
+        <b>B:</b> boxing allocates a heap object holding a <u>copy</u> of 95;
+        <code>boxedScore</code> references it.
+      </li>
+      <li>
+        <b>C:</b> only the stack variable changes to 100; the heap copy stays
+        95.
+      </li>
+      <li><b>D:</b> unboxing copies 95 into <code>copy</code>.</li>
+      <li><b>E:</b> prints <b>95</b>, not 100.</li>
+    </ul>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> A boxed value is a <u>snapshot copy</u>.
+      Changing the original afterwards does not change the boxed object.
+    </div>
+
+    <h2>Unit II: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>Characteristics of C#; tabular comparison with C++ and Java.</li>
+        <li>
+          Draw and label the C# program structure; valid
+          <code>Main()</code> signatures.
+        </li>
+        <li>
+          Namespace purpose; explicit vs implicit (<code>var</code>) variables
+          and its rules.
+        </li>
+        <li>Value vs reference types with examples and sizes.</li>
+        <li>
+          Boxing/unboxing with stack-heap diagram; InvalidCastException case.
+        </li>
+        <li>
+          Generics avoid boxing (<code>List&lt;T&gt;</code> over
+          <code>ArrayList</code>).
+        </li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 24px">
+      <a href="gui1.html" class="btn">&larr; Unit 1</a>
+      <a href="gui3.html" class="btn">Click for unit 3 &rarr;</a>
+    </div>
+  </body>
+</html>

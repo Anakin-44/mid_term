@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Mining Unit I - Introduction &amp; Data Pre-processing</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        box-sizing: border-box;
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+        overflow-wrap: anywhere;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+      .diagram {
+        page-break-inside: avoid;
+        -webkit-overflow-scrolling: touch;
+      }
+      .diagram pre {
+        white-space: pre;
+        overflow-wrap: normal;
+        word-break: normal;
+        tab-size: 4;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Data Mining<br /><small style="font-size: 60%"
+        >Unit I: Introduction &amp; Data Pre-processing</small
+      >
+    </h1>
+    <div class="key">
+      <b class="t">Unit I Map:</b> Fundamentals → KDD process → Functionalities
+      → Classification of DM systems → Major issues → Why pre-process → Cleaning
+      → Integration &amp; Transformation → Reduction → Discretization &amp;
+      Concept Hierarchy.
+    </div>
+
+    <h2>1. Fundamentals of Data Mining</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Data Mining</b> is the process of discovering
+      <b>interesting, previously unknown and useful patterns</b> from large
+      amounts of data stored in databases, data warehouses or other
+      repositories. It is also called
+      <b>Knowledge Discovery from Data (KDD)</b>, though strictly mining is one
+      step of KDD.
+    </p>
+    <h3>KDD Process (Steps)</h3>
+    <div class="diagram">
+      <pre>
+ Raw Data (DBs, files, web)
+    | 1. Data Cleaning        (remove noise, inconsistency)
+    | 2. Data Integration     (combine multiple sources)
+    v
+ Data Warehouse / Target data
+    | 3. Data Selection       (pick relevant data)
+    | 4. Data Transformation  (normalize, aggregate)
+    v
+ Prepared Data
+    | 5. DATA MINING          (apply algorithms to find patterns)
+    | 6. Pattern Evaluation   (find truly interesting patterns)
+    | 7. Knowledge Presentation (visualization, reports)
+    v
+ KNOWLEDGE
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Data mining is <u>not</u> the whole KDD
+      process; it is only step 5 (the core step). Steps 1-4 are pre-processing.
+    </div>
+    <h3>Kinds of Data that can be Mined</h3>
+    <ul>
+      <li><b>Relational databases</b> (tables, rows, attributes).</li>
+      <li>
+        <b>Data warehouses</b> (multidimensional, historical, integrated).
+      </li>
+      <li><b>Transactional databases</b> (e.g. market-basket records).</li>
+      <li>
+        <b>Advanced:</b> spatial, time-series, text, multimedia, web (covered in
+        Unit VI).
+      </li>
+    </ul>
+
+    <h2>2. Data Mining Functionalities</h2>
+    <p>
+      Functionalities specify the <b>kinds of patterns</b> to be found. Two
+      broad groups: <b>Descriptive</b> (characterize general properties of data)
+      and <b>Predictive</b> (use current data to predict).
+    </p>
+    <table>
+      <tr>
+        <th>Functionality</th>
+        <th>Meaning</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>Concept/Class description</td>
+        <td>
+          Characterization (summarize a class) and Discrimination (compare
+          classes)
+        </td>
+        <td>Profile of customers who buy laptops vs. phones</td>
+      </tr>
+      <tr>
+        <td>Association analysis</td>
+        <td>
+          Finds items that occur together (rules with support and confidence)
+        </td>
+        <td><code>bread → butter [support 5%, confidence 70%]</code></td>
+      </tr>
+      <tr>
+        <td>Classification</td>
+        <td>Builds a model from labeled data to assign classes</td>
+        <td>Loan applicant: safe / risky</td>
+      </tr>
+      <tr>
+        <td>Prediction</td>
+        <td>Predicts a missing or future numeric value</td>
+        <td>Next month's sales</td>
+      </tr>
+      <tr>
+        <td>Clustering</td>
+        <td>Groups similar objects with <u>no</u> predefined labels</td>
+        <td>Customer segmentation</td>
+      </tr>
+      <tr>
+        <td>Outlier analysis</td>
+        <td>Finds objects that do not fit the general behaviour</td>
+        <td>Credit card fraud</td>
+      </tr>
+      <tr>
+        <td>Evolution analysis</td>
+        <td>Models trends in data that changes over time</td>
+        <td>Stock price trends</td>
+      </tr>
+    </table>
+    <div class="key">
+      <b class="t">Key Concept:</b> <b>Classification</b> = supervised (class
+      labels known). <b>Clustering</b> = unsupervised (labels unknown, groups
+      discovered).
+    </div>
+    <p>
+      <b>Interestingness of a pattern:</b> easily understood, valid on new data
+      with some certainty, potentially useful, and novel. Measures:
+      <b>support</b> (how often the pattern occurs) and <b>confidence</b> (how
+      often it is true).
+    </p>
+
+    <h2>3. Classification of Data Mining Systems</h2>
+    <table>
+      <tr>
+        <th>Classified by</th>
+        <th>Categories</th>
+      </tr>
+      <tr>
+        <td>Kind of database mined</td>
+        <td>
+          Relational, transactional, object-oriented, spatial, time-series,
+          text, multimedia, web
+        </td>
+      </tr>
+      <tr>
+        <td>Kind of knowledge mined</td>
+        <td>
+          Characterization, association, classification, clustering, outlier,
+          etc.
+        </td>
+      </tr>
+      <tr>
+        <td>Kind of techniques used</td>
+        <td>
+          Machine learning, statistics, neural networks, visualization,
+          database/warehouse-oriented; also by level of user interaction
+          (autonomous, interactive, query-driven)
+        </td>
+      </tr>
+      <tr>
+        <td>Application domain</td>
+        <td>Finance, telecom, retail, bioinformatics, etc.</td>
+      </tr>
+    </table>
+
+    <h2>4. Major Issues in Data Mining</h2>
+    <table>
+      <tr>
+        <th>Group</th>
+        <th>Issues</th>
+      </tr>
+      <tr>
+        <td>Mining methodology</td>
+        <td>
+          Mining different kinds of knowledge, interactive mining at multiple
+          levels of abstraction, incorporating background knowledge, handling
+          noisy/incomplete data, evaluating pattern interestingness
+        </td>
+      </tr>
+      <tr>
+        <td>Performance</td>
+        <td>
+          Efficiency and scalability of algorithms,
+          parallel/distributed/incremental mining for huge datasets
+        </td>
+      </tr>
+      <tr>
+        <td>Data-type diversity</td>
+        <td>
+          Handling relational and complex data (text, spatial, multimedia),
+          mining from heterogeneous and global (web) sources
+        </td>
+      </tr>
+      <tr>
+        <td>User interaction</td>
+        <td>
+          Data mining query languages, presentation and visualization of results
+        </td>
+      </tr>
+      <tr>
+        <td>Social</td>
+        <td>Privacy, security and misuse of mined information</td>
+      </tr>
+    </table>
+
+    <h2>5. Data Pre-processing: Need</h2>
+    <p>
+      Real-world data is <b>dirty</b>. Poor data gives poor mining results
+      ("garbage in, garbage out").
+    </p>
+    <ul>
+      <li><b>Incomplete:</b> missing attribute values.</li>
+      <li><b>Noisy:</b> errors or outliers (e.g. salary = -10).</li>
+      <li>
+        <b>Inconsistent:</b> discrepancies in codes or names (e.g. age=42,
+        birthday=03/07/2010).
+      </li>
+    </ul>
+    <div class="diagram">
+      <pre>
+ Data Pre-processing
+   |-- Data Cleaning
+   |-- Data Integration
+   |-- Data Transformation
+   |-- Data Reduction
+   `-- Discretization &amp; Concept Hierarchy Generation
+</pre
+      >
+    </div>
+
+    <h2>6. Data Cleaning</h2>
+    <h3>Missing Values</h3>
+    <ul>
+      <li>Ignore the tuple (poor if many values missing).</li>
+      <li>Fill manually (slow, not scalable).</li>
+      <li>Fill with a global constant (e.g. "Unknown").</li>
+      <li>Fill with attribute <b>mean/median</b>, or the class-wise mean.</li>
+      <li>
+        Fill with the <b>most probable value</b> (regression, decision tree,
+        Bayesian inference).
+      </li>
+    </ul>
+    <h3>Noisy Data</h3>
+    <table>
+      <tr>
+        <th>Technique</th>
+        <th>How it works</th>
+      </tr>
+      <tr>
+        <td>Binning</td>
+        <td>
+          Sort the data, partition into bins, smooth by bin means, bin medians
+          or bin boundaries
+        </td>
+      </tr>
+      <tr>
+        <td>Regression</td>
+        <td>Fit data to a function; the fitted line smooths out noise</td>
+      </tr>
+      <tr>
+        <td>Clustering</td>
+        <td>Values falling outside clusters are outliers</td>
+      </tr>
+      <tr>
+        <td>Human + computer inspection</td>
+        <td>Machine flags suspicious values, human verifies</td>
+      </tr>
+    </table>
+    <h3>Solved Example: Smoothing by Binning</h3>
+    <p>
+      Data (sorted): <code>4, 8, 15, 21, 21, 24, 25, 28, 34</code>,
+      equal-frequency bins of size 3.
+    </p>
+    <table>
+      <tr>
+        <th>Bin</th>
+        <th>Values</th>
+        <th>By means</th>
+        <th>By boundaries</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>4, 8, 15</td>
+        <td>9, 9, 9</td>
+        <td>4, 4, 15</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>21, 21, 24</td>
+        <td>22, 22, 22</td>
+        <td>21, 21, 24</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>25, 28, 34</td>
+        <td>29, 29, 29</td>
+        <td>25, 25, 34</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> In boundary smoothing each value moves to the
+      <u>closest</u> of the bin's min or max. (8 is closer to 4 than 15; 28 is
+      closer to 25 than 34.)
+    </div>
+
+    <h2>7. Data Integration and Transformation</h2>
+    <h3>7.1 Data Integration</h3>
+    <p>Combining data from multiple sources into a coherent store. Issues:</p>
+    <ul>
+      <li>
+        <b>Entity identification:</b> same real-world entity, different names
+        (<code>cust_id</code> vs <code>customer_no</code>).
+      </li>
+      <li>
+        <b>Redundancy:</b> an attribute derivable from another; detected by
+        <b>correlation analysis</b> (χ² test for nominal data, correlation
+        coefficient for numeric).
+      </li>
+      <li>
+        <b>Data value conflicts:</b> different units or scales (metric vs
+        British).
+      </li>
+    </ul>
+    <p>
+      Correlation coefficient: <code>r = Σ(a−Ā)(b−B̄) / (n·σA·σB)</code>. If r
+      &gt; 0 positively correlated; r = 0 independent; r &lt; 0 negatively
+      correlated.
+    </p>
+    <h3>7.2 Data Transformation</h3>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td>Smoothing</td>
+        <td>Remove noise (binning, regression, clustering)</td>
+      </tr>
+      <tr>
+        <td>Aggregation</td>
+        <td>Summarize, e.g. daily sales → monthly sales</td>
+      </tr>
+      <tr>
+        <td>Generalization</td>
+        <td>Replace low-level data by higher-level concepts (street → city)</td>
+      </tr>
+      <tr>
+        <td>Normalization</td>
+        <td>Scale values into a small range</td>
+      </tr>
+      <tr>
+        <td>Attribute construction</td>
+        <td>Build new attributes from existing ones (area = width × height)</td>
+      </tr>
+    </table>
+    <h3>Normalization Formulas</h3>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Formula</th>
+      </tr>
+      <tr>
+        <td>Min-max</td>
+        <td>
+          <code
+            >v' = (v − min) / (max − min) × (new_max − new_min) + new_min</code
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>Z-score</td>
+        <td><code>v' = (v − mean) / std_dev</code></td>
+      </tr>
+      <tr>
+        <td>Decimal scaling</td>
+        <td>
+          <code>v' = v / 10<sup>j</sup></code> (smallest j such that max|v'|
+          &lt; 1)
+        </td>
+      </tr>
+    </table>
+    <p>
+      <b>Example:</b> income range 12,000 to 98,000 mapped to [0,1]; v = 73,600
+      → (73,600−12,000)/(98,000−12,000) = 61,600/86,000 ≈ <b>0.716</b>.
+    </p>
+
+    <h2>8. Data Reduction</h2>
+    <p>
+      Obtain a <b>smaller representation</b> of the data that gives (almost) the
+      same analytical results.
+    </p>
+    <table>
+      <tr>
+        <th>Strategy</th>
+        <th>Idea</th>
+      </tr>
+      <tr>
+        <td>Data cube aggregation</td>
+        <td>
+          Aggregate data into cube cells (quarterly sales instead of daily)
+        </td>
+      </tr>
+      <tr>
+        <td>Attribute subset selection</td>
+        <td>
+          Remove irrelevant or redundant attributes (forward selection, backward
+          elimination, decision-tree induction)
+        </td>
+      </tr>
+      <tr>
+        <td>Dimensionality reduction</td>
+        <td>
+          Encode data compactly: Wavelet transform, PCA (Principal Component
+          Analysis)
+        </td>
+      </tr>
+      <tr>
+        <td>Numerosity reduction</td>
+        <td>
+          Replace data by smaller models: regression, histograms, clustering,
+          sampling
+        </td>
+      </tr>
+      <tr>
+        <td>Data compression</td>
+        <td>
+          <b>Lossless</b> (original fully recoverable) or
+          <b>lossy</b> (approximation only)
+        </td>
+      </tr>
+    </table>
+    <ul>
+      <li>
+        <b>Sampling types:</b> SRSWOR (without replacement), SRSWR (with
+        replacement), cluster sample, stratified sample.
+      </li>
+      <li>
+        <b>Histogram:</b> equal-width (same range per bucket) or equal-frequency
+        (same count per bucket).
+      </li>
+    </ul>
+    <div class="key">
+      <b class="t">Key Concept:</b> Reduction in <b>volume</b> (numerosity, cube
+      aggregation) vs. reduction in <b>dimensions</b> (attribute selection,
+      PCA). Don't mix the two.
+    </div>
+
+    <h2>9. Discretization and Concept Hierarchy Generation</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Discretization</b> divides the range of a continuous attribute into
+      intervals, replacing raw values with interval labels (0-10, 11-20...). A
+      <b>concept hierarchy</b> replaces low-level values with higher-level
+      concepts (age → young / middle-aged / senior).
+    </p>
+    <table>
+      <tr>
+        <th>Technique</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Binning</td>
+        <td>Top-down, unsupervised (equal-width / equal-frequency)</td>
+      </tr>
+      <tr>
+        <td>Histogram analysis</td>
+        <td>Top-down, unsupervised</td>
+      </tr>
+      <tr>
+        <td>Cluster analysis</td>
+        <td>Clusters become intervals; top-down or bottom-up</td>
+      </tr>
+      <tr>
+        <td>Entropy-based</td>
+        <td>Supervised, uses class labels, picks split with minimum entropy</td>
+      </tr>
+      <tr>
+        <td>Interval merging by χ² analysis</td>
+        <td>Bottom-up, merges adjacent similar intervals</td>
+      </tr>
+      <tr>
+        <td>Segmentation by natural partitioning</td>
+        <td>3-4-5 rule creates easy-to-read intervals</td>
+      </tr>
+    </table>
+    <h3>Concept Hierarchy for Categorical Data</h3>
+    <div class="diagram">
+      <pre>
+ country            (most general)
+    |
+  state / province
+    |
+   city
+    |
+  street            (most specific)
+</pre
+      >
+    </div>
+    <p>
+      Generated by: explicit specification by user/expert, specifying a partial
+      ordering of attributes, specifying only a set of attributes (system orders
+      by number of distinct values:
+      <u>fewer distinct values = higher level</u>), or data clustering.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> In automatic hierarchy generation the
+      attribute with the <u>most</u> distinct values goes at the
+      <u>lowest</u> level (e.g. street), the one with the fewest at the top
+      (country).
+    </div>
+
+    <h2>Unit I: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          Define data mining; draw and explain the 7 steps of the KDD process.
+        </li>
+        <li>
+          Functionalities: characterization, association, classification,
+          prediction, clustering, outliers.
+        </li>
+        <li>
+          Classification of DM systems (4 criteria) and major issues (5 groups).
+        </li>
+        <li>Why pre-process: incomplete, noisy, inconsistent data.</li>
+        <li>
+          Cleaning: missing-value methods; smoothing by bin means and bin
+          boundaries (numerical).
+        </li>
+        <li>
+          Integration (redundancy, correlation) vs. Transformation (min-max,
+          z-score, decimal scaling numericals).
+        </li>
+        <li>
+          Reduction: cube aggregation, attribute selection, PCA, sampling,
+          compression.
+        </li>
+        <li>Discretization techniques and concept hierarchy generation.</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 24px">
+      <a href="dm2.html" class="btn">Click for unit 2 &rarr;</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCA316 Unit V - Windows Forms GUI and Dialogs</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      /* ---- Diagrams: keep exact spacing, scroll sideways instead of wrapping/squishing ---- */
+      .diagram {
+        -webkit-overflow-scrolling: touch;
+      }
+      .diagram pre {
+        white-space: pre;
+        overflow-wrap: normal;
+        word-break: normal;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        tab-size: 4;
+      }
+
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA316: GUI Using .NET Framework<br /><small style="font-size: 60%"
+        >Module 5 (Unit V): Windows Forms GUI and Dialogs</small
+      >
+    </h1>
+    <div class="key">
+      <b class="t">Unit V Map:</b> Windows Forms basics → TextBox → RichTextBox
+      → MaskedTextBox → Label → LinkLabel → RadioButton → CheckBox → ListBox →
+      CheckedListBox → ComboBox → DateTimePicker → MonthCalendar → ToolTip →
+      Navigation controls (menus, tool strips) → Dialog boxes → Event wiring.
+    </div>
+
+    <h2>1. Windows Forms Basics</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <b>Windows Forms (WinForms)</b> is the .NET GUI library for desktop apps.
+      A <b>Form</b> is a window; <b>controls</b> (buttons, text boxes) are
+      placed on it. Every control has <b>properties</b> (look),
+      <b>methods</b> (actions) and <b>events</b> (user actions such as Click).
+    </p>
+    <ul>
+      <li>
+        <b>Designer:</b> drag-and-drop controls from the Toolbox; the code is
+        generated in <code>Form1.Designer.cs</code> (a <b>partial class</b>).
+      </li>
+      <li><b>Code-behind:</b> your handlers live in <code>Form1.cs</code>.</li>
+      <li>
+        <b>Naming convention:</b> prefix by type, e.g. <code>textBoxName</code>,
+        <code>btnShowName</code>, <code>labelNameOut</code>.
+      </li>
+    </ul>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>(Name)</code> in Properties is the
+      control's identifier in code; <code>Text</code> is the caption the user
+      sees. They are different.
+    </div>
+
+    <h2>2. TextBox</h2>
+    <p>Displays text and takes user input (typing/pasting).</p>
+    <pre><code>textBox1.Text = "Bachelor of Computer Applications";
+string value = textBox1.Text;
+textBox1.Font = new Font("Times New Roman", 12);
+textBox1.BackColor = Color.Blue;
+textBox1.ForeColor = Color.White;
+textBox1.MaxLength = 40;
+textBox1.PasswordChar = '*';        // hide typed characters
+textBox1.Multiline = true;          // allow several lines</code></pre>
+    <table>
+      <tr>
+        <th>Common properties</th>
+        <th>Common events</th>
+      </tr>
+      <tr>
+        <td>
+          <code
+            >Text, Name, Font, BackColor, ForeColor, MaxLength, ReadOnly</code
+          >
+        </td>
+        <td><code>TextChanged, KeyPress, Enter, Leave</code></td>
+      </tr>
+    </table>
+
+    <h2>3. RichTextBox</h2>
+    <p>
+      An advanced TextBox that supports <b>RTF formatting</b> (bold, colours,
+      fonts per selection) and multi-line text.
+    </p>
+    <pre><code>private void Form1_Load(object sender, EventArgs e)
+{
+    RichTextBox rtb = new RichTextBox();
+    rtb.Location = new Point(20, 20);
+    rtb.Size = new Size(300, 200);
+    rtb.BackColor = Color.Red;
+    rtb.ForeColor = Color.Blue;
+    rtb.Font = new Font("Georgia", 16);
+    rtb.Text = "Hi! I am pursuing BCA from Invertis University, Bareilly";
+    this.Controls.Add(rtb);          // controls must be ADDED to the form
+}</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> A control created in code is invisible until
+      added with <code>this.Controls.Add(control)</code>.
+    </div>
+
+    <h2>4. MaskedTextBox</h2>
+    <p>
+      Restricts input to a fixed format using the <code>Mask</code> property.
+    </p>
+    <table>
+      <tr>
+        <th>Use</th>
+        <th>Mask</th>
+      </tr>
+      <tr>
+        <td>Date</td>
+        <td><code>00/00/0000</code></td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td><code>0000-000-000</code></td>
+      </tr>
+    </table>
+    <p>
+      <code>0</code> = required digit; the user cannot type letters where a
+      digit is required.
+    </p>
+
+    <h2>5. Label and LinkLabel</h2>
+    <p>
+      <b>Label</b> shows text only (no user input). <b>LinkLabel</b> is a label
+      with hyperlink behaviour; it raises the <code>LinkClicked</code> event.
+    </p>
+    <pre><code>Label lbl = new Label();
+lbl.Text = "User Name";
+lbl.Location = new Point(50, 40);
+lbl.Font = new Font("Calibri", 16);
+lbl.ForeColor = Color.Red;
+this.Controls.Add(lbl);
+
+// LinkLabel: open a web page when clicked
+private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+{
+    linkLabel1.LinkVisited = true;                       // change to visited colour
+    System.Diagnostics.Process.Start(
+        new System.Diagnostics.ProcessStartInfo("https://www.example.com") { UseShellExecute = true });
+}</code></pre>
+
+    <h2>6. RadioButton</h2>
+    <p>
+      Select <b>only one</b> option from a group. Radio buttons in the same
+      container (<code>GroupBox</code> or <code>Panel</code>) form one group.
+      Key property: <code>Checked</code>; event: <code>CheckedChanged</code>.
+    </p>
+    <pre><code>private void button1_Click(object sender, EventArgs e)
+{
+    if (radioButton1.Checked) label1.Text = "Selected Gender: Male";
+    if (radioButton2.Checked) label1.Text = "Selected Gender: Female";
+}</code></pre>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Radio buttons placed directly on a form all
+      belong to one group. Use separate <code>GroupBox</code> containers for
+      independent groups.
+    </div>
+
+    <h2>7. CheckBox</h2>
+    <p>Select <b>multiple</b> options at once; each box is independent.</p>
+    <pre><code>private void button1_Click(object sender, EventArgs e)
+{
+    string s = "";
+    if (checkBox1.Checked) s += checkBox1.Text + ", ";
+    if (checkBox2.Checked) s += checkBox2.Text + ", ";
+    if (checkBox3.Checked) s += checkBox3.Text + ", ";
+    label1.Text = s.Trim().TrimEnd(',');
+}</code></pre>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>RadioButton</th>
+        <th>CheckBox</th>
+      </tr>
+      <tr>
+        <td>Selection</td>
+        <td>One of a group</td>
+        <td>Any number</td>
+      </tr>
+      <tr>
+        <td>Grouping</td>
+        <td>By container</td>
+        <td>Independent</td>
+      </tr>
+      <tr>
+        <td>Key property</td>
+        <td><code>Checked</code></td>
+        <td><code>Checked</code> (also <code>CheckState</code> for 3-state)</td>
+      </tr>
+    </table>
+
+    <h2>8. ListBox and CheckedListBox</h2>
+    <p>
+      <b>ListBox</b> displays a list; the user selects one or more items. For
+      multi-select set <code>SelectionMode = MultiSimple</code> (or
+      <code>MultiExtended</code>). <b>CheckedListBox</b> shows a check box
+      beside every item.
+    </p>
+    <pre><code>private void Form1_Load(object sender, EventArgs e)
+{
+    listBox1.Items.Add("Kushal Johari");
+    listBox1.Items.Add("Mihir Johari");
+    listBox1.Items.Add("Naini Johari");
+}
+private void button1_Click(object sender, EventArgs e)
+{
+    foreach (string item in listBox1.SelectedItems)
+        listBox2.Items.Add(item);                 // copy selected to second list
+}
+
+// CheckedListBox: read the ticked items
+foreach (object item in checkedListBox1.CheckedItems)
+    label1.Text += item.ToString() + " ";</code></pre>
+    <table>
+      <tr>
+        <th>Member</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td><code>Items</code></td>
+        <td>Collection of all items (<code>Add, Remove, Clear</code>)</td>
+      </tr>
+      <tr>
+        <td><code>SelectedItem / SelectedItems</code></td>
+        <td>Currently selected item(s)</td>
+      </tr>
+      <tr>
+        <td><code>SelectedIndex</code></td>
+        <td>Index of selection (-1 if none)</td>
+      </tr>
+      <tr>
+        <td><code>CheckedItems</code></td>
+        <td>(CheckedListBox) ticked items</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> You cannot remove items from a collection
+      while looping over it with <code>foreach</code>. Copy to a list first (as
+      the demo form does with <code>ToList()</code>).
+    </div>
+
+    <h2>9. ComboBox</h2>
+    <p>
+      A drop-down list (TextBox + ListBox combined) that shows one selected
+      item. Common event: <code>SelectedIndexChanged</code>.
+    </p>
+    <pre><code>comboBox1.Items.Add("Kushal Johari");
+comboBox1.Items.Add("Naini Johari");
+comboBox1.Items.Add("Tanvi Johari");
+comboBox1.SelectedIndex = 0;                      // preselect first item
+
+private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+{
+    label1.Text = "Selected: " + comboBox1.SelectedItem.ToString();
+}</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> <code>DropDownStyle</code> controls it:
+      <code>DropDown</code> (user can type), <code>DropDownList</code> (choose
+      only), <code>Simple</code>.
+    </div>
+
+    <h2>10. DateTimePicker and MonthCalendar</h2>
+    <p>
+      <b>DateTimePicker</b> lets the user choose a date/time in a fixed format.
+      <b>MonthCalendar</b> shows a full calendar and supports date ranges.
+    </p>
+    <pre><code>private void button1_Click(object sender, EventArgs e)
+{
+    label1.Text = dateTimePicker1.Value.ToString();
+    label2.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy hh:mm tt");
+}
+
+// MonthCalendar
+label3.Text = monthCalendar1.SelectionStart.ToShortDateString();
+// SelectionRange.Start / SelectionRange.End for a range; DateChanged event</code></pre>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> The DateTimePicker's value is in
+      <code>.Value</code> (a <code>DateTime</code>), not <code>.Text</code>. The
+      <code>Format</code> property controls display (Long, Short, Time, Custom).
+    </div>
+
+    <h2>11. ToolTip</h2>
+    <p>Shows help text when the mouse hovers over a control.</p>
+    <ol>
+      <li>
+        Drag a <code>ToolTip</code> component from the Toolbox onto the form.
+      </li>
+      <li>
+        Set the tooltip text for a control (property "ToolTip on toolTip1").
+      </li>
+      <li>Run the app and hover over the control.</li>
+    </ol>
+    <pre><code>toolTip1.SetToolTip(textBoxName, "Enter your name");</code></pre>
+
+    <h2>12. Shockwave Flash Object</h2>
+    <p>
+      The syllabus lists <b>Shockwave Flash Object</b>: an ActiveX/COM control
+      (added via <i>Toolbox → Choose Items → COM Components</i>) used to play
+      <code>.swf</code> movies inside a form. It is exposed through
+      <code>AxShockwaveFlash</code> and played by setting its
+      <code>Movie</code> property.
+    </p>
+    <pre><code>axShockwaveFlash1.Movie = @"C:\media\intro.swf";
+axShockwaveFlash1.Play();</code></pre>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> It is a COM (ActiveX) control wrapped for
+      .NET, which links back to the OLE/COM origin in Unit I. Flash is
+      discontinued, so the control is mainly of academic interest.
+    </div>
+
+    <h2>13. Navigation Controls and Their Events</h2>
+    <table>
+      <tr>
+        <th>Control</th>
+        <th>Purpose</th>
+        <th>Typical event / member</th>
+      </tr>
+      <tr>
+        <td><code>MenuStrip</code></td>
+        <td>Top menu bar (File, Edit, ...)</td>
+        <td><code>ToolStripMenuItem.Click</code></td>
+      </tr>
+      <tr>
+        <td><code>ContextMenuStrip</code></td>
+        <td>Right-click popup menu</td>
+        <td>Assign to a control's <code>ContextMenuStrip</code> property</td>
+      </tr>
+      <tr>
+        <td><code>ToolStrip</code></td>
+        <td>Toolbar of buttons, labels, separators</td>
+        <td><code>ToolStripButton.Click</code></td>
+      </tr>
+      <tr>
+        <td><code>StatusStrip</code></td>
+        <td>Bar at the bottom for status text/progress</td>
+        <td><code>ToolStripStatusLabel.Text</code></td>
+      </tr>
+      <tr>
+        <td><code>ToolStripContainer</code></td>
+        <td>Panels on four edges where tool strips can dock/move</td>
+        <td><code>TopToolStripPanel</code>, <code>ContentPanel</code></td>
+      </tr>
+    </table>
+    <pre><code>// Menu item click
+private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+{
+    Application.Exit();
+}
+// ToolStrip button click
+private void toolStripButton1_Click(object sender, EventArgs e)
+{
+    MessageBox.Show("New file");
+}
+// StatusStrip text
+toolStripStatusLabel1.Text = "Ready";
+
+// Context menu on a TextBox
+textBox1.ContextMenuStrip = contextMenuStrip1;</code></pre>
+    <div class="diagram">
+      <pre>
+ +-------------------------------------------+
+ | File  Edit  View            &lt;- MenuStrip   |
+ | [New][Open][Save] |         &lt;- ToolStrip   |
+ |                                           |
+ |   (form content / ContentPanel)           |
+ |                                           |
+ | Ready                      &lt;- StatusStrip  |
+ +-------------------------------------------+
+</pre
+      >
+    </div>
+
+    <h2>14. Dialog Boxes</h2>
+    <h3>14.1 MessageBox</h3>
+    <p>Shows a message, warning, error or confirmation dialog.</p>
+    <pre><code>MessageBox.Show("Dot Net is awesome.");
+MessageBox.Show("Dot Net is awesome.", "Important Message");
+
+DialogResult r = MessageBox.Show("Is Dot Net awesome?", "Question",
+                                 MessageBoxButtons.YesNo);
+
+DialogResult r2 = MessageBox.Show("Is Dot Net awesome?", "Query",
+                                  MessageBoxButtons.YesNoCancel,
+                                  MessageBoxIcon.Question);</code></pre>
+    <table>
+      <tr>
+        <th>Enum</th>
+        <th>Common values</th>
+      </tr>
+      <tr>
+        <td><code>MessageBoxButtons</code></td>
+        <td>OK, OKCancel, YesNo, YesNoCancel, RetryCancel, AbortRetryIgnore</td>
+      </tr>
+      <tr>
+        <td><code>MessageBoxIcon</code></td>
+        <td>Information, Warning, Error, Question</td>
+      </tr>
+      <tr>
+        <td><code>DialogResult</code></td>
+        <td>OK, Cancel, Yes, No, Retry, Abort, Ignore</td>
+      </tr>
+    </table>
+
+    <h3>14.2 OpenFileDialog</h3>
+    <p>Lets the user pick a file; returns the selected path.</p>
+    <pre><code>private void button1_Click(object sender, EventArgs e)
+{
+    openFileDialog1.Title = "Select a file";
+    openFileDialog1.Filter = "All files (*.*)|*.*";
+    if (openFileDialog1.ShowDialog() == DialogResult.OK)
+        label1.Text = openFileDialog1.FileName;
+}</code></pre>
+
+    <h3>14.3 SaveFileDialog</h3>
+    <p>Lets the user choose a file name and location to save to.</p>
+    <pre><code>SaveFileDialog sfd = new SaveFileDialog();
+sfd.InitialDirectory = @"D:\";
+sfd.Title = "Save Text File";
+sfd.DefaultExt = "txt";
+sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+if (sfd.ShowDialog() == DialogResult.OK)
+    textBox1.Text = sfd.FileName;</code></pre>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> The dialogs only <u>return a path</u>; they do
+      not open or save anything themselves. Filter syntax is pairs of
+      <code>Display Name|pattern</code> joined by <code>|</code>.
+    </div>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>OpenFileDialog</th>
+        <th>SaveFileDialog</th>
+      </tr>
+      <tr>
+        <td>Purpose</td>
+        <td>Choose an existing file</td>
+        <td>Choose a name/location to save</td>
+      </tr>
+      <tr>
+        <td>Key properties</td>
+        <td><code>FileName, SafeFileName, Filter, Multiselect</code></td>
+        <td><code>FileName, DefaultExt, Filter, OverwritePrompt</code></td>
+      </tr>
+    </table>
+
+    <h2>15. Event Wiring Under the Hood</h2>
+    <p>
+      When you double-click a button, Visual Studio writes a line in
+      <code>Form1.Designer.cs</code> that subscribes your method to the event
+      through a <b>delegate</b> (the Unit IV mechanism):
+    </p>
+    <pre><code>// Auto-generated
+this.btnShowName.Click += new System.EventHandler(this.btnShowName_Click);
+
+// Your handler: must match EventHandler's signature
+private void btnShowName_Click(object sender, EventArgs e)
+{
+    labelNameOut.Text = "Name: " + textBoxName.Text.Trim();
+}
+
+// One handler for many buttons, using sender
+private void anyButton_Click(object sender, EventArgs e)
+{
+    Button clicked = (Button)sender;
+    MessageBox.Show("You clicked: " + clicked.Text);
+}</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> <code>EventHandler</code> is a built-in
+      delegate with signature <code>void (object sender, EventArgs e)</code>.
+      <code>sender</code> = which control raised the event; <code>e</code> =
+      extra event data.
+    </div>
+
+    <h2>16. Practical: Combined Controls Demo Form</h2>
+    <table>
+      <tr>
+        <th>Control group</th>
+        <th>Suggested names</th>
+      </tr>
+      <tr>
+        <td>TextBox + Label</td>
+        <td><code>textBoxName, labelNameOut, btnShowName</code></td>
+      </tr>
+      <tr>
+        <td>MaskedTextBox + Label</td>
+        <td>
+          <code
+            >maskedTextBoxDate (Mask = 00/00/0000), labelDateOut,
+            btnShowDate</code
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>RichTextBox</td>
+        <td><code>richTextBoxIntro</code></td>
+      </tr>
+      <tr>
+        <td>RadioButtons</td>
+        <td>
+          <code
+            >groupBoxGender (radioMale, radioFemale), labelGenderOut,
+            btnShowGender</code
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>CheckBoxes</td>
+        <td>
+          <code
+            >checkCricket, checkMusic, checkReading, labelHobbiesOut,
+            btnShowHobbies</code
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>ListBoxes</td>
+        <td><code>listBox1, listBox2, btnMove (MultiSimple)</code></td>
+      </tr>
+      <tr>
+        <td>ComboBox</td>
+        <td><code>comboBoxCity, labelCityOut</code></td>
+      </tr>
+      <tr>
+        <td>DateTimePicker</td>
+        <td><code>dateTimePicker1, labelDtpOut, btnPickDate</code></td>
+      </tr>
+      <tr>
+        <td>Dialogs</td>
+        <td>
+          <code
+            >btnMessageBox, btnOpenFile, btnSaveFile, openFileDialog1,
+            saveFileDialog1, textBoxFilePath</code
+          >
+        </td>
+      </tr>
+    </table>
+    <pre><code>public partial class allControldemo : Form
+{
+    public allControldemo() { InitializeComponent(); }
+
+    private void allControldemo_Load(object sender, EventArgs e)
+    {
+        toolTip1.SetToolTip(textBoxName, "Enter your name");
+        listBox1.Items.Add("Kushal Johari");
+        listBox1.Items.Add("Mihir Johari");
+        comboBoxCity.Items.Add("Bareilly");
+        comboBoxCity.Items.Add("Lucknow");
+        comboBoxCity.SelectedIndex = 0;
+    }
+    private void btnShowName_Click(object sender, EventArgs e)
+    {
+        labelNameOut.Text = "Name: " + textBoxName.Text.Trim();
+    }
+    private void btnShowGender_Click(object sender, EventArgs e)
+    {
+        if (radioMale.Checked) labelGenderOut.Text = "Selected Gender: Male";
+        else if (radioFemale.Checked) labelGenderOut.Text = "Selected Gender: Female";
+        else labelGenderOut.Text = "Selected Gender: (none)";
+    }
+    private void btnMove_Click(object sender, EventArgs e)
+    {
+        var items = listBox1.SelectedItems.Cast&lt;object&gt;().ToList();   // copy first
+        foreach (var it in items)
+        {
+            listBox2.Items.Add(it);
+            listBox1.Items.Remove(it);
+        }
+    }
+    private void comboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        labelCityOut.Text = "Selected City: " + comboBoxCity.SelectedItem.ToString();
+    }
+    private void btnPickDate_Click(object sender, EventArgs e)
+    {
+        labelDtpOut.Text = "Picked Date: " + dateTimePicker1.Value.ToString("dd/MM/yyyy hh:mm tt");
+    }
+    private void btnOpenFile_Click(object sender, EventArgs e)
+    {
+        if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            textBoxFilePath.Text = openFileDialog1.FileName;
+    }
+}</code></pre>
+    <div class="key">
+      <b class="t">Designer wiring:</b> select the form and set its
+      <code>Load</code> event; for each button set <code>Click</code> to the
+      matching handler; for <code>comboBoxCity</code> set
+      <code>SelectedIndexChanged</code>.
+    </div>
+
+    <h2>17. Solved Problems</h2>
+    <h3>Problem 1: Delete confirmation with DialogResult</h3>
+    <pre><code>private void btnDelete_Click(object sender, EventArgs e)
+{
+    DialogResult choice = MessageBox.Show(
+        "Are you sure you want to delete this record?",
+        "Confirm Delete",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Warning);
+
+    if (choice == DialogResult.Yes)
+        MessageBox.Show("Record deleted.");
+    else
+        MessageBox.Show("Delete cancelled.");
+}</code></pre>
+    <ul>
+      <li>
+        <b>Yes:</b> returns <code>DialogResult.Yes</code>; "Record deleted."
+        shows.
+      </li>
+      <li>
+        <b>No:</b> returns <code>DialogResult.No</code>; "Delete cancelled."
+        shows and the delete code never runs.
+      </li>
+    </ul>
+
+    <h3>Problem 2: OpenFileDialog filter and cancel path</h3>
+    <pre><code>OpenFileDialog ofd = new OpenFileDialog();
+ofd.Filter = "Text Files (*.txt)|*.txt|CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+ofd.FilterIndex = 1;                          // .txt shown first
+if (ofd.ShowDialog() == DialogResult.OK)
+{
+    textBoxPath.Text = ofd.FileName;
+    MessageBox.Show("Selected: " + ofd.SafeFileName);
+}
+else MessageBox.Show("No file was selected.");</code></pre>
+    <table>
+      <tr>
+        <th>Outcome</th>
+        <th>Result</th>
+      </tr>
+      <tr>
+        <td>User picks a .txt and clicks Open</td>
+        <td>OK; full path in textbox; message shows only the file name</td>
+      </tr>
+      <tr>
+        <td>User clicks Cancel</td>
+        <td>Cancel; else branch; textbox untouched</td>
+      </tr>
+      <tr>
+        <td>User switches the type to CSV</td>
+        <td>Only .csv files listed; flow otherwise the same</td>
+      </tr>
+    </table>
+
+    <h2>Unit V: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          For each control: key property and common event (TextBox, RadioButton,
+          CheckBox, ListBox, ComboBox, DateTimePicker).
+        </li>
+        <li>
+          RadioButton (one of group) vs CheckBox (many); GroupBox for grouping.
+        </li>
+        <li>
+          ListBox vs ComboBox vs CheckedListBox; <code>SelectedItems</code>,
+          <code>CheckedItems</code>.
+        </li>
+        <li>
+          MenuStrip, ContextMenuStrip, ToolStrip, StatusStrip,
+          ToolStripContainer.
+        </li>
+        <li>
+          MessageBox with buttons/icon and branching on
+          <code>DialogResult</code>.
+        </li>
+        <li>
+          OpenFileDialog vs SaveFileDialog; Filter syntax; check for
+          <code>DialogResult.OK</code>.
+        </li>
+        <li>
+          Event wiring via <code>EventHandler</code> delegate; role of
+          <code>sender</code>.
+        </li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 24px">
+      <a href="gui4.html" class="btn">&larr; Unit 4</a>
+      <a href="gui6.html" class="btn">Click for unit 6 &rarr;</a>
+    </div>
+  </body>
+</html>

@@ -10,6 +10,18 @@ const ASSETS_TO_CACHE = [
   "./MERN4.html",
   "./MERN5.html",
   "./MERN6.html",
+  "./gui1.html",
+  "./gui2.html",
+  "./gui3.html",
+  "./gui4.html",
+  "./gui5.html",
+  "./gui6.html",
+  "./DM1.HTML",
+  "./DM2.HTML",
+  "./DM3.HTML",
+  "./DM4.HTML",
+  "./DM5.HTML",
+  "./DM6.HTML",
   "./manifest.json",
 ];
 

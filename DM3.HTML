@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Mining Unit III: Concept Description</title>
+    <link rel="stylesheet" href="dm.css" />
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        box-sizing: border-box;
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+        overflow-wrap: anywhere;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+      .diagram {
+        page-break-inside: avoid;
+        -webkit-overflow-scrolling: touch;
+      }
+      .diagram pre {
+        white-space: pre;
+        overflow-wrap: normal;
+        word-break: normal;
+        tab-size: 4;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-right: 8px;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Data Mining<br /><small style="font-size: 60%"
+        >Unit III: Concept Description</small
+      >
+    </h1>
+    <div class="key">
+      <b class="t">Unit III Map:</b> Characterization &amp; Comparison →
+      Generalization (AOI) → Analytical characterization → Attribute relevance →
+      Class comparison → Statistical measures.
+    </div>
+    <h2>1. Characterization and Comparison</h2>
+    <p>
+      <b>Concept description</b> produces a concise summary of a collection of
+      data. <b>Characterization</b> summarizes the general features of a target
+      class (e.g. profile of high-spending customers).
+      <b>Comparison (discrimination)</b> contrasts the target class with one or
+      more contrasting classes.
+    </p>
+    <table>
+      <tr>
+        <th>Concept description</th>
+        <th>OLAP / statistics</th>
+      </tr>
+      <tr>
+        <td>Handles complex data types and attributes</td>
+        <td>Mostly numeric dimensions and measures</td>
+      </tr>
+      <tr>
+        <td>Automated, generalizes dimensions itself</td>
+        <td>User-driven, user picks dimensions</td>
+      </tr>
+    </table>
+    <h2>2. Data Generalization and Summarization-Based Characterization</h2>
+    <p>
+      <b>Attribute-Oriented Induction (AOI)</b> generalizes data from low to
+      high concept levels using concept hierarchies.
+    </p>
+    <ol>
+      <li><b>Data focusing:</b> collect task-relevant data with a query.</li>
+      <li>
+        <b>Attribute removal:</b> drop an attribute with many distinct values
+        and no hierarchy.
+      </li>
+      <li>
+        <b>Attribute generalization:</b> replace values by higher-level concepts
+        (city → country) when a hierarchy exists.
+      </li>
+      <li>
+        <b>Attribute generalization threshold:</b> stop when distinct values ≤
+        threshold (typically 2-8).
+      </li>
+      <li>
+        <b>Aggregation:</b> merge identical tuples and accumulate
+        <code>count</code>.
+      </li>
+      <li>
+        <b>Presentation:</b> generalized relation, cross-tab, or rules with
+        t-weight.
+      </li>
+    </ol>
+    <div class="diagram">
+      <pre>
+ Name  Major   Birthplace    GPA           Name removed; Major -&gt; Science;
+ Ann   CS      Dehradun   -&gt; 3.7       -&gt;  Birthplace -&gt; India; GPA -&gt; Excellent
+ Raj   Math    Pune          3.8           =&gt; (Science, India, Excellent) count=2
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> Two thresholds exist: the
+      <u>attribute</u> threshold (distinct values per attribute) and the
+      <u>relation</u> threshold (maximum tuples in the final relation).
+    </div>
+    <p>
+      <b>Presentation:</b> <code>t-weight = count(q) / Σ count(q_i)</code> shows
+      how representative a tuple is of its class. Output forms: generalized
+      relation, cross-tabulation, bar/pie charts, 3-D cubes, and
+      <b>characteristic rules</b>.
+    </p>
+    <h2>3. Analytical Characterization: Analysis of Attribute Relevance</h2>
+    <p>
+      Used when there are many attributes: first remove irrelevant ones, then
+      characterize. Measures of relevance: <b>information gain</b>, Gini index,
+      uncertainty coefficient, correlation.
+    </p>
+    <h3>Information Gain Method</h3>
+    <ul>
+      <li>
+        <code>I(s1,s2) = − Σ pi log2(pi)</code> : expected information for
+        classification.
+      </li>
+      <li>
+        <code>E(A) = Σ [(s1j+s2j)/s] · I(s1j,s2j)</code> : entropy after
+        splitting on attribute A.
+      </li>
+      <li>
+        <code>Gain(A) = I(s1,s2) − E(A)</code> : higher gain = more relevant.
+      </li>
+    </ul>
+    <p>
+      <b>Steps:</b> data collection → preliminary relevance analysis
+      (conservative; drop weak attributes) → remove irrelevant attributes → AOI
+      on the rest.
+    </p>
+    <h2>4. Mining Class Comparisons: Discriminating between Classes</h2>
+    <p>
+      Compares target and contrasting classes that share the same attributes and
+      dimensions.
+    </p>
+    <ol>
+      <li>Data collection (target and contrasting classes).</li>
+      <li>Dimension relevance analysis.</li>
+      <li>Synchronous generalization of both classes to the same level.</li>
+      <li>Presentation of the comparison (tables, graphs, rules).</li>
+    </ol>
+    <table>
+      <tr>
+        <th>Rule type</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td>Characteristic rule</td>
+        <td>Properties <u>common</u> to the target class</td>
+      </tr>
+      <tr>
+        <td>Discriminant rule</td>
+        <td>
+          Properties that <u>distinguish</u> the target class from contrasting
+          ones
+        </td>
+      </tr>
+    </table>
+    <p>
+      <b>d-weight</b> = count(target tuple) / Σ count over all classes: how well
+      a tuple discriminates the target from the others.
+    </p>
+    <h2>5. Mining Descriptive Statistical Measures in Large Databases</h2>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Measures</th>
+      </tr>
+      <tr>
+        <td>Central tendency</td>
+        <td>
+          Mean (distributive/algebraic), weighted mean, median (holistic), mode,
+          midrange
+        </td>
+      </tr>
+      <tr>
+        <td>Dispersion</td>
+        <td>
+          Range, quartiles Q1/Q3, IQR = Q3 − Q1, variance, standard deviation
+        </td>
+      </tr>
+      <tr>
+        <td>Five-number summary</td>
+        <td>Min, Q1, Median, Q3, Max (shown as a <b>boxplot</b>)</td>
+      </tr>
+    </table>
+    <ul>
+      <li>
+        Empirical relation: <code>mean − mode ≈ 3 × (mean − median)</code> for
+        moderately skewed data.
+      </li>
+      <li>
+        <b>Outlier rule:</b> value below Q1 − 1.5×IQR or above Q3 + 1.5×IQR.
+      </li>
+      <li>
+        <b>Graphs:</b> histogram, quantile plot, Q-Q plot, scatter plot, loess
+        curve.
+      </li>
+    </ul>
+    <div class="key">
+      <b class="t">Key Concept:</b> In large databases compute measures
+      <u>incrementally</u>: sum/count/min/max can be merged from partitions;
+      median needs approximation.
+    </div>
+    <h2>Unit III: Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          Characterization vs comparison; AOI steps with a worked example.
+        </li>
+        <li>Attribute relevance via information gain.</li>
+        <li>Characteristic vs discriminant rules; t-weight and d-weight.</li>
+        <li>Statistical measures, IQR, boxplot, outlier rule.</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 24px">
+      <a href="dm2.html" class="btn">&larr; Unit 2</a
+      ><a href="dm4.html" class="btn">Click for unit 4 &rarr;</a>
+    </div>
+  </body>
+</html>

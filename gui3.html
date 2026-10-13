@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCA316 Unit III - Core C# Syntax, Control Flow &amp; Arrays</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.55;
+        color: #1f2937;
+        max-width: 820px;
+        margin: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      h1 {
+        color: #1e3a8a;
+        border-bottom: 3px solid #1e3a8a;
+        padding-bottom: 6px;
+      }
+      h2 {
+        color: #fff;
+        background: #1e3a8a;
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-top: 30px;
+        page-break-after: avoid;
+      }
+      h3 {
+        color: #1e40af;
+        margin-bottom: 4px;
+        page-break-after: avoid;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        background: #e5e7eb;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 12.5px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #dbeafe;
+      }
+      .key,
+      .trap {
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 6px;
+        page-break-inside: avoid;
+      }
+      .key {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+      }
+      .trap {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+      }
+      .key b.t {
+        color: #15803d;
+      }
+      .trap b.t {
+        color: #b91c1c;
+      }
+      .diagram {
+        page-break-inside: avoid;
+      }
+      .end {
+        margin-top: 40px;
+        padding: 14px;
+        text-align: center;
+        background: #eff6ff;
+        border: 2px dashed #1e3a8a;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      @media print {
+        body {
+          padding: 0;
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* ---- Responsive additions (layout only) ---- */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        box-sizing: border-box;
+        width: 100%;
+        overflow-wrap: break-word;
+      }
+      img,
+      svg,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-wrap: anywhere;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      .key,
+      .trap,
+      .diagram,
+      .end {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      /* ---- Diagrams: keep exact spacing, scroll sideways instead of wrapping/squishing ---- */
+      .diagram {
+        -webkit-overflow-scrolling: touch;
+      }
+      .diagram pre {
+        white-space: pre;
+        overflow-wrap: normal;
+        word-break: normal;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        tab-size: 4;
+      }
+
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          max-width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        th,
+        td {
+          min-width: 90px;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        h1 {
+          font-size: 1.35rem;
+          line-height: 1.3;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding: 6px 10px;
+          margin-top: 24px;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+          font-size: 13px;
+        }
+        .key,
+        .trap {
+          padding: 8px 10px;
+        }
+      }
+      @media (min-width: 1400px) {
+        body {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MCA316: GUI Using .NET Framework<br /><small style="font-size: 60%"
+        >Module 3 (Unit III): Core C# Syntax, Control Flow &amp; Arrays</small
+      >
+    </h1>
+    <div class="key">
+      <b class="t">Unit III Map:</b> Operators and Expressions → Methods and
+      Parameters → IF statements → switch-case → Loops → Arrays (1D, 2D, jagged,
+      ArrayList, List&lt;T&gt;) → string vs StringBuilder.
+    </div>
+
+    <h2>1. Operators and Expressions</h2>
+    <h3>Core Concept</h3>
+    <p>
+      An <b>operator</b> is a symbol that performs an operation (<code
+        >+ - == &amp;&amp;</code
+      >); an <b>operand</b> is the value it works on; an <b>expression</b> is
+      operands plus operators producing a value. <b>Precedence</b> decides
+      evaluation order.
+    </p>
+    <pre><code>// Arithmetic
+int a = 10, b = 3;
+a + b;   // 13
+a - b;   // 7
+a * b;   // 30
+a / b;   // 3  (integer division)
+a % b;   // 1  (remainder)
+
+// Relational
+5 &gt; 8;  5 &lt;= 8;  5 == 8;  5 != 8;     // False True False True
+
+// Logical
+int age = 20; bool hasId = true;
+age &gt;= 18 &amp;&amp; hasId;   // True
+age &lt; 18 || hasId;    // True
+!hasId;               // False
+
+// Assignment
+int n = 10; n += 5;   // 15
+n *= 2;               // 30
+
+// Increment / decrement
+int p = 5; ++p;       // 6 (pre: increment, then use)
+int q = 5; q++;       // gives 5, then q becomes 6 (post)
+
+// Bitwise (a=0101, b=0011)
+5 &amp; 3;  // 1
+5 | 3;  // 7
+5 ^ 3;  // 6
+
+// Ternary
+string result = (70 &gt;= 33) ? "Pass" : "Fail";   // Pass</code></pre>
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>Operators</th>
+        <th>Result type</th>
+      </tr>
+      <tr>
+        <td>Arithmetic</td>
+        <td><code>+ - * / %</code></td>
+        <td>number</td>
+      </tr>
+      <tr>
+        <td>Relational</td>
+        <td><code>== != &gt; &lt; &gt;= &lt;=</code></td>
+        <td>bool</td>
+      </tr>
+      <tr>
+        <td>Logical</td>
+        <td><code>&amp;&amp; || !</code></td>
+        <td>bool</td>
+      </tr>
+      <tr>
+        <td>Assignment</td>
+        <td><code>= += -= *= /=</code></td>
+        <td>value stored</td>
+      </tr>
+      <tr>
+        <td>Conditional</td>
+        <td><code>?:</code></td>
+        <td>depends</td>
+      </tr>
+    </table>
+    <h3>Operator precedence (high to low)</h3>
+    <div class="diagram">
+      <pre>
+ Unary (! ++ --)  &gt;  Multiplicative (* / %)  &gt;  Additive (+ -)
+   &gt;  Relational (&lt; &gt; &lt;= &gt;=)  &gt;  Equality (== !=)  &gt;  &amp;&amp;  &gt;  ||  &gt;  ?:  &gt;  =
+
+ 10 + 5 * 2
+   Step 1: 5 * 2 = 10     (* binds tighter than +)
+   Step 2: 10 + 10 = 20
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>10 / 3</code> is <code>3</code> in C#
+      (both operands <code>int</code>). Use <code>10.0 / 3</code> for
+      <code>3.333...</code>. Post-increment returns the old value.
+    </div>
+
+    <h2>2. Methods and Parameters</h2>
+    <h3>Core Concept</h3>
+    <p>
+      A <b>method</b> is a reusable block of code. A <b>parameter</b> is the
+      variable in the definition; an <b>argument</b> is the actual value passed.
+      C# supports value, <code>ref</code>, <code>out</code>, optional and
+      <code>params</code> parameters.
+    </p>
+    <pre><code>returnType MethodName(parameters)
+{
+    // statements
+    return value;
+}</code></pre>
+    <pre><code>// A) Value parameter (default: a copy is passed)
+static int Add(int a, int b) { return a + b; }
+Console.WriteLine(Add(5, 7));        // 12
+
+// B) ref: pass by reference (variable must be initialized first)
+static void Increase(ref int x) { x = x + 10; }
+int n = 5;  Increase(ref n);         // n is 15
+
+// C) out: returns multiple values (need not be initialized first)
+static void GetStudent(out int id, out string name) { id = 101; name = "Amit"; }
+GetStudent(out int sid, out string sname);
+
+// D) Optional parameter (must come after required ones)
+static void Greet(string name = "Guest") { Console.WriteLine("Hello " + name); }
+Greet();          // Hello Guest
+Greet("Ravi");    // Hello Ravi
+
+// E) params: variable number of arguments (must be last)
+static int Sum(params int[] nums)
+{
+    int s = 0;
+    foreach (int v in nums) s += v;
+    return s;
+}
+Sum(1, 2, 3, 4);                     // 10</code></pre>
+    <table>
+      <tr>
+        <th>Style</th>
+        <th>Keyword</th>
+        <th>Effect</th>
+      </tr>
+      <tr>
+        <td>Value</td>
+        <td>(none)</td>
+        <td>Copy passed; caller's variable unchanged</td>
+      </tr>
+      <tr>
+        <td>Reference</td>
+        <td><code>ref</code></td>
+        <td>Caller's variable modified; must be initialized before call</td>
+      </tr>
+      <tr>
+        <td>Output</td>
+        <td><code>out</code></td>
+        <td>Method must assign it; used to return several values</td>
+      </tr>
+      <tr>
+        <td>Optional</td>
+        <td><code>= default</code></td>
+        <td>Argument can be omitted</td>
+      </tr>
+      <tr>
+        <td>Variable count</td>
+        <td><code>params</code></td>
+        <td>Collects arguments into an array; only one, and last</td>
+      </tr>
+    </table>
+    <div class="diagram">
+      <pre>
+ Main() calls Add(5, 7)
+    |
+    v
+ Control goes to Add(a=5, b=7)
+    |
+    v
+ Compute a + b  =&gt;  12
+    |
+    v
+ Return 12 to Main()
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>ref</code> needs an initialized variable
+      before the call; <code>out</code> does not, but the method <u>must</u>
+      assign it before returning.
+    </div>
+
+    <h2>3. IF Statements</h2>
+    <p>
+      Decision making: a block runs only when the condition is true. C# has
+      <code>if</code>, <code>if-else</code>, <code>else-if</code> ladders and
+      nested <code>if</code>.
+    </p>
+    <pre><code>int marks = 30;
+if (marks &gt;= 33) Console.WriteLine("Pass");
+else             Console.WriteLine("Fail");        // Output: Fail
+
+// else-if ladder
+int m = 85;
+if      (m &gt;= 90) Console.WriteLine("A+");
+else if (m &gt;= 75) Console.WriteLine("A");          // Output: A
+else if (m &gt;= 60) Console.WriteLine("B");
+else              Console.WriteLine("C");</code></pre>
+    <div class="diagram">
+      <pre>
+         +-----------+
+         | Condition?|
+         +-----+-----+
+          True |  | False
+               v  v
+      Execute IF   Execute ELSE
+               \  /
+                End
+</pre
+      >
+    </div>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> The condition must be a <code>bool</code>.
+      <code>if (x = 5)</code> is a compile error in C# (unlike C/C++).
+    </div>
+
+    <h2>4. switch-case Statements</h2>
+    <p>
+      A multi-way selection that compares one expression with constant values.
+      Each case must end with <code>break</code> (C# forbids silent
+      fall-through); <code>default</code> runs if nothing matches.
+    </p>
+    <pre><code>int choice = 2;
+switch (choice)
+{
+    case 1: Console.WriteLine("Add");    break;
+    case 2: Console.WriteLine("Update"); break;   // Output: Update
+    case 3: Console.WriteLine("Delete"); break;
+    default: Console.WriteLine("Invalid"); break;
+}</code></pre>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> In C# a non-empty case without
+      <code>break</code> (or <code>return</code>/<code>goto</code>) is a
+      <u>compile error</u>. Empty cases may stack for shared code.
+    </div>
+
+    <h2>5. Looping Statements</h2>
+    <table>
+      <tr>
+        <th>Loop</th>
+        <th>Use</th>
+      </tr>
+      <tr>
+        <td><code>for</code></td>
+        <td>Known iteration count</td>
+      </tr>
+      <tr>
+        <td><code>while</code></td>
+        <td>Condition checked <b>before</b> each iteration</td>
+      </tr>
+      <tr>
+        <td><code>do-while</code></td>
+        <td>Runs <b>at least once</b>; condition checked after</td>
+      </tr>
+      <tr>
+        <td><code>foreach</code></td>
+        <td>Arrays and collections; read-only iteration variable</td>
+      </tr>
+    </table>
+    <pre><code>for (int i = 1; i &lt;= 5; i++) Console.WriteLine(i);
+
+int j = 1;
+while (j &lt;= 5) { Console.WriteLine(j); j++; }
+
+int k = 1;
+do { Console.WriteLine(k); k++; } while (k &lt;= 5);
+
+int[] arr = {10, 20, 30};
+foreach (int x in arr) Console.WriteLine(x);     // 10 20 30</code></pre>
+    <p>
+      <code>break</code> stops the loop; <code>continue</code> skips the current
+      iteration.
+    </p>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> You cannot assign to a <code>foreach</code>
+      iteration variable, and modifying the collection during
+      <code>foreach</code> throws <code>InvalidOperationException</code>.
+    </div>
+
+    <h2>6. Arrays: 1D, 2D, Jagged, ArrayList, List&lt;T&gt;</h2>
+    <p>
+      An <b>array</b> stores multiple values of the <u>same type</u> under one
+      name with zero-based indexing.
+    </p>
+    <pre><code>// 1D
+int[] marks = {70, 80, 90};
+Console.WriteLine(marks[1]);          // 80
+
+// Rectangular 2D
+int[,] mat = { {1,2,3}, {4,5,6} };
+Console.WriteLine(mat[1,2]);          // 6
+
+// Jagged (array of arrays, rows can differ in length)
+int[][] jag = new int[3][];
+jag[0] = new int[] {1, 2};
+jag[1] = new int[] {3, 4, 5};
+jag[2] = new int[] {6};
+Console.WriteLine(jag[1][2]);         // 5
+
+// ArrayList (non-generic, not type-safe, boxes values)
+ArrayList al = new ArrayList();
+al.Add(10); al.Add("Hello"); al.Add(5.5);
+
+// List&lt;T&gt; (generic, type-safe, recommended)
+List&lt;int&gt; list = new List&lt;int&gt;();
+list.Add(10); list.Add(20);</code></pre>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Array</th>
+        <th>ArrayList</th>
+        <th>List&lt;T&gt;</th>
+      </tr>
+      <tr>
+        <td>Size</td>
+        <td>Fixed</td>
+        <td>Dynamic</td>
+        <td>Dynamic</td>
+      </tr>
+      <tr>
+        <td>Type safety</td>
+        <td>Yes</td>
+        <td>No</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Performance</td>
+        <td>High</td>
+        <td>Lower (boxing)</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td>Use</td>
+        <td>Fixed data</td>
+        <td>Legacy code</td>
+        <td>Modern best practice</td>
+      </tr>
+    </table>
+    <div class="trap">
+      <b class="t">Exam Trap:</b> <code>int[2,3]</code> (rectangular) and
+      <code>int[2][]</code> (jagged) are different. Out-of-range access throws
+      <code>IndexOutOfRangeException</code>.
+    </div>
+
+    <h2>7. String Handling: string vs StringBuilder</h2>
+    <h3>Core Concept</h3>
+    <p>
+      <code>string</code> is <b>immutable</b>: any change creates a new object.
+      <code>StringBuilder</code> (<code>System.Text</code>) is
+      <b>mutable</b> and built for repeated modification.
+    </p>
+    <pre><code>string s = "Hello";
+s = s + " World";                  // creates a NEW string object
+
+StringBuilder sb = new StringBuilder("Hello");
+sb.Append(" World");
+sb.Append("!");
+Console.WriteLine(sb.ToString());  // Hello World!</code></pre>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>string</th>
+        <th>StringBuilder</th>
+      </tr>
+      <tr>
+        <td>Mutability</td>
+        <td>Immutable</td>
+        <td>Mutable</td>
+      </tr>
+      <tr>
+        <td>Best for</td>
+        <td>Small edits</td>
+        <td>Many concatenations</td>
+      </tr>
+      <tr>
+        <td>Speed in a loop</td>
+        <td>Slow</td>
+        <td>Fast</td>
+      </tr>
+      <tr>
+        <td>Memory</td>
+        <td>New object each time</td>
+        <td>One resizable buffer</td>
+      </tr>
+    </table>
+    <pre><code>string result = "";
+for (int i = 0; i &lt; 5; i++)
+    result = result + i;           // 6 string objects: "", "0", "01", ... "01234"
+
+StringBuilder sb2 = new StringBuilder();
+for (int i = 0; i &lt; 5; i++)
+    sb2.Append(i);                 // same internal buffer
+string final = sb2.ToString();     // one final string</code></pre>
+    <div class="key">
+      <b class="t">Key Concept:</b> In a loop of 100,000 iterations,
+      <code>string</code> concatenation can create about 100,000 discarded
+      objects for the GC; <code>StringBuilder</code> creates almost none.
+    </div>
+
+    <h2>8. Solved Problems</h2>
+    <h3>Problem 1: Evaluate a mixed expression</h3>
+    <pre><code>int a = 4, b = 2, c = 3;
+bool result = a + b * c &gt; 8 &amp;&amp; !(a == b);</code></pre>
+    <ol>
+      <li>
+        <code>!(a == b)</code>: <code>4 == 2</code> is False, so it is
+        <b>True</b>.
+      </li>
+      <li><code>b * c</code> = 6.</li>
+      <li><code>a + 6</code> = 10.</li>
+      <li><code>10 &gt; 8</code> = True.</li>
+      <li><code>True &amp;&amp; True</code> = <b>True</b>.</li>
+    </ol>
+
+    <h3>Problem 2: Nested loop output</h3>
+    <pre><code>for (int i = 1; i &lt;= 3; i++)
+{
+    for (int j = 1; j &lt;= i; j++)
+        Console.Write(j);
+    Console.WriteLine();
+}</code></pre>
+    <div class="diagram">
+      <pre>
+ i=1: j=1          -&gt; 1
+ i=2: j=1,2        -&gt; 12
+ i=3: j=1,2,3      -&gt; 123
+ Output:
+ 1
+ 12
+ 123
+</pre
+      >
+    </div>
+
+    <h3>Problem 3: params + ref together</h3>
+    <pre><code>static void AddAll(ref int total, params int[] values)
+{
+    foreach (int v in values) total += v;
+}
+int total = 100;
+AddAll(ref total, 5, 10, 15);
+Console.WriteLine(total);     // 130</code></pre>
+    <p>
+      <code>values</code> becomes <code>{5,10,15}</code>; <code>ref</code> lets
+      the method change the caller's <code>total</code>: 100 → 105 → 115 → 130.
+    </p>
+
+    <h2>Unit III: High-Yield Revision Checklist</h2>
+    <div class="key">
+      <ul>
+        <li>
+          Operator categories, precedence, pre vs post increment, integer
+          division.
+        </li>
+        <li>
+          Five parameter styles: value, <code>ref</code>, <code>out</code>,
+          optional, <code>params</code>.
+        </li>
+        <li>if / else-if / switch (break required) / ternary.</li>
+        <li>for, while, do-while (runs once), foreach; break vs continue.</li>
+        <li>
+          1D, rectangular, jagged arrays; Array vs ArrayList vs List&lt;T&gt;.
+        </li>
+        <li>
+          Why <code>StringBuilder</code> beats <code>string</code> in loops.
+        </li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 24px">
+      <a href="gui2.html" class="btn">&larr; Unit 2</a>
+      <a href="gui4.html" class="btn">Click for unit 4 &rarr;</a>
+    </div>
+  </body>
+</html>
